@@ -1,0 +1,28 @@
+<name>{{ element.name }}</name>
+<birthdate>{{ element.birthdate|date('d/m/Y')}}</birthdate>
+<born_place></born_place>
+<size>{{ element.size }}</size>
+<weight>{{ element.weight }}</weight>
+<sex>{% if(element.sex==0) %} mâle {% else %} femelle {% endif %}</sex>
+<rank>{{ element.rank }}</rank>
+<coat_color>{{ element.coatcolor }}</coat_color>
+
+{% include 'GenealogyBundle:XML:functions.xml.twig' with {'roles': element.roles} %}
+
+{% if (element.hasMother()) %}
+<mother id="{{ element.getMotherId() }}">
+    {% if (level > 0) %}
+        {% render 'GenealogyBundle:Query:parent' with {'element': element.getMother(), 'level': level} %}
+    {% endif %}
+</mother>
+{% endif %}
+
+{% if (element.hasFather()) %}
+<father id="{{ element.getFatherId() }}">
+    {% if (level > 0) %}
+        {% render 'GenealogyBundle:Query:parent' with {'element': element.getFather(), 'level': level} %}
+    {% endif %}
+</father>
+{% endif %}
+
+{% include 'GenealogyBundle:XML:medias.xml.twig' with {'medias': element.medias} %}

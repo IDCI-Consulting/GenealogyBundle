@@ -1,0 +1,5 @@
+{# <media type="photo" mime-type="application/png" href=""></media> #}
+
+{% for media in medias %}
+    <media type="{{ media.type }}" mime-type="{{ media.mimetype }}" href="{{ media.url }}"/>
+{% endfor %}

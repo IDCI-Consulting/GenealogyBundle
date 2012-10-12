@@ -1,5 +1,5 @@
 {
-    "name": "IDCI-Consulting/GenealogyBundle",
+    "name": "idci/genealogy-bundle",
     "type": "symfony-bundle",
     "description": "Symfony GenealogyBundle",
     "keywords": ["genealogy application xml json api"],

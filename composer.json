@@ -3,6 +3,7 @@
     "type": "symfony-bundle",
     "description": "Symfony GenealogyBundle",
     "keywords": ["genealogy application xml json api"],
+    "license": "GPL",
     "authors": [
         {
             "name": "Gabriel Bondaz",

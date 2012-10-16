@@ -2,8 +2,8 @@
     "name": "idci/genealogy-bundle",
     "type": "symfony-bundle",
     "description": "Symfony GenealogyBundle",
-    "keywords": ["genealogy application xml json api"],
-    "license": "GPL",
+    "keywords": ["Genealogy application", "xml", "json", "api", "web service"],
+    "license": "GPL-3.0+",
     "authors": [
         {
             "name": "Gabriel Bondaz",
@@ -25,10 +25,8 @@
         "doctrine/doctrine-bundle": "*"
     },
     "autoload": {
-        "psr-0": {
-           "GenealogyBundle": ""
-         }
+        "psr-0": { "IDCI\\Bundle\\GenealogyBundle": "" }
     },
-    "target-dir": "idci/GenealogyBundle",
+    "target-dir": "IDCI/Bundle/GenealogyBundle",
     "minimum-stability": "dev"
 }

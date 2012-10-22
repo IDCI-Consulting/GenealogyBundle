@@ -1,14 +1,14 @@
 <?php
-// src/IDCI/GenealogyBundle/DataFixtures/ORM/LoadElementData.php
+// src/IDCIBundle/GenealogyBundle/DataFixtures/ORM/LoadElementData.php
 
-namespace IDCI\GenealogyBundle\DataFixtures\ORM;
+namespace IDCI\Bundle\GenealogyBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use IDCI\GenealogyBundle\Entity\Element;
-use IDCI\GenealogyBundle\Entity\Role;
-use IDCI\GenealogyBundle\Entity\Media;
-use IDCI\GenealogyBundle\Entity\Genealogy;
+use IDCI\Bundle\GenealogyBundle\Entity\Element;
+use IDCI\Bundle\GenealogyBundle\Entity\Role;
+use IDCI\Bundle\GenealogyBundle\Entity\Media;
+use IDCI\Bundle\GenealogyBundle\Entity\Genealogy;
 
 class LoadElementData implements FixtureInterface
 {

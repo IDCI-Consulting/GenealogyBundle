@@ -1,11 +1,11 @@
 <?php
 
-namespace IDCI\GenealogyBundle\Entity;
+namespace IDCI\Bundle\GenealogyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * IDCI\GenealogyBundle\Entity\Media
+ * IDCI\Bundle\GenealogyBundle\Entity\Media
  *
  * @ORM\Table(name="media")
  * @ORM\Entity

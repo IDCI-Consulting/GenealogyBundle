@@ -1,11 +1,11 @@
 <?php
 
-namespace IDCI\GenealogyBundle\Entity;
+namespace IDCI\Bundle\GenealogyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * IDCI\GenealogyBundle\Entity\Function
+ * IDCI\Bundle\GenealogyBundle\Entity\Role
  *
  * @ORM\Table(name="role")
  * @ORM\Entity

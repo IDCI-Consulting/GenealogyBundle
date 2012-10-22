@@ -1,14 +1,14 @@
 <?php
 
-namespace IDCI\GenealogyBundle\Entity;
+namespace IDCI\Bundle\GenealogyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * IDCI\GenealogyBundle\Entity\Genealogy
+ * IDCI\Bundle\GenealogyBundle\Entity\Genealogy
  *
  * @ORM\Table(name="genealogy")
- * @ORM\Entity(repositoryClass="IDCI\GenealogyBundle\Repository\GenealogyRepository")
+ * @ORM\Entity(repositoryClass="IDCI\Bundle\GenealogyBundle\Repository\GenealogyRepository")
  */
 class Genealogy
 {
@@ -22,19 +22,19 @@ class Genealogy
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="IDCI\GenealogyBundle\Entity\Element", inversedBy="mothers") 
+     * @ORM\ManyToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element", inversedBy="mothers") 
      * @ORM\JoinColumn(name="mother_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $mother;
     
     /**
-     * @ORM\ManyToOne(targetEntity="IDCI\GenealogyBundle\Entity\Element", inversedBy="fathers")
+     * @ORM\ManyToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element", inversedBy="fathers")
      * @ORM\JoinColumn(name="father_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $father;
     
     /**
-     * @ORM\OneToOne(targetEntity="IDCI\GenealogyBundle\Entity\Element")
+     * @ORM\OneToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element")
      * @ORM\JoinColumn(name="child_id", referencedColumnName="id", unique=true, onDelete="CASCADE")
      */
     private $child;
@@ -55,10 +55,10 @@ class Genealogy
     /**
      * Set mother
      *
-     * @param IDCI\GenealogyBundle\Entity\Element $mother
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Element $mother
      * @return Genealogy
      */
-    public function setMother(\IDCI\GenealogyBundle\Entity\Element $mother)
+    public function setMother(\IDCI\Bundle\GenealogyBundle\Entity\Element $mother)
     {
         $this->mother = $mother;
     
@@ -68,7 +68,7 @@ class Genealogy
     /**
      * Get mother
      *
-     * @return IDCI\GenealogyBundle\Entity\Element 
+     * @return IDCI\Bundle\GenealogyBundle\Entity\Element 
      */
     public function getMother()
     {
@@ -78,10 +78,10 @@ class Genealogy
     /**
      * Set father
      *
-     * @param IDCI\GenealogyBundle\Entity\Element $father
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Element $father
      * @return Genealogy
      */
-    public function setFather(\IDCI\GenealogyBundle\Entity\Element $father)
+    public function setFather(\IDCI\Bundle\GenealogyBundle\Entity\Element $father)
     {
         $this->father = $father;
     
@@ -91,7 +91,7 @@ class Genealogy
     /**
      * Get father
      *
-     * @return IDCI\GenealogyBundle\Entity\Element 
+     * @return IDCI\Bundle\GenealogyBundle\Entity\Element 
      */
     public function getFather()
     {
@@ -101,10 +101,10 @@ class Genealogy
     /**
      * Set child
      *
-     * @param IDCI\GenealogyBundle\Entity\Element $child
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Element $child
      * @return Genealogy
      */
-    public function setChild(\IDCI\GenealogyBundle\Entity\Element $child = null)
+    public function setChild(\IDCI\Bundle\GenealogyBundle\Entity\Element $child = null)
     {
         $this->child = $child;
     
@@ -114,7 +114,7 @@ class Genealogy
     /**
      * Get child
      *
-     * @return IDCI\GenealogyBundle\Entity\Element 
+     * @return IDCI\Bundle\GenealogyBundle\Entity\Element 
      */
     public function getChild()
     {

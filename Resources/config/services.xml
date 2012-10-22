@@ -6,7 +6,7 @@
 
     <!--
     <parameters>
-        <parameter key="genealogy.example.class">IDCI\GenealogyBundle\Example</parameter>
+        <parameter key="genealogy.example.class">IDCI\Bundle\GenealogyBundle\Example</parameter>
     </parameters>
 
     <services>

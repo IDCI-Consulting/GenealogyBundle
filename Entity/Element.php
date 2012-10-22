@@ -1,14 +1,14 @@
 <?php
 
-namespace IDCI\GenealogyBundle\Entity;
+namespace IDCI\Bundle\GenealogyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * IDCI\GenealogyBundle\Entity\Element
+ * IDCI\Bundle\GenealogyBundle\Entity\Element
  *
  * @ORM\Table(name="element")
- * @ORM\Entity(repositoryClass="IDCI\GenealogyBundle\Repository\ElementRepository")
+ * @ORM\Entity(repositoryClass="IDCI\Bundle\GenealogyBundle\Repository\ElementRepository")
  */
 class Element
 {
@@ -22,28 +22,28 @@ class Element
     private $id;
     
     /**
-     * @ORM\OneToMany(targetEntity="IDCI\GenealogyBundle\Entity\Genealogy", mappedBy="mother")
+     * @ORM\OneToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Genealogy", mappedBy="mother")
      */
     private $mothers;
     
     /**
-     * @ORM\OneToMany(targetEntity="IDCI\GenealogyBundle\Entity\Genealogy", mappedBy="father")
+     * @ORM\OneToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Genealogy", mappedBy="father")
      */
     private $fathers;
     
     /**
-     * @ORM\OneToOne(targetEntity="IDCI\GenealogyBundle\Entity\Genealogy")
+     * @ORM\OneToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Genealogy")
      * 
      */
     private $genealogy;
     
     /**
-     * @ORM\ManyToMany(targetEntity="IDCI\GenealogyBundle\Entity\Role")
+     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Role")
      */
     private $roles;
     
     /**
-     * @ORM\ManyToMany(targetEntity="IDCI\GenealogyBundle\Entity\Media")
+     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Media")
      */
     private $medias;
     
@@ -282,10 +282,10 @@ class Element
     /**
      * Add mothers
      *
-     * @param IDCI\GenealogyBundle\Entity\Genealogy $mothers
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Genealogy $mothers
      * @return Element
      */
-    public function addMother(\IDCI\GenealogyBundle\Entity\Genealogy $mothers)
+    public function addMother(\IDCI\Bundle\GenealogyBundle\Entity\Genealogy $mothers)
     {
         $this->mothers[] = $mothers;
     
@@ -295,9 +295,9 @@ class Element
     /**
      * Remove mothers
      *
-     * @param IDCI\GenealogyBundle\Entity\Genealogy $mothers
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Genealogy $mothers
      */
-    public function removeMother(\IDCI\GenealogyBundle\Entity\Genealogy $mothers)
+    public function removeMother(\IDCI\Bundle\GenealogyBundle\Entity\Genealogy $mothers)
     {
         $this->mothers->removeElement($mothers);
     }
@@ -315,10 +315,10 @@ class Element
     /**
      * Add fathers
      *
-     * @param IDCI\GenealogyBundle\Entity\Genealogy $fathers
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Genealogy $fathers
      * @return Element
      */
-    public function addFather(\IDCI\GenealogyBundle\Entity\Genealogy $fathers)
+    public function addFather(\IDCI\Bundle\GenealogyBundle\Entity\Genealogy $fathers)
     {
         $this->fathers[] = $fathers;
     
@@ -328,9 +328,9 @@ class Element
     /**
      * Remove fathers
      *
-     * @param IDCI\GenealogyBundle\Entity\Genealogy $fathers
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Genealogy $fathers
      */
-    public function removeFather(\IDCI\GenealogyBundle\Entity\Genealogy $fathers)
+    public function removeFather(\IDCI\Bundle\GenealogyBundle\Entity\Genealogy $fathers)
     {
         $this->fathers->removeElement($fathers);
     }
@@ -348,10 +348,10 @@ class Element
     /**
      * Add roles
      *
-     * @param IDCI\GenealogyBundle\Entity\Role $roles
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Role $roles
      * @return Element
      */
-    public function addRole(\IDCI\GenealogyBundle\Entity\Role $roles)
+    public function addRole(\IDCI\Bundle\GenealogyBundle\Entity\Role $roles)
     {
         $this->roles[] = $roles;
     
@@ -361,9 +361,9 @@ class Element
     /**
      * Remove roles
      *
-     * @param IDCI\GenealogyBundle\Entity\Role $roles
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Role $roles
      */
-    public function removeRole(\IDCI\GenealogyBundle\Entity\Role $roles)
+    public function removeRole(\IDCI\Bundle\GenealogyBundle\Entity\Role $roles)
     {
         $this->roles->removeElement($roles);
     }
@@ -381,10 +381,10 @@ class Element
     /**
      * Add medias
      *
-     * @param IDCI\GenealogyBundle\Entity\Media $medias
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Media $medias
      * @return Element
      */
-    public function addMedia(\IDCI\GenealogyBundle\Entity\Media $medias)
+    public function addMedia(\IDCI\Bundle\GenealogyBundle\Entity\Media $medias)
     {
         $this->medias[] = $medias;
     
@@ -394,9 +394,9 @@ class Element
     /**
      * Remove medias
      *
-     * @param IDCI\GenealogyBundle\Entity\Media $medias
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Media $medias
      */
-    public function removeMedia(\IDCI\GenealogyBundle\Entity\Media $medias)
+    public function removeMedia(\IDCI\Bundle\GenealogyBundle\Entity\Media $medias)
     {
         $this->medias->removeElement($medias);
     }
@@ -414,10 +414,10 @@ class Element
     /**
      * Set genealogy
      *
-     * @param IDCI\GenealogyBundle\Entity\Genealogy $genealogy
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Genealogy $genealogy
      * @return Element
      */
-    public function setGenealogy(\IDCI\GenealogyBundle\Entity\Genealogy $genealogy = null)
+    public function setGenealogy(\IDCI\Bundle\GenealogyBundle\Entity\Genealogy $genealogy = null)
     {
         $this->genealogy = $genealogy;
     
@@ -427,7 +427,7 @@ class Element
     /**
      * Get genealogy
      *
-     * @return IDCI\GenealogyBundle\Entity\Genealogy 
+     * @return IDCI\Bundle\GenealogyBundle\Entity\Genealogy 
      */
     public function getGenealogy()
     {
@@ -437,7 +437,7 @@ class Element
     /**
      * Get Mother (proxy)
      *
-     * @return IDCI\GenealogyBundle\Entity\Element 
+     * @return IDCI\Bundle\GenealogyBundle\Entity\Element 
      */
     public function getMother()
     {
@@ -473,7 +473,7 @@ class Element
     /**
      * Get Father (proxy)
      *
-     * @return IDCI\GenealogyBundle\Entity\Element 
+     * @return IDCI\Bundle\GenealogyBundle\Entity\Element 
      */
     public function getFather()
     {

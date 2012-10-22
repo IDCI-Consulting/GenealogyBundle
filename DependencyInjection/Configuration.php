@@ -1,6 +1,6 @@
 <?php
 
-namespace IDCI\GenealogyBundle\DependencyInjection;
+namespace IDCI\Bundle\GenealogyBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

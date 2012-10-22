@@ -1,6 +1,6 @@
 <?php
 
-namespace IDCI\GenealogyBundle;
+namespace IDCI\Bundle\GenealogyBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace IDCI\GenealogyBundle\Controller;
+namespace IDCI\Bundle\GenealogyBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;

@@ -1,6 +1,6 @@
 <?php
 
-namespace IDCI\GenealogyBundle\Repository;
+namespace IDCI\Bundle\GenealogyBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

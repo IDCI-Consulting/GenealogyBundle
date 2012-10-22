@@ -88,43 +88,6 @@ class LoadElementData implements FixtureInterface
         $uno->addRole($racehorse);
         $manager->persist($uno);
 
-        $mario = new Element();
-        $mario->setName('Mario');
-        $mario->setBirthDate(new \DateTime('2006-08-14'));
-        $mario->setSize('195.2');
-        $mario->setWeight('230.5');
-        $mario->setSex('0');
-        $mario->setRank('2536');
-        $mario->setCoatColor('grey');
-        $mario->addRole($reproducer);
-        $mario->addRole($racehorse);
-        $mario->addMedia($photo1);
-        $mario->addMedia($photo2);
-        $manager->persist($mario);
-
-        $emily = new Element();
-        $emily->setName('Emily');
-        $emily->setBirthDate(new \DateTime('2007-08-14'));
-        $emily->setSize('175.2');
-        $emily->setWeight('170.5');
-        $emily->setSex('1');
-        $emily->setRank('0');
-        $emily->setCoatColor('black');
-        $emily->addRole($reproducer);
-        $emily->addMedia($photo1);
-        $manager->persist($emily);
-
-        $marc = new Element();
-        $marc->setName('Marc');
-        $marc->setBirthDate(new \DateTime('2008-05-30'));
-        $marc->setSize('195.2');
-        $marc->setWeight('230.5');
-        $marc->setSex('0');
-        $marc->setRank('0');
-        $marc->setCoatColor('white');
-        $marc->addRole($reproducer);
-        $manager->persist($marc);
-
         $mireille = new Element();
         $mireille->setName('Mireille');
         $mireille->setBirthDate(new \DateTime('2000-01-14'));
@@ -136,6 +99,55 @@ class LoadElementData implements FixtureInterface
         $mireille->addRole($reproducer);
         $mireille->addRole($racehorse);
         $manager->persist($mireille);
+        
+        $hector = new Element();
+        $hector->setName('Hector');
+        $hector->setBirthDate(new \DateTime('2001-01-14'));
+        $hector->setSize('198.2');
+        $hector->setWeight('240.5');
+        $hector->setSex('0');
+        $hector->setRank('46');
+        $hector->setCoatColor('brown');
+        $hector->addRole($reproducer);
+        $hector->addRole($racehorse);
+        $manager->persist($hector);
+        
+        $emily = new Element();
+        $emily->setName('Emily');
+        $emily->setBirthDate(new \DateTime('2002-08-14'));
+        $emily->setSize('175.2');
+        $emily->setWeight('170.5');
+        $emily->setSex('1');
+        $emily->setRank('0');
+        $emily->setCoatColor('black');
+        $emily->addRole($reproducer);
+        $emily->addMedia($photo1);
+        $manager->persist($emily);        
+        
+        $mario = new Element();
+        $mario->setName('Mario');
+        $mario->setBirthDate(new \DateTime('2003-08-14'));
+        $mario->setSize('195.2');
+        $mario->setWeight('230.5');
+        $mario->setSex('0');
+        $mario->setRank('2536');
+        $mario->setCoatColor('grey');
+        $mario->addRole($reproducer);
+        $mario->addRole($racehorse);
+        $mario->addMedia($photo1);
+        $mario->addMedia($photo2);
+        $manager->persist($mario);
+
+        $marc = new Element();
+        $marc->setName('Marc');
+        $marc->setBirthDate(new \DateTime('2008-05-30'));
+        $marc->setSize('195.2');
+        $marc->setWeight('230.5');
+        $marc->setSex('0');
+        $marc->setRank('0');
+        $marc->setCoatColor('white');
+        $marc->addRole($reproducer);
+        $manager->persist($marc);
 
         $eric = new Element();
         $eric->setName('Eric');
@@ -149,25 +161,43 @@ class LoadElementData implements FixtureInterface
         $eric->addRole($racehorse);
         $manager->persist($eric);
         
-        /*Genealogy*/
+        /*Genealogies*/
         
         $genealogy1 = new Genealogy();
         $genealogy1->setMother($maria);
         $genealogy1->setFather($enzo);
-        $genealogy1->setChild($mario);
+        $genealogy1->setChild($mireille);
         $manager->persist($genealogy1);
         
         $genealogy2 = new Genealogy();
         $genealogy2->setMother($suzanne);
         $genealogy2->setFather($uno);
-        $genealogy2->setChild($marc);
+        $genealogy2->setChild($hector);
         $manager->persist($genealogy2);
         
         $genealogy3 = new Genealogy();
-        $genealogy3->setMother($mireille);
-        $genealogy3->setFather($eric);
-        $genealogy3->setChild($suzanne);
+        $genealogy3->setMother($uno);
+        $genealogy3->setFather($maria);
+        $genealogy3->setChild($emily);
         $manager->persist($genealogy3);
+        
+        $genealogy4 = new Genealogy();
+        $genealogy4->setMother($mireille);
+        $genealogy4->setFather($hector);
+        $genealogy4->setChild($mario);
+        $manager->persist($genealogy4);
+        
+        $genealogy5 = new Genealogy();
+        $genealogy5->setMother($mireille);
+        $genealogy5->setFather($hector);
+        $genealogy5->setChild($eric);
+        $manager->persist($genealogy5);
+        
+        $genealogy6 = new Genealogy();
+        $genealogy6->setMother($emily);
+        $genealogy6->setFather($mario);
+        $genealogy6->setChild($marc);
+        $manager->persist($genealogy6);
         
         $manager->flush();
 

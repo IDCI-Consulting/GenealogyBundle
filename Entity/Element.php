@@ -33,7 +33,7 @@ class Element
     
     /**
      * @ORM\OneToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Genealogy")
-     * 
+     * @ORM\JoinColumn(name="genealogy_id", referencedColumnName="id", onDelete="SET NULL")
      */
     private $genealogy;
     

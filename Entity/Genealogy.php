@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="genealogy")
  * @ORM\Entity(repositoryClass="IDCI\Bundle\GenealogyBundle\Repository\GenealogyRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Genealogy
 {
@@ -120,5 +121,5 @@ class Genealogy
     {
         return $this->child;
     }
-    
+
 }

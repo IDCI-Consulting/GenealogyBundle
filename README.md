@@ -93,5 +93,5 @@ First, load the set of data into your database:
 
 Each time you run this command, database is purged. You can add the --append parameter to avoid it.
 
-For instance, go to http://your_local_path_project/app_dev.php/entities.xml. 
+For instance, go to http://your_local_path_project/app_dev.php/entities.xml  
 Eventually, you should be able to get a xml page, with all elements.

@@ -77,14 +77,25 @@ Else, just run the following:
 
     php app/console doctrine:schema:update
 
-Now the Bundle is installed and ready to use.
+Now the Bundle is installed and ready to use. You will find new routes by running this command:
+
+    php app/console router debug
+
+    idci_genealogy_query_entity         ANY    /entity/{id}.{_format}
+    idci_genealogy_query_entities       ANY    /entities.{_format}
+    idci_genealogy_query_childrenentity ANY    /entity/{id}/children.{_format}/{level}
+    idci_genealogy_query_parentsentity  ANY    /entity/{id}/parents.{_format}/{level}
+
+{_format} is either xml, or json. The {level} refers to the number of generations you want to retrieve.
+    
+Furthermore, you can add 3 parameters to your urls, such as birthdate, sex and function. Here is some examples:
+    
+        http://your_local_path_project/app_dev.php/entities.xml?birthdate=1989-12-23
+        http://your_local_path_project/app_dev.php/entities.xml?sex=m  (values are m for males, whatever you want for females)
+        http://your_local_path_project/app_dev.php/entities.xml?function=[reproducer]
 
 Quick start
 ===========
-
-If everything runs smoothly, you will find new routes by running this command:
-
-    php app/console router debug
 
 If you installed the DoctrineFixturesBundle, you can test some of theses routes.
 First, load the set of data into your database:
@@ -93,5 +104,5 @@ First, load the set of data into your database:
 
 Each time you run this command, database is purged. You can add the --append parameter to avoid it.
 
-For instance, go to http://your_local_path_project/app_dev.php/entities.xml. 
-Eventually, you should be able to get a xml page, with all elements.
+Then go to http://your_local_path_project/app_dev.php/entities.xml
+You should be able to get a xml page, with all elements.

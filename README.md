@@ -45,7 +45,7 @@ You will find documentation about what fixtures are, and how to use them at http
 In your routing.yml file, add the following:
 
     idci_genealogy:
-        resource: "@GenealogyBundle/Controller/"
+        resource: "@IDCIGenealogyBundle/Controller/"
         type:     annotation
 
 Then, if you do not have it yet, you have to configure the database.

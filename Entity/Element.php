@@ -96,7 +96,19 @@ class Element
      */
     private $coat_color;
 
-
+    /**
+     * Genealogy to string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return sprintf("(%d) %s",
+            $this->getId(),
+            $this->getName()
+        );
+    }
+    
     /**
      * Constructor
      */

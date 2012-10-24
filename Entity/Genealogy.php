@@ -40,8 +40,19 @@ class Genealogy
      */
     private $child;
 
-
-    
+    /**
+     * Genealogy to string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return sprintf("%s [%s, %s]",
+            $this->getChild(),
+            $this->getMother(),
+            $this->getFather()
+        );
+    }
 
     /**
      * Get id

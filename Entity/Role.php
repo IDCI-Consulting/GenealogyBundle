@@ -28,7 +28,16 @@ class Role
      */
     private $name;
 
-
+    /**
+     * Role to string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
+    }
+    
     /**
      * Get id
      *

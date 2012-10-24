@@ -41,7 +41,17 @@ class Media
      * @ORM\Column(name="mime_type", type="string", length=255)
      */
     private $mime_type;
-
+    
+    /**
+     * Media to string
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getUrl();
+    }
+    
     /**
      * Get id
      *

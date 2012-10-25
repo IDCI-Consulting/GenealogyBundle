@@ -1,7 +1,10 @@
+{% if medias|length > 1 %}
 "medias":
 [
+{% endif %}
+
 {% for media in medias %}
-    {% if loop.last %}
+    {% if loop.last and medias|length > 1 %}
     "media": 
     {
         "type": "{{ media.type }}",
@@ -14,7 +17,10 @@
         "type": "{{ media.type }}",
         "mime-type":"{{ media.mimetype }}",
         "href":"{{ media.url }}"}
-    },
+    },   
     {% endif %}
 {% endfor %}
+    
+{% if medias|length > 1 %} 
 ]
+{% endif %}

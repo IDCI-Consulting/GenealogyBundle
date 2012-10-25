@@ -5,7 +5,6 @@
 "size":{ {{ element.size }} },
 "weight":{ {{ element.weight }} },
 "sex":{ {% if(element.sex==0) %} mâle {% else %} femelle {% endif %} },
-"rank":{ {{ element.rank }} },
 "coat_color":{ {{ element.coatcolor }} },
 
 {% include 'IDCIGenealogyBundle:JSON:functions.json.twig' with {'roles': element.roles} %}
@@ -31,3 +30,6 @@
 {% if (element.hasMedia()) %}
     {% include 'IDCIGenealogyBundle:JSON:medias.json.twig' with {'medias': element.medias} %}
 {% endif %}
+
+"rank":{ {{ element.rank }} } 
+{# rank à la fin, on est certain de ne pas finir par une virgule #}

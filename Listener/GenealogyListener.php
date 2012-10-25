@@ -5,7 +5,7 @@ namespace IDCI\Bundle\GenealogyBundle\Listener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use IDCI\Bundle\GenealogyBundle\Entity\Genealogy;
 
-class GenealogyManager
+class GenealogyListener
 {
     public function postPersist(LifecycleEventArgs $args)
     {
@@ -13,10 +13,9 @@ class GenealogyManager
         $entityManager = $args->getEntityManager();
 
         if ($entity instanceof Genealogy) {
-             $childId = $entity->getChild()->getId();
-
+            $childId = $entity->getChild()->getId();           
             $element = $entityManager->find('IDCIGenealogyBundle:Element', $childId);
-            $element->setGenealogy($entity);
+            $element->setGenealogy($entity);        
             $entityManager->persist($element);
             $entityManager->flush();
         }

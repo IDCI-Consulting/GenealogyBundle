@@ -1,2 +1,5 @@
-## YAML Template.
----
+services:
+    idci.genealogy_listener:
+        class: IDCI\Bundle\GenealogyBundle\Listener\GenealogyListener
+        tags:
+            - { name: doctrine.event_listener, event: postPersist }

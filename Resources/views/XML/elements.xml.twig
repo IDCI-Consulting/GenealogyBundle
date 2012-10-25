@@ -2,7 +2,7 @@
 <entries>
     {% for entity in entities %}
     <entry id="{{ entity.id }}">
-        {% include 'GenealogyBundle:XML:element.xml.twig' with {'element': entity, 'level': level} %}
+        {% include 'IDCIGenealogyBundle:XML:element.xml.twig' with {'element': entity, 'level': level} %}
     </entry>
     {% endfor %}
 </entries>

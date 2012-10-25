@@ -18,19 +18,19 @@ class QueryController extends Controller
     {
         $entity = $this->getDoctrine()
             ->getEntityManager()
-            ->find('GenealogyBundle:Element', $id)
+            ->find('IDCIGenealogyBundle:Element', $id)
         ;
 
         $format = $request->getRequestFormat();
         if($format == 'json') {
             $response = $this->render(
-                'GenealogyBundle:JSON:elements.json.twig',
+                'IDCIGenealogyBundle:JSON:elements.json.twig',
                 array('entities' => array($entity), 'level' => 0)
             );
             $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
         } else {
             $response = $this->render(
-                'GenealogyBundle:XML:elements.xml.twig',
+                'IDCIGenealogyBundle:XML:elements.xml.twig',
                 array('entities' => array($entity), 'level' => 0)
             );
             $response->headers->set('Content-Type', 'text/xml; charset=UTF-8');
@@ -48,7 +48,7 @@ class QueryController extends Controller
         
         $entities = $this->getDoctrine()
             ->getEntityManager()
-            ->getRepository('GenealogyBundle:Element')
+            ->getRepository('IDCIGenealogyBundle:Element')
             ->findEntitiesBasedOnRequest($request->query->all())
         ;
         
@@ -56,13 +56,13 @@ class QueryController extends Controller
         $format = $request->getRequestFormat();
         if($format == 'json') {
             $response = $this->render(
-                'GenealogyBundle:JSON:elements.json.twig',
+                'IDCIGenealogyBundle:JSON:elements.json.twig',
                 array('entities' => $entities, 'level' => 0)
             );
             $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
         } else {
             $response = $this->render(
-                'GenealogyBundle:XML:elements.xml.twig',
+                'IDCIGenealogyBundle:XML:elements.xml.twig',
                 array('entities' => $entities, 'level' => 0)
             );
             $response->headers->set('Content-Type', 'text/xml; charset=UTF-8');
@@ -79,10 +79,10 @@ class QueryController extends Controller
     {
         $format = $request->getRequestFormat();
         if($format == 'json') {
-            $response = $this->render('GenealogyBundle:JSON:elements.json.twig'/*, array('entities' => $entities)*/);
+            $response = $this->render('IDCIGenealogyBundle:JSON:elements.json.twig'/*, array('entities' => $entities)*/);
             $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
         } else {
-            $response = $this->render('GenealogyBundle:XML:elements.xml.twig'/*, array('entities' => $entities)*/);
+            $response = $this->render('IDCIGenealogyBundle:XML:elements.xml.twig'/*, array('entities' => $entities)*/);
             $response->headers->set('Content-Type', 'text/xml; charset=UTF-8');
         }
         
@@ -97,13 +97,13 @@ class QueryController extends Controller
     {
         $entity = $this->getDoctrine()
             ->getEntityManager()
-            ->find('GenealogyBundle:Element', $id)
+            ->find('IDCIGenealogyBundle:Element', $id)
         ;
         
         $format = $request->getRequestFormat();
         if($format == 'json') {
             $response = $this->render(
-                'GenealogyBundle:JSON:elements.json.twig',
+                'IDCIGenealogyBundle:JSON:elements.json.twig',
                 array(
                     'entities'  => array($entity),
                     'level'     => $level
@@ -112,7 +112,7 @@ class QueryController extends Controller
             $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
         } else {
             $response = $this->render(
-                'GenealogyBundle:XML:elements.xml.twig',
+                'IDCIGenealogyBundle:XML:elements.xml.twig',
                 array(
                     'entities'  => array($entity),
                     'level'     => $level
@@ -128,7 +128,7 @@ class QueryController extends Controller
     {
         $level--;
         
-        return $this->render('GenealogyBundle:XML:element.xml.twig', array(
+        return $this->render('IDCIGenealogyBundle:XML:element.xml.twig', array(
             'element'   => $element,
             'level'     => $level
         ));

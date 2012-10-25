@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <element id="{{ entity.id }}">
-    {% include 'GenealogyBundle:XML:element.xml.twig' with {'element': entity} %}
+    {% include 'IDCIGenealogyBundle:XML:element.xml.twig' with {'element': entity} %}
     <children>
     {% for child in entity.children %}
          <child id="{{ child.id }}">
-            {% include 'GenealogyBundle:xml:element..twig' with {'element': child} %}
+            {% include 'IDCIGenealogyBundle:xml:element..twig' with {'element': child} %}
          </child>
     {% endfor %}
     </children>

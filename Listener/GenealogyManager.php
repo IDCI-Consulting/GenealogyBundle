@@ -15,7 +15,7 @@ class GenealogyManager
         if ($entity instanceof Genealogy) {
              $childId = $entity->getChild()->getId();
 
-            $element = $entityManager->find('GenealogyBundle:Element', $childId);
+            $element = $entityManager->find('IDCIGenealogyBundle:Element', $childId);
             $element->setGenealogy($entity);
             $entityManager->persist($element);
             $entityManager->flush();

@@ -50,7 +50,7 @@ class ElementRepository extends EntityRepository
     {
         $qb = $this->getEntityManager()->createQueryBuilder();
         $qb->select('e')
-           ->from('GenealogyBundle:Element', 'e')
+           ->from('IDCIGenealogyBundle:Element', 'e')
         ;
 
         foreach($parameters as $param => $value) {

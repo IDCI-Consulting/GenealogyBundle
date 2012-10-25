@@ -106,12 +106,12 @@ class ElementRepository extends EntityRepository
      */
     public static function buildQuerySex(&$qb, $value, $parameters)
     {
-        if($value == 'm') {
+        if($value == 'm' || $value == 'male') {
             $qb->andWhere('e.sex = :sex')
                 ->setParameter('sex', '0')
             ;
         }
-        else {
+        if($value == 'f' || $value == 'female'){
             $qb->andWhere('e.sex = :sex')
                 ->setParameter('sex', '1')
             ;

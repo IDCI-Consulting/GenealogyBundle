@@ -93,7 +93,7 @@ class LoadElementData implements FixtureInterface
         $mireille->setBirthDate(new \DateTime('2000-01-14'));
         $mireille->setSize('195.2');
         $mireille->setWeight('230.5');
-        $mireille->setSex('0');
+        $mireille->setSex('1');
         $mireille->setRank('256');
         $mireille->setCoatColor('grey');
         $mireille->addRole($reproducer);

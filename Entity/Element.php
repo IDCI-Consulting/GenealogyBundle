@@ -516,6 +516,16 @@ class Element
             return $this->getFather()->getId();
         
         return null;
-    }    
+    }
+    
+    /**
+     * Has Media
+     *
+     * @return boolean
+     */
+    public function hasMedia()
+    {
+        return $this->getMedias() != null;
+    }
 
 }

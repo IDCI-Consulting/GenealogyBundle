@@ -1,0 +1,7 @@
+{% for role in roles %}
+    {% if loop.last %}
+        "function":{ {{ role.name }} }
+    {% else %}
+        "function":{ {{ role.name }} },
+    {% endif %}
+{% endfor %}

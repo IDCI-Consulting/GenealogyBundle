@@ -1,0 +1,20 @@
+"medias":
+[
+{% for media in medias %}
+    {% if loop.last %}
+    "media": 
+    {
+        "type": "{{ media.type }}",
+        "mime-type":"{{ media.mimetype }}",
+        "href":"{{ media.url }}"}
+    }
+    {% else %}
+    "media": 
+    {
+        "type": "{{ media.type }}",
+        "mime-type":"{{ media.mimetype }}",
+        "href":"{{ media.url }}"}
+    },
+    {% endif %}
+{% endfor %}
+]

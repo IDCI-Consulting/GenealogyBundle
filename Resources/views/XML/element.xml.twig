@@ -12,7 +12,7 @@
 {% if (element.hasMother()) %}
 <mother id="{{ element.getMotherId() }}">
     {% if (level > 0) %}
-        {% render 'IDCIGenealogyBundle:Query:parent' with {'element': element.getMother(), 'level': level} %}
+        {% render 'IDCIGenealogyBundle:Query:xmlParent' with {'element': element.getMother(), 'level': level} %}
     {% endif %}
 </mother>
 {% endif %}
@@ -20,7 +20,7 @@
 {% if (element.hasFather()) %}
 <father id="{{ element.getFatherId() }}">
     {% if (level > 0) %}
-        {% render 'IDCIGenealogyBundle:Query:parent' with {'element': element.getFather(), 'level': level} %}
+        {% render 'IDCIGenealogyBundle:Query:xmlParent' with {'element': element.getFather(), 'level': level} %}
     {% endif %}
 </father>
 {% endif %}

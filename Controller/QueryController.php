@@ -150,7 +150,17 @@ class QueryController extends Controller
         return $response;
     }
 
-    public function parentAction($element, $level)
+    public function jsonParentAction($element, $level)
+    {
+        $level--;
+        
+        return $this->render('IDCIGenealogyBundle:JSON:element.json.twig', array(
+            'element'   => $element,
+            'level'     => $level
+        ));
+    }
+    
+    public function xmlParentAction($element, $level)
     {
         $level--;
         

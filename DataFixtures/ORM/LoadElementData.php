@@ -176,8 +176,8 @@ class LoadElementData implements FixtureInterface
         $manager->persist($genealogy2);
         
         $genealogy3 = new Genealogy();
-        $genealogy3->setMother($uno);
-        $genealogy3->setFather($maria);
+        $genealogy3->setFather($uno);
+        $genealogy3->setMother($maria);
         $genealogy3->setChild($emily);
         $manager->persist($genealogy3);
         

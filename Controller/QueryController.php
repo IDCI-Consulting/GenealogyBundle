@@ -18,22 +18,26 @@ class QueryController extends Controller
      */
     public function entityAction(Request $request, $id)
     {
-        $entity = $this->getDoctrine()
+        $element = $this->getDoctrine()
             ->getEntityManager()
             ->find('IDCIGenealogyBundle:Element', $id)
         ;
+        
+        if(!$element) {
+            throw $this->createNotFoundException("No result found");        
+        }
 
         $format = $request->getRequestFormat();
         if($format == 'json') {
             $response = $this->render(
                 'IDCIGenealogyBundle:JSON:elements.json.twig',
-                array('entities' => array($entity), 'level' => 0)
+                array('entities' => array($element), 'level' => 0)
             );
             $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
         } else if($format == 'xml') {
             $response = $this->render(
                 'IDCIGenealogyBundle:XML:elements.xml.twig',
-                array('entities' => array($entity), 'level' => 0)
+                array('entities' => array($element), 'level' => 0)
             );
             $response->headers->set('Content-Type', 'text/xml; charset=UTF-8');
         }
@@ -48,26 +52,26 @@ class QueryController extends Controller
     public function entitiesAction(Request $request)
     {
         
-        $entities = $this->getDoctrine()
+        $elements = $this->getDoctrine()
             ->getEntityManager()
             ->getRepository('IDCIGenealogyBundle:Element')
             ->findEntitiesBasedOnRequest($request->query->all())
         ;
         
-        if(!$entities)
+        if(!$elements)
             $this->createNotFoundException("No results found");
 
         $format = $request->getRequestFormat();
         if($format == 'json') {
             $response = $this->render(
                 'IDCIGenealogyBundle:JSON:elements.json.twig',
-                array('entities' => $entities, 'level' => 0)
+                array('entities' => $elements, 'level' => 0)
             );
             $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
         } else if($format == 'xml') {
             $response = $this->render(
                 'IDCIGenealogyBundle:XML:elements.xml.twig',
-                array('entities' => $entities, 'level' => 0)
+                array('entities' => $elements, 'level' => 0)
             );
             $response->headers->set('Content-Type', 'text/xml; charset=UTF-8');
         }
@@ -90,13 +94,13 @@ class QueryController extends Controller
         
         $mothers = $element->getMothers(); //récupère les généalogies dans lesquelles l'élément est une mère
 
-        if(null == $mothers || null == $element) {
+        if(!$mothers) {
             throw $this->createNotFoundException("No result found");        
         }
         
         $children = array();
         foreach($mothers as $mother){
-            die("je suis dans le foreach");
+            //die("je suis dans le foreach");
             $children[] = $mother->getChild();
         }
 
@@ -117,12 +121,12 @@ class QueryController extends Controller
      */
     public function parentsEntityAction(Request $request, $id, $level)
     {
-       $entity = $this->getDoctrine()
+       $element = $this->getDoctrine()
             ->getEntityManager()
             ->find('IDCIGenealogyBundle:Element', $id)
         ;
 
-        if(null == $entity) {
+        if(!$element) {
             throw $this->createNotFoundException("No result found");        
         }
         
@@ -131,7 +135,7 @@ class QueryController extends Controller
             $response = $this->render(
                 'IDCIGenealogyBundle:JSON:elements.json.twig',
                 array(
-                    'entities'  => array($entity),
+                    'entities'  => array($element),
                     'level'     => $level
                 )
             );
@@ -140,7 +144,7 @@ class QueryController extends Controller
             $response = $this->render(
                 'IDCIGenealogyBundle:XML:elements.xml.twig',
                 array(
-                    'entities'  => array($entity),
+                    'entities'  => array($element),
                     'level'     => $level
                 )
             );

@@ -1,6 +1,6 @@
 {% if roles|length > 1 %}
-"functions":
-[
+    "functions":
+    [
 {% endif %}
 {% for role in roles %}
     {% if loop.last and roles|length > 1 %}
@@ -11,5 +11,5 @@
 {% endfor %}
 
 {% if roles|length > 1 %}
-]
+    ]
 {% endif %}

@@ -10,21 +10,21 @@
 {% include 'IDCIGenealogyBundle:JSON:functions.json.twig' with {'roles': element.roles} %}
 
 {% if (element.hasMother()) and level != 0 %}
-"mother":
-{
-    {% if (level > 0) %}
-        {% render 'IDCIGenealogyBundle:Query:jsonParent' with {'element': element.getMother(), 'level': level} %}
-    {% endif %}
-},
+    "mother":
+    {
+        {% if (level > 0) %}
+            {% render 'IDCIGenealogyBundle:Query:jsonParent' with {'element': element.getMother(), 'level': level} %}
+        {% endif %}
+    },
 {% endif %}
 
 {% if (element.hasFather()) and level != 0 %}
-"father":
-{
-    {% if (level > 0) %}
-        {% render 'IDCIGenealogyBundle:Query:jsonParent' with {'element': element.getFather(), 'level': level} %}
-    {% endif %}
-},
+    "father":
+    {
+        {% if (level > 0) %}
+            {% render 'IDCIGenealogyBundle:Query:jsonParent' with {'element': element.getFather(), 'level': level} %}
+        {% endif %}
+    },
 {% endif %}
 
 {% if (element.hasMedia()) %}

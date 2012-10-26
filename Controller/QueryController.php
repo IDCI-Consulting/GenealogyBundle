@@ -193,7 +193,7 @@ class QueryController extends Controller
         $child = $children[$childNumber];
         
         return $this->render('IDCIGenealogyBundle:JSON:child.json.twig', array(
-            'children'   => $child,
+            'element'   => $child,
             'level'      => $level
         ));
     }

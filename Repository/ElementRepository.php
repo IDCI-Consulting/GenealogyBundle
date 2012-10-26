@@ -3,6 +3,8 @@
 namespace IDCI\Bundle\GenealogyBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use IDCI\Bundle\GenealogyBundle\Entity\Element;
+use IDCI\Bundle\GenealogyBundle\Entity\Genealogy;
 
 /**
  * ElementRepository
@@ -111,7 +113,7 @@ class ElementRepository extends EntityRepository
                 ->setParameter('sex', '0')
             ;
         }
-        if($value == 'f' || $value == 'female'){
+        if($value == 'f' || $value == 'female') {
             $qb->andWhere('e.sex = :sex')
                 ->setParameter('sex', '1')
             ;
@@ -131,4 +133,30 @@ class ElementRepository extends EntityRepository
         $qb->andWhere($qb->expr()->in('r.name', $value));
     }
     
+    
+    /**
+     * find children of an element
+     *
+     * @param int id
+     * 
+     * @return Element array
+     */
+    public function findChildren($id)
+    {
+        $element = $this->getEntityManager()->find('IDCIGenealogyBundle:Element', $id);
+        
+        if($element->getSex() == 1) {
+            $parents = $element->getMothers();
+        }
+        else {
+            $parents = $element->getFathers();
+        }
+        
+        $children = array();
+        foreach($parents as $parent) {
+            $children[] = $parent->getChild();
+        }
+        
+        return $children;
+    }
 }

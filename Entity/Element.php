@@ -467,20 +467,7 @@ class Element
     public function hasMother()
     {
         return $this->getMother() != null;
-    }
-    
-    /**
-     * Get Mother Id (proxy)
-     *
-     * @return integer
-     */
-    public function getMotherId()
-    {
-        if($this->getMother())
-            return $this->getMother()->getId();
-        
-        return null;
-    }    
+    }  
 
     /**
      * Get Father (proxy)
@@ -506,19 +493,6 @@ class Element
     }
     
     /**
-     * Get Father Id (proxy)
-     *
-     * @return integer
-     */
-    public function getFatherId()
-    {
-        if($this->getFather())
-            return $this->getFather()->getId();
-        
-        return null;
-    }
-    
-    /**
      * Has Media
      *
      * @return boolean
@@ -526,6 +500,50 @@ class Element
     public function hasMedia()
     {
         return $this->getMedias() != null;
+    }
+    
+    /**
+     * Get Children
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {      
+        if($this->getSex() == 1) {
+            $parents = $this->getMothers();
+        }
+        else {
+            $parents = $this->getFathers();
+        }
+        
+        $children = array();
+        foreach($parents as $parent) {
+            $children[] = $parent->getChild();
+        }
+        
+        return $children;
+    }
+        
+    /**
+     * Has Children
+     *
+     * @return boolean
+     */
+    public function hasChildren()
+    {
+        return $this->getChildren() != null;
+    }
+    
+    /**
+     * Get Child
+     *
+     * @return Element
+     */
+    public function getChild($i)
+    {
+        $children = $this->getChildren();
+        $child = $children[$i];
+        return $child;
     }
 
 }

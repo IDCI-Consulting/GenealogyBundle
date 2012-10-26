@@ -80,35 +80,40 @@ class QueryController extends Controller
     }
    
     /**
-     * @Route("/entity/{id}/children.{_format}/{level}", requirements={"id" = "\d+", "level" = "\d+", "_format" = "xml|json"}, defaults={"format" = "xml"})
+     * @Route("/entity/{id}/children.{_format}/{level}", requirements={"id" = "\d+", "level" = "\d+", "_format" = "xml|json"}, defaults={"level" = 0})
      * @Template()
      */
     public function childrenEntityAction(Request $request, $id, $level)
     {
         $format = $request->getRequestFormat();
-        
+
         $element = $this->getDoctrine()
             ->getEntityManager()
             ->find('IDCIGenealogyBundle:Element', $id)
         ;
         
-        $mothers = $element->getMothers(); //récupère les généalogies dans lesquelles l'élément est une mère
-
-        if(!$mothers) {
+        if(!$element) {
             throw $this->createNotFoundException("No result found");        
-        }
-        
-        $children = array();
-        foreach($mothers as $mother){
-            //die("je suis dans le foreach");
-            $children[] = $mother->getChild();
         }
 
         if($format == 'json') {
-            $response = $this->render('IDCIGenealogyBundle:JSON:elements.json.twig', array('entities' => $children));
+            $response = $this->render(
+                    'IDCIGenealogyBundle:JSON:children.json.twig', 
+                    array(
+                        'entities'  => array($element),
+                        'level'     => $level
+                    )
+            );
             $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
         } else if($format == 'xml') {
-            $response = $this->render('IDCIGenealogyBundle:XML:elements.xml.twig', array('entities' => $children));
+            $response = $this->render(
+                    'IDCIGenealogyBundle:XML:children.xml.twig',
+                    array(
+                        'entities'  => array($element),
+                        'level'     => $level
+                    )
+                    
+            );
             $response->headers->set('Content-Type', 'text/xml; charset=UTF-8');
         }
 
@@ -124,7 +129,7 @@ class QueryController extends Controller
        $element = $this->getDoctrine()
             ->getEntityManager()
             ->find('IDCIGenealogyBundle:Element', $id)
-        ;
+       ;
 
         if(!$element) {
             throw $this->createNotFoundException("No result found");        
@@ -173,4 +178,43 @@ class QueryController extends Controller
             'level'     => $level
         ));
     }
+    
+    public function jsonChildrenAction($element, $level, $childNumber)
+    {
+        $level--;
+
+        $id = $element->getId();
+        $children = $this->getDoctrine()
+            ->getEntityManager()
+            ->getRepository('IDCIGenealogyBundle:Element')
+            ->findChildren($id)
+        ;
+
+        $child = $children[$childNumber];
+        
+        return $this->render('IDCIGenealogyBundle:JSON:child.json.twig', array(
+            'children'   => $child,
+            'level'      => $level
+        ));
+    }
+    
+    public function xmlChildrenAction($element, $level, $childNumber)
+    {
+        $level--;
+
+        $id = $element->getId();
+        $children = $this->getDoctrine()
+            ->getEntityManager()
+            ->getRepository('IDCIGenealogyBundle:Element')
+            ->findChildren($id)
+        ;
+
+        $child = $children[$childNumber];
+        
+        return $this->render('IDCIGenealogyBundle:XML:child.xml.twig', array(
+            'element'   => $child,
+            'level'     => $level
+        ));
+    }
+
 }

@@ -68,7 +68,7 @@
     {% endif %}   
 {% endif %}
 
-{% include 'IDCIGenealogyBundle:XML:medias.xml.twig' with {'medias': element.medias} %}
+{% include 'IDCIGenealogyBundle:JSON:medias.json.twig' with {'medias': element.medias} %}
 
 "rank":{ {{ element.rank }} } 
 {# rank à la fin, on est certain de ne pas finir par une virgule #}

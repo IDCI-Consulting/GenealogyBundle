@@ -1,3 +1,6 @@
+{% set motherHasMoreThanOneChildren = (element.getMothers|length > 1) %}
+{% set fatherHasMoreThanOneChildren = (element.getFathers|length > 1) %}
+
 "name":{ {{ element.name }} },
 "birthdate":{ {{ element.birthdate|date('d/m/Y')}} },
 "born_place":{},
@@ -8,42 +11,40 @@
 {% include 'IDCIGenealogyBundle:JSON:functions.json.twig' with {'roles': element.roles} %}
 
 {% if element.hasChildren and level > 0 %}
-
     {% if(element.sex==1) %}
-
-        {% if element.getMothers|length > 1 %}
+        {% if motherHasMoreThanOneChildren %}
             "children":
             [
         {% endif %}
             {% for i in 0..element.getMothers|length-1 %}
-                    {% if loop.last and element.getMothers|length > 1 %}
-                        "child": 
-                        {
-                            "id": "{ {{ element.getChild(i).id }} }",
-                            {% if (level > 0) %}
-                                {% render 'IDCIGenealogyBundle:Query:jsonChildren' with {'element': element, 'level': level, 'childNumber': i} %}
-                            {% endif %}
-                        }
-                    {% else %}
-                        "child": 
-                        {
-                            "id": "{ {{ element.getChild(i).id }} }",
-                            {% if (level > 0) %}
-                                {% render 'IDCIGenealogyBundle:Query:jsonChildren' with {'element': element, 'level': level, 'childNumber': i} %}
-                            {% endif %}
-                        },
-                    {% endif %}
-            {% endfor %}
-        {% if element.getMothers|length > 1 %}
+                {% if loop.last and motherHasMoreThanOneChildren %}
+                    "child": 
+                    {
+                        "id": "{ {{ element.getChild(i).id }} }",
+                        {% if (level > 0) %}
+                            {% render 'IDCIGenealogyBundle:Query:jsonChildren' with {'element': element, 'level': level, 'childNumber': i} %}
+                        {% endif %}
+                    }
+                {% else %}
+                    "child": 
+                    {
+                        "id": "{ {{ element.getChild(i).id }} }",
+                        {% if (level > 0) %}
+                            {% render 'IDCIGenealogyBundle:Query:jsonChildren' with {'element': element, 'level': level, 'childNumber': i} %}
+                        {% endif %}
+                    },
+                {% endif %}
+            {% endfor %} 
+        {% if motherHasMoreThanOneChildren %}
             ]
         {% endif %}
     {% else %}
-        {% if element.getFathers|length > 1 %}
+        {% if fatherHasMoreThanOneChildren %}
             "children":
             [
         {% endif %}
             {% for i in 0..element.getFathers|length-1 %}
-                {% if loop.last and element.getFathers|length > 1 %}
+                {% if loop.last and fatherHasMoreThanOneChildren %}
                     "child": 
                     {
                         "id": "{ {{ element.getChild(i).id }} }",
@@ -61,12 +62,10 @@
                     },
                 {% endif %}
             {% endfor %}
-        {% if element.getFathers|length > 1 %}
+        {% if fatherHasMoreThanOneChildren %}
             ]
         {% endif %}
-            
-    {% endif %}
-    
+    {% endif %}   
 {% endif %}
 
 {% include 'IDCIGenealogyBundle:XML:medias.xml.twig' with {'medias': element.medias} %}

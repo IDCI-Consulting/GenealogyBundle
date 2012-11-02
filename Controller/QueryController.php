@@ -28,19 +28,16 @@ class QueryController extends Controller
         }
 
         $format = $request->getRequestFormat();
-        if($format == 'json') {
-            $response = $this->render(
-                'IDCIGenealogyBundle:JSON:elements.json.twig',
-                array('entities' => array($element), 'level' => 0)
-            );
-            $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
-        } else if($format == 'xml') {
-            $response = $this->render(
-                'IDCIGenealogyBundle:XML:elements.xml.twig',
-                array('entities' => array($element), 'level' => 0)
-            );
-            $response->headers->set('Content-Type', 'text/xml; charset=UTF-8');
-        }
+        $contentTypes = array(
+            'json'  => 'application/json; charset=UTF-8',
+            'xml'   => 'text/xml; charset=UTF-8'
+        );
+        
+        $response = $this->render(
+                        sprintf('IDCIGenealogyBundle:%s:elements.%s.twig', strtoupper($format), $format),   
+                        array('entities' => array($element), 'level' => 0)
+                    );
+        $response->headers->set('Content-Type', $contentTypes[$format]);
         
         return $response;
     }
@@ -51,7 +48,6 @@ class QueryController extends Controller
      */
     public function entitiesAction(Request $request)
     {
-        
         $elements = $this->getDoctrine()
             ->getEntityManager()
             ->getRepository('IDCIGenealogyBundle:Element')
@@ -62,19 +58,20 @@ class QueryController extends Controller
             $this->createNotFoundException("No results found");
 
         $format = $request->getRequestFormat();
-        if($format == 'json') {
-            $response = $this->render(
-                'IDCIGenealogyBundle:JSON:elements.json.twig',
-                array('entities' => $elements, 'level' => 0)
-            );
-            $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
-        } else if($format == 'xml') {
-            $response = $this->render(
-                'IDCIGenealogyBundle:XML:elements.xml.twig',
-                array('entities' => $elements, 'level' => 0)
-            );
-            $response->headers->set('Content-Type', 'text/xml; charset=UTF-8');
-        }
+        $contentTypes = array(
+            'json'  => 'application/json; charset=UTF-8',
+            'xml'   => 'text/xml; charset=UTF-8'
+        );
+        
+        $response = $this->render(
+            sprintf('IDCIGenealogyBundle:%s:elements.%s.twig', strtoupper($format), $format),
+            array(
+                'entities' => $elements,
+                'level' => 0
+            )
+        );
+        $response->headers->set('Content-Type', $contentTypes[$format]);
+        
         
         return $response;
     }
@@ -85,8 +82,6 @@ class QueryController extends Controller
      */
     public function childrenEntityAction(Request $request, $id, $level)
     {
-        $format = $request->getRequestFormat();
-
         $element = $this->getDoctrine()
             ->getEntityManager()
             ->find('IDCIGenealogyBundle:Element', $id)
@@ -96,27 +91,21 @@ class QueryController extends Controller
             throw $this->createNotFoundException("No result found");        
         }
 
-        if($format == 'json') {
-            $response = $this->render(
-                    'IDCIGenealogyBundle:JSON:children.json.twig', 
-                    array(
-                        'entities'  => array($element),
-                        'level'     => $level
-                    )
-            );
-            $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
-        } else if($format == 'xml') {
-            $response = $this->render(
-                    'IDCIGenealogyBundle:XML:children.xml.twig',
-                    array(
-                        'entities'  => array($element),
-                        'level'     => $level
-                    )
-                    
-            );
-            $response->headers->set('Content-Type', 'text/xml; charset=UTF-8');
-        }
-
+        $format = $request->getRequestFormat();
+        $contentTypes = array(
+            'json'  => 'application/json; charset=UTF-8',
+            'xml'   => 'text/xml; charset=UTF-8'
+        );
+        
+        $response = $this->render(
+            sprintf('IDCIGenealogyBundle:%s:children.%s.twig', strtoupper($format), $format),
+            array(
+                'entities' => array($element),
+                'level' => $level
+            )
+        );
+        $response->headers->set('Content-Type', $contentTypes[$format]);
+        
         return $response;
     }
 
@@ -136,26 +125,20 @@ class QueryController extends Controller
         }
         
         $format = $request->getRequestFormat();
-        if($format == 'json') {
-            $response = $this->render(
-                'IDCIGenealogyBundle:JSON:elements.json.twig',
-                array(
-                    'entities'  => array($element),
-                    'level'     => $level
-                )
-            );
-            $response->headers->set('Content-Type', 'application/json; charset=UTF-8');
-        } else if($format == 'xml') {
-            $response = $this->render(
-                'IDCIGenealogyBundle:XML:elements.xml.twig',
-                array(
-                    'entities'  => array($element),
-                    'level'     => $level
-                )
-            );
-            $response->headers->set('Content-Type', 'text/xml; charset=UTF-8');
-        }
+        $contentTypes = array(
+            'json'  => 'application/json; charset=UTF-8',
+            'xml'   => 'text/xml; charset=UTF-8'
+        );
         
+        $response = $this->render(
+            sprintf('IDCIGenealogyBundle:%s:elements.%s.twig', strtoupper($format), $format),
+            array(
+                'entities' => array($element),
+                'level' => $level
+            )
+        );
+        $response->headers->set('Content-Type', $contentTypes[$format]);
+
         return $response;
     }
 

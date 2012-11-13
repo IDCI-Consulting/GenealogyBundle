@@ -13,6 +13,10 @@ class MediaType extends AbstractType
         $builder
             ->add('file')
             ->add('elements')
+            ->add('updated_at', 'datetime', array(
+               'data' => new \DateTime('now'),
+               'attr' => array('style'=>'display:none;')
+           ))
         ;
     }
 

@@ -31,8 +31,9 @@
             <td><a href="{{ path('media_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
             <td>{{ entity.path }}</td>    <td>
                     <a class="btn btn-block" href="{{ path('media_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
-            </td>
-            <td>
+            </td>    <td>
+                    <a class="btn btn-block btn-primary" href="{{ path('media_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
+            </td>    <td>
                     {% render 'IDCIGenealogyBundle:Media:deleteForm' with { 'id': entity.id } %}
             </td>
         </tr>

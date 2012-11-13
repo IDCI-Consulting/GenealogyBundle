@@ -42,6 +42,13 @@ class Media
     protected $elements;
     
     /**
+     * @var datetime $updated_at
+     * 
+     * @ORM\Column(name="updated_at", type="datetime")
+     */
+    protected $updated_at;
+    
+    /**
      * Media to string
      *
      * @return string
@@ -148,8 +155,19 @@ class Media
     }
 
     /**
-     * @ORM\PrePersist()
      * @ORM\PreUpdate()
+     */
+    public function cleanFile()
+    {
+      if ($file = $this->getAbsolutePath()) {
+        unlink($file);
+      }
+    }
+    
+    
+    /**
+     * @ORM\PreUpdate()
+     * @ORM\PrePersist()
      */
     public function preUpload()
     {
@@ -194,5 +212,28 @@ class Media
         if ($file = $this->getAbsolutePath()) {
             unlink($file);
         }
+    }
+
+    /**
+     * Set updated_at
+     *
+     * @param \DateTime $updatedAt
+     * @return Media
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updated_at = $updatedAt;
+    
+        return $this;
+    }
+
+    /**
+     * Get updated_at
+     *
+     * @return \DateTime 
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
     }
 }

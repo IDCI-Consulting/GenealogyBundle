@@ -4,8 +4,8 @@
   {% include "IDCIGenealogyBundle::entity_nav.html.twig" with {'entities' : {
     'Element':      { 'basepath': 'element'},
     'Genealogy':    { 'basepath': 'genealogy', },
-    'Media':        { 'basepath': 'media', 'active': true },
-    'Role':         { 'basepath': 'role' }
+    'Media':        { 'basepath': 'media'},
+    'Role':         { 'basepath': 'role', 'active': true }
   }} %}
 {% endblock %}
 
@@ -14,7 +14,7 @@
 {{ parent() }}
 
 <div class="page-header">
-  <h1>Media</h1>
+  <h1>Role</h1>
 </div>
 
 <table class="table table-bordered table-striped record_properties">
@@ -24,20 +24,25 @@
             <td>{{ entity.id }}</td>
         </tr>
         <tr>
-            <th>Path</th>
-            <td>{{ entity.path }}</td>
+            <th>Name</th>
+            <td>{{ entity.name }}</td>
         </tr>
     </tbody>
 </table>
 
 <ul class="record_actions">
     <li>
-        <a class="btn" href="{{ path('media') }}">
+        <a class="btn" href="{{ path('role') }}">
             {% trans %}Back to the list{% endtrans %}
         </a>
     </li>
     <li>
-        <form action="{{ path('media_delete', { 'id': entity.id }) }}" method="post">
+        <a class="btn btn-primary" href="{{ path('role_edit', { 'id': entity.id }) }}">
+            {% trans %}Edit{% endtrans %}
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('role_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button type="submit" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
         </form>

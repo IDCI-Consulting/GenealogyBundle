@@ -4,20 +4,21 @@
   {% include "IDCIGenealogyBundle::entity_nav.html.twig" with {'entities' : {
     'Element':      { 'basepath': 'element'},
     'Genealogy':    { 'basepath': 'genealogy', },
-    'Media':        { 'basepath': 'media', 'active': true },
-    'Role':         { 'basepath': 'role' }
+    'Media':        { 'basepath': 'media'},
+    'Role':         { 'basepath': 'role', 'active': true }
   }} %}
 {% endblock %}
+
 
 {% block body %}
 
 {{ parent() }}
 
 <div class="page-header">
-  <h1>{% trans %}Media creation{% endtrans %}</h1>
+  <h1>{% trans %}Role creation{% endtrans %}</h1>
 </div>
 
-<form action="{{ path('media_create') }}" method="post" {{ form_enctype(form) }}>
+<form action="{{ path('role_create') }}" method="post" {{ form_enctype(form) }}>
     {{ form_widget(form) }}
     <p>
         <button type="submit" class="btn btn-primary">{% trans %}Create{% endtrans %}</button>
@@ -26,7 +27,7 @@
 
 <ul class="record_actions">
     <li>
-        <a class="btn" href="{{ path('media') }}">
+        <a class="btn" href="{{ path('role') }}">
             {% trans %}Back to the list{% endtrans %}
         </a>
     </li>

@@ -1,5 +1,14 @@
 {% extends "IDCIGenealogyBundle::adminbase.html.twig" %}
 
+{% block nav %}
+  {% include "IDCIGenealogyBundle::entity_nav.html.twig" with {'entities' : {
+    'Element':      { 'basepath': 'element'},
+    'Genealogy':    { 'basepath': 'genealogy', },
+    'Media':        { 'basepath': 'media', 'active': true },
+    'Role':         { 'basepath': 'role' }
+  }} %}
+{% endblock %}
+
 {% block body %}
 
 {{ parent() }}

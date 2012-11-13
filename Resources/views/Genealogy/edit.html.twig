@@ -3,8 +3,8 @@
 {% block nav %}
   {% include "IDCIGenealogyBundle::entity_nav.html.twig" with {'entities' : {
     'Element':      { 'basepath': 'element'},
-    'Genealogy':    { 'basepath': 'genealogy', },
-    'Media':        { 'basepath': 'media', 'active': true },
+    'Genealogy':    { 'basepath': 'genealogy', 'active': true },
+    'Media':        { 'basepath': 'media' },
     'Role':         { 'basepath': 'role' }
   }} %}
 {% endblock %}
@@ -14,30 +14,24 @@
 {{ parent() }}
 
 <div class="page-header">
-  <h1>Media</h1>
+  <h1>{% trans %}Edit{% endtrans %}</h1>
 </div>
 
-<table class="table table-bordered table-striped record_properties">
-    <tbody>
-        <tr>
-            <th>Id</th>
-            <td>{{ entity.id }}</td>
-        </tr>
-        <tr>
-            <th>Path</th>
-            <td>{{ entity.path }}</td>
-        </tr>
-    </tbody>
-</table>
+<form action="{{ path('genealogy_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    {{ form_widget(edit_form) }}
+    <p>
+        <button type="submit" class="btn btn-primary">{% trans %}Edit{% endtrans %}</button>
+    </p>
+</form>
 
 <ul class="record_actions">
     <li>
-        <a class="btn" href="{{ path('media') }}">
+        <a class="btn" href="{{ path('genealogy') }}">
             {% trans %}Back to the list{% endtrans %}
         </a>
     </li>
     <li>
-        <form action="{{ path('media_delete', { 'id': entity.id }) }}" method="post">
+        <form action="{{ path('genealogy_delete', { 'id': entity.id }) }}" method="post">
             {{ form_widget(delete_form) }}
             <button type="submit" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
         </form>

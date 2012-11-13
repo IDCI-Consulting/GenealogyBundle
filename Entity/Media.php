@@ -2,6 +2,7 @@
 
 namespace IDCI\Bundle\GenealogyBundle\Entity;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -9,6 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  *
  * @ORM\Table(name="media")
  * @ORM\Entity
+ * @ORM\HasLifecycleCallbacks
  */
 class Media
 {
@@ -22,25 +24,22 @@ class Media
     private $id;
 
     /**
-     * @var string $url
+     * @var string $path
      *
-     * @ORM\Column(name="url", type="string", length=255)
+     * @ORM\Column(name="path", type="string", length=255)
      */
-    private $url;
-
+    private $path;
+    
     /**
-     * @var string $type
-     *
-     * @ORM\Column(name="type", type="string", length=255)
+     * @Assert\File(maxSize="6000000")
      */
-    private $type;
-
+    public $file;
+    
     /**
-     * @var string $type
-     *
-     * @ORM\Column(name="mime_type", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element")
+     * @ORM\JoinColumn(name="element", referencedColumnName="id")
      */
-    private $mime_type;
+    protected $elements;
     
     /**
      * Media to string
@@ -49,7 +48,15 @@ class Media
      */
     public function __toString()
     {
-        return $this->getUrl();
+        return $this->getPath();
+    }
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->elements = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -63,71 +70,129 @@ class Media
     }
 
     /**
-     * Set url
+     * Set path
      *
-     * @param string $url
+     * @param string $path
      * @return Media
      */
-    public function setUrl($url)
+    public function setPath($path)
     {
-        $this->url = $url;
+        $this->path = $path;
     
         return $this;
     }
 
     /**
-     * Get url
+     * Get path
      *
      * @return string 
      */
-    public function getUrl()
+    public function getPath()
     {
-        return $this->url;
+        return $this->path;
     }
 
     /**
-     * Set type
+     * Add elements
      *
-     * @param string $type
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Element $elements
      * @return Media
      */
-    public function setType($type)
+    public function addElement(\IDCI\Bundle\GenealogyBundle\Entity\Element $elements)
     {
-        $this->type = $type;
+        $this->elements[] = $elements;
     
         return $this;
     }
 
     /**
-     * Get type
+     * Remove elements
      *
-     * @return string 
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Element $elements
      */
-    public function getType()
+    public function removeElement(\IDCI\Bundle\GenealogyBundle\Entity\Element $elements)
     {
-        return $this->type;
+        $this->elements->removeElement($elements);
     }
 
     /**
-     * Set mime_type
+     * Get elements
      *
-     * @param string $mimeType
-     * @return Media
+     * @return Doctrine\Common\Collections\Collection 
      */
-    public function setMimeType($mimeType)
+    public function getElements()
     {
-        $this->mime_type = $mimeType;
+        return $this->elements;
+    }
     
-        return $this;
+     public function getAbsolutePath()
+    {
+        return null === $this->path ? null : self::getUploadRootDir().'/'.$this->path;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->path ? null : self::getUploadDir().'/'.$this->path;
+    }
+
+    public static function getUploadRootDir()
+    {
+        // the absolute directory path where uploaded documents should be saved
+        return __DIR__.'/../../../../../../../web'.self::getUploadDir();
+    }
+
+    public static function getUploadDir()
+    {
+        // get rid of the __DIR__ so it doesn't screw when displaying uploaded doc/image in the view.
+        return '/uploads';
     }
 
     /**
-     * Get mime_type
-     *
-     * @return string 
+     * @ORM\PrePersist()
+     * @ORM\PreUpdate()
      */
-    public function getMimeType()
+    public function preUpload()
     {
-        return $this->mime_type;
+        if (null !== $this->file) {
+            $this->path = $this->getFileName();
+        }
+    }
+
+    /**
+     * @ORM\PostPersist()
+     * @ORM\PostUpdate()
+     */
+    public function upload()
+    {
+        // the file property can be empty if the field is not required
+        if (null === $this->file) {
+            return;
+        }
+
+        // we use the original file name here but you should
+        // sanitize it at least to avoid any security issues
+        // move takes the target directory and then the target filename to move to
+        $this->file->move(self::getUploadRootDir(), $this->getFileName());
+
+        // set the path property to the filename where you'ved saved the file
+        $this->path = $this->getFileName();
+
+        // clean up the file property as you won't need it anymore
+        $this->file = null;
+    }
+
+    public function getFileName()
+    {
+      return sprintf("%s_%s", time(), $this->file->getClientOriginalName());
+    }
+
+    /**
+     * @ORM\PostRemove()
+     */
+    public function removeUpload()
+    {
+        if ($file = $this->getAbsolutePath()) {
+            unlink($file);
+        }
     }
 }

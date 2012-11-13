@@ -7,27 +7,12 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use IDCI\Bundle\GenealogyBundle\Entity\Element;
 use IDCI\Bundle\GenealogyBundle\Entity\Role;
-use IDCI\Bundle\GenealogyBundle\Entity\Media;
 use IDCI\Bundle\GenealogyBundle\Entity\Genealogy;
 
 class LoadElementData implements FixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        /*Medias*/
-
-        $photo1 = new Media();
-        $photo1->setUrl('/dossier/photos/cheval1.jpg');
-        $photo1->setMimeType('application/png');
-        $photo1->setType('photo');
-        $manager->persist($photo1);
-
-        $photo2 = new Media();
-        $photo2->setUrl('/dossier/photos/cheval2.jpg');
-        $photo2->setMimeType('application/png');
-        $photo2->setType('photo');
-        $manager->persist($photo2);
-
         /*Roles*/
 
         $reproducer = new Role();
@@ -50,7 +35,6 @@ class LoadElementData implements FixtureInterface
         $maria->setRank('0');
         $maria->setCoatColor('black');
         $maria->addRole($reproducer);
-        $maria->addMedia($photo1);
         $manager->persist($maria);
 
         $enzo = new Element();
@@ -121,7 +105,6 @@ class LoadElementData implements FixtureInterface
         $emily->setRank('0');
         $emily->setCoatColor('black');
         $emily->addRole($reproducer);
-        $emily->addMedia($photo1);
         $manager->persist($emily);        
         
         $mario = new Element();
@@ -134,8 +117,6 @@ class LoadElementData implements FixtureInterface
         $mario->setCoatColor('grey');
         $mario->addRole($reproducer);
         $mario->addRole($racehorse);
-        $mario->addMedia($photo1);
-        $mario->addMedia($photo2);
         $manager->persist($mario);
 
         $marc = new Element();

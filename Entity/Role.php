@@ -1,5 +1,13 @@
 <?php
 
+/**
+ *
+ * @author:  Baptiste BOUCHEREAU <baptiste.bouchereau@idci-consulting.fr>
+ * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
+ * @license: GPL
+ *
+ */
+
 namespace IDCI\Bundle\GenealogyBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;

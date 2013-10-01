@@ -1,5 +1,6 @@
 services:
-    idci.genealogy_listener:
-        class: IDCI\Bundle\GenealogyBundle\Listener\GenealogyListener
+    form.type.gender:
+        class: IDCI\Bundle\GenealogyBundle\Form\Type\GenderType
+        arguments: ["%genders%"]
         tags:
-            - { name: doctrine.event_listener, event: postPersist }
+            - { name: form.type, alias: gender }

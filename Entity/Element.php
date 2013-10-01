@@ -15,8 +15,8 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * IDCI\Bundle\GenealogyBundle\Entity\Element
  *
- * @ORM\Table(name="element")
  * @ORM\Entity(repositoryClass="IDCI\Bundle\GenealogyBundle\Repository\ElementRepository")
+ * @ORM\Table(name="element")
  */
 class Element
 {
@@ -27,82 +27,83 @@ class Element
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
     
     /**
-     * @ORM\OneToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Genealogy", mappedBy="mother")
+     * @ORM\ManyToOne(targetEntity="Element", inversedBy="fatherChildren")
+     * @ORM\JoinColumn(name="father_id", referencedColumnName="id", onDelete="SET NULL")
      */
-    private $mothers;
+    private $father;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Element", inversedBy="motherChildren")
+     * @ORM\JoinColumn(name="mother_id", referencedColumnName="id", onDelete="SET NULL")
+     */
+    private $mother;
     
     /**
-     * @ORM\OneToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Genealogy", mappedBy="father")
+     * @ORM\OneToMany(targetEntity="Element", mappedBy="mother")
      */
-    private $fathers;
-    
+    protected $motherChildren;
+
     /**
-     * @ORM\OneToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Genealogy")
-     * @ORM\JoinColumn(name="genealogy_id", referencedColumnName="id", onDelete="SET NULL")
+     * @ORM\OneToMany(targetEntity="Element", mappedBy="father")
      */
-    private $genealogy;
-    
+    protected $fatherChildren;
+
     /**
      * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Role")
      */
-    private $roles;
-    
-    /**
-     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Media")
-     */
-    private $medias;
+    protected $roles;
     
     /**
      * @var string $name
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, nullable=false)
      */
-    private $name;
+    protected $name;
 
     /**
      * @var \DateTime $birth_date
      *
      * @ORM\Column(name="birth_date", type="datetime")
      */
-    private $birth_date;
+    protected $birthDate;
 
     /**
      * @var integer $size
      *
      * @ORM\Column(name="size", type="integer")
      */
-    private $size;
+    protected $size;
 
     /**
      * @var integer $weight
      *
-     * @ORM\Column(name="weight", type="integer")
+     * @ORM\Column(name="weight", type="integer", nullable=true)
      */
-    private $weight;
+    protected $weight;
 
     /**
-     * @var boolean $sex
+     * @var string $sex
      *
-     * @ORM\Column(name="sex", type="boolean")
+     * @ORM\Column(name="sex", type="string", length=1)
      */
-    private $sex;
+    protected $sex;
 
     /**
      * @var integer $rank
      *
      * @ORM\Column(name="rank", type="integer")
      */
-    private $rank;
+    protected $rank;
 
     /**
      * @var string $coat_color
      *
      * @ORM\Column(name="coat_color", type="string", length=255)
      */
-    private $coat_color;
+    protected $coatColor;
 
     /**
      * Genealogy to string
@@ -116,16 +117,14 @@ class Element
             $this->getName()
         );
     }
-    
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->mothers = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->fathers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->motherChildren = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->fatherChildren = new \Doctrine\Common\Collections\ArrayCollection();
         $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->medias = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -162,26 +161,26 @@ class Element
     }
 
     /**
-     * Set birth_date
+     * Set birthDate
      *
      * @param \DateTime $birthDate
      * @return Element
      */
     public function setBirthDate($birthDate)
     {
-        $this->birth_date = $birthDate;
+        $this->birthDate = $birthDate;
     
         return $this;
     }
 
     /**
-     * Get birth_date
+     * Get birthDate
      *
      * @return \DateTime 
      */
     public function getBirthDate()
     {
-        return $this->birth_date;
+        return $this->birthDate;
     }
 
     /**
@@ -233,7 +232,7 @@ class Element
     /**
      * Set sex
      *
-     * @param boolean $sex
+     * @param string $sex
      * @return Element
      */
     public function setSex($sex)
@@ -246,7 +245,7 @@ class Element
     /**
      * Get sex
      *
-     * @return boolean 
+     * @return string 
      */
     public function getSex()
     {
@@ -277,98 +276,144 @@ class Element
     }
 
     /**
-     * Set coat_color
+     * Set coatColor
      *
      * @param string $coatColor
      * @return Element
      */
     public function setCoatColor($coatColor)
     {
-        $this->coat_color = $coatColor;
+        $this->coatColor = $coatColor;
     
         return $this;
     }
 
     /**
-     * Get coat_color
+     * Get coatColor
      *
      * @return string 
      */
     public function getCoatColor()
     {
-        return $this->coat_color;
+        return $this->coatColor;
     }
 
     /**
-     * Add mothers
+     * Set father
      *
-     * @param IDCI\Bundle\GenealogyBundle\Entity\Genealogy $mothers
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $father
      * @return Element
      */
-    public function addMother(\IDCI\Bundle\GenealogyBundle\Entity\Genealogy $mothers)
+    public function setFather(\IDCI\Bundle\GenealogyBundle\Entity\Element $father = null)
     {
-        $this->mothers[] = $mothers;
+        $this->father = $father;
     
         return $this;
     }
 
     /**
-     * Remove mothers
+     * Get father
      *
-     * @param IDCI\Bundle\GenealogyBundle\Entity\Genealogy $mothers
+     * @return \IDCI\Bundle\GenealogyBundle\Entity\Element 
      */
-    public function removeMother(\IDCI\Bundle\GenealogyBundle\Entity\Genealogy $mothers)
+    public function getFather()
     {
-        $this->mothers->removeElement($mothers);
+        return $this->father;
     }
 
     /**
-     * Get mothers
+     * Set mother
      *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getMothers()
-    {
-        return $this->mothers;
-    }
-
-    /**
-     * Add fathers
-     *
-     * @param IDCI\Bundle\GenealogyBundle\Entity\Genealogy $fathers
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $mother
      * @return Element
      */
-    public function addFather(\IDCI\Bundle\GenealogyBundle\Entity\Genealogy $fathers)
+    public function setMother(\IDCI\Bundle\GenealogyBundle\Entity\Element $mother = null)
     {
-        $this->fathers[] = $fathers;
+        $this->mother = $mother;
     
         return $this;
     }
 
     /**
-     * Remove fathers
+     * Get mother
      *
-     * @param IDCI\Bundle\GenealogyBundle\Entity\Genealogy $fathers
+     * @return \IDCI\Bundle\GenealogyBundle\Entity\Element 
      */
-    public function removeFather(\IDCI\Bundle\GenealogyBundle\Entity\Genealogy $fathers)
+    public function getMother()
     {
-        $this->fathers->removeElement($fathers);
+        return $this->mother;
     }
 
     /**
-     * Get fathers
+     * Add motherChildren
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $motherChildren
+     * @return Element
      */
-    public function getFathers()
+    public function addMotherChildren(\IDCI\Bundle\GenealogyBundle\Entity\Element $motherChildren)
     {
-        return $this->fathers;
+        $this->motherChildren[] = $motherChildren;
+    
+        return $this;
+    }
+
+    /**
+     * Remove motherChildren
+     *
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $motherChildren
+     */
+    public function removeMotherChildren(\IDCI\Bundle\GenealogyBundle\Entity\Element $motherChildren)
+    {
+        $this->motherChildren->removeElement($motherChildren);
+    }
+
+    /**
+     * Get motherChildren
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMotherChildren()
+    {
+        return $this->motherChildren;
+    }
+
+    /**
+     * Add fatherChildren
+     *
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $fatherChildren
+     * @return Element
+     */
+    public function addFatherChildren(\IDCI\Bundle\GenealogyBundle\Entity\Element $fatherChildren)
+    {
+        $this->fatherChildren[] = $fatherChildren;
+    
+        return $this;
+    }
+
+    /**
+     * Remove fatherChildren
+     *
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $fatherChildren
+     */
+    public function removeFatherChildren(\IDCI\Bundle\GenealogyBundle\Entity\Element $fatherChildren)
+    {
+        $this->fatherChildren->removeElement($fatherChildren);
+    }
+
+    /**
+     * Get fatherChildren
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFatherChildren()
+    {
+        return $this->fatherChildren;
     }
 
     /**
      * Add roles
      *
-     * @param IDCI\Bundle\GenealogyBundle\Entity\Role $roles
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Role $roles
      * @return Element
      */
     public function addRole(\IDCI\Bundle\GenealogyBundle\Entity\Role $roles)
@@ -381,7 +426,7 @@ class Element
     /**
      * Remove roles
      *
-     * @param IDCI\Bundle\GenealogyBundle\Entity\Role $roles
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Role $roles
      */
     public function removeRole(\IDCI\Bundle\GenealogyBundle\Entity\Role $roles)
     {
@@ -391,167 +436,10 @@ class Element
     /**
      * Get roles
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getRoles()
     {
         return $this->roles;
     }
-
-    /**
-     * Add medias
-     *
-     * @param IDCI\Bundle\GenealogyBundle\Entity\Media $medias
-     * @return Element
-     */
-    public function addMedia(\IDCI\Bundle\GenealogyBundle\Entity\Media $medias)
-    {
-        $this->medias[] = $medias;
-    
-        return $this;
-    }
-
-    /**
-     * Remove medias
-     *
-     * @param IDCI\Bundle\GenealogyBundle\Entity\Media $medias
-     */
-    public function removeMedia(\IDCI\Bundle\GenealogyBundle\Entity\Media $medias)
-    {
-        $this->medias->removeElement($medias);
-    }
-
-    /**
-     * Get medias
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getMedias()
-    {
-        return $this->medias;
-    }
-
-    /**
-     * Set genealogy
-     *
-     * @param IDCI\Bundle\GenealogyBundle\Entity\Genealogy $genealogy
-     * @return Element
-     */
-    public function setGenealogy(\IDCI\Bundle\GenealogyBundle\Entity\Genealogy $genealogy = null)
-    {
-        $this->genealogy = $genealogy;
-    
-        return $this;
-    }
-
-    /**
-     * Get genealogy
-     *
-     * @return IDCI\Bundle\GenealogyBundle\Entity\Genealogy 
-     */
-    public function getGenealogy()
-    {
-        return $this->genealogy;
-    }
-
-    /**
-     * Get Mother (proxy)
-     *
-     * @return IDCI\Bundle\GenealogyBundle\Entity\Element 
-     */
-    public function getMother()
-    {
-        if($this->getGenealogy())
-            return $this->getGenealogy()->getMother();
-        
-        return null;
-    }
-    
-    /**
-     * Has Mother
-     *
-     * @return boolean
-     */
-    public function hasMother()
-    {
-        return $this->getMother() != null;
-    }  
-
-    /**
-     * Get Father (proxy)
-     *
-     * @return IDCI\Bundle\GenealogyBundle\Entity\Element 
-     */
-    public function getFather()
-    {
-        if($this->getGenealogy())
-            return $this->getGenealogy()->getFather();
-        
-        return null;
-    }
-        
-    /**
-     * Has Father
-     *
-     * @return boolean
-     */
-    public function hasFather()
-    {
-        return $this->getFather() != null;
-    }
-    
-    /**
-     * Has Media
-     *
-     * @return boolean
-     */
-    public function hasMedia()
-    {
-        return $this->getMedias() != null;
-    }
-    
-    /**
-     * Get Children
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getChildren()
-    {      
-        if($this->getSex() == 1) {
-            $parents = $this->getMothers();
-        }
-        else {
-            $parents = $this->getFathers();
-        }
-        
-        $children = array();
-        foreach($parents as $parent) {
-            $children[] = $parent->getChild();
-        }
-        
-        return $children;
-    }
-        
-    /**
-     * Has Children
-     *
-     * @return boolean
-     */
-    public function hasChildren()
-    {
-        return $this->getChildren() != null;
-    }
-    
-    /**
-     * Get Child
-     *
-     * @return Element
-     */
-    public function getChild($i)
-    {
-        $children = $this->getChildren();
-        $child = $children[$i];
-        return $child;
-    }
-
 }

@@ -1,34 +1,15 @@
-{% extends "IDCIGenealogyBundle::adminbase.html.twig" %}
+{% extends '::base.html.twig' %}
 
-{% block nav %}
-  {% include "IDCIGenealogyBundle::entity_nav.html.twig" with {'entities' : {
-    'Element':      { 'basepath': 'element', 'active': true },
-    'Genealogy':    { 'basepath': 'genealogy' },
-    'Media':        { 'basepath': 'media' },
-    'Role':         { 'basepath': 'role' }
-  }} %}
-{% endblock %}
+{% block body -%}
+    <h1>Element creation</h1>
 
-{% block body %}
+    {{ form(form) }}
 
-{{ parent() }}
-
-<div class="page-header">
-  <h1>{% trans %}Element creation{% endtrans %}</h1>
-</div>
-
-<form action="{{ path('element_create') }}" method="post" {{ form_enctype(form) }}>
-    {{ form_widget(form) }}
-    <p>
-        <button type="submit" class="btn btn-primary">{% trans %}Create{% endtrans %}</button>
-    </p>
-</form>
-
-<ul class="record_actions">
+        <ul class="record_actions">
     <li>
-        <a class="btn" href="{{ path('element') }}">
-            {% trans %}Back to the list{% endtrans %}
+        <a href="{{ path('element') }}">
+            Back to the list
         </a>
     </li>
 </ul>
-{% endblock body %}
+{% endblock %}

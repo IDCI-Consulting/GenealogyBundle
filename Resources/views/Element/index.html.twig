@@ -1,63 +1,53 @@
-{% extends "IDCIGenealogyBundle::adminbase.html.twig" %}
+{% extends '::base.html.twig' %}
 
-{% block nav %}
-  {% include "IDCIGenealogyBundle::entity_nav.html.twig" with {'entities' : {
-    'Element':      { 'basepath': 'element', 'active': true },
-    'Genealogy':    { 'basepath': 'genealogy' },
-    'Media':        { 'basepath': 'media' },
-    'Role':         { 'basepath': 'role' }
-  }} %}
-{% endblock %}
+{% block body -%}
+    <h1>Element list</h1>
 
-{% block body %}
+    <table class="records_list">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Birthdate</th>
+                <th>Size</th>
+                <th>Weight</th>
+                <th>Sex</th>
+                <th>Rank</th>
+                <th>Coatcolor</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for entity in entities %}
+            <tr>
+                <td><a href="{{ path('element_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td>{{ entity.name }}</td>
+                <td>{% if entity.birthDate %}{{ entity.birthDate|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ entity.size }}</td>
+                <td>{{ entity.weight }}</td>
+                <td>{{ entity.sex }}</td>
+                <td>{{ entity.rank }}</td>
+                <td>{{ entity.coatColor }}</td>
+                <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('element_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('element_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 
-{{ parent() }}
-
-<div class="page-header">
-  <h1>{% trans %}List{% endtrans %}</h1>
-</div>
-
-<table class="table table-bordered table-striped table-condensed records_list">
-    <thead>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Birth_date</th>
-            <th>Size</th>
-            <th>Weight</th>
-            <th>Sex</th>
-            <th>Rank</th>
-            <th>Coat_color</th>
-            <th colspan="3">{% trans %}Actions{% endtrans %}</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% for entity in entities %}
-        <tr>
-            <td><a href="{{ path('element_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
-            <td>{{ entity.name }}</td>
-            <td>{% if entity.birthdate %}{{ entity.birthdate|date('Y-m-d H:i:s') }}{% endif %}</td>
-            <td>{{ entity.size }}</td>
-            <td>{{ entity.weight }}</td>
-            <td>{{ entity.sex }}</td>
-            <td>{{ entity.rank }}</td>
-            <td>{{ entity.coatcolor }}</td>    <td>
-                    <a class="btn btn-block" href="{{ path('element_show', { 'id': entity.id }) }}">{% trans %}show{% endtrans %}</a>
-            </td>    <td>
-                    <a class="btn btn-block btn-primary" href="{{ path('element_edit', { 'id': entity.id }) }}">{% trans %}edit{% endtrans %}</a>
-            </td>    <td>
-                    {% render 'IDCIGenealogyBundle:Element:deleteForm' with { 'id': entity.id } %}
-            </td>
-        </tr>
-    {% endfor %}
-    </tbody>
-</table>
-
-<ul class="list_actions">
-    <li>
-        <a class="btn btn-primary" href="{{ path('element_new') }}">
-            {% trans %}Create a new entry{% endtrans %}
-        </a>
-    </li>
-</ul>
-{% endblock body %}
+        <ul>
+        <li>
+            <a href="{{ path('element_new') }}">
+                Create a new entry
+            </a>
+        </li>
+    </ul>
+    {% endblock %}

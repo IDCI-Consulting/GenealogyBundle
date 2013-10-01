@@ -1,40 +1,16 @@
-{% extends "IDCIGenealogyBundle::adminbase.html.twig" %}
+{% extends '::base.html.twig' %}
 
-{% block nav %}
-  {% include "IDCIGenealogyBundle::entity_nav.html.twig" with {'entities' : {
-    'Element':      { 'basepath': 'element', 'active': true },
-    'Genealogy':    { 'basepath': 'genealogy' },
-    'Media':        { 'basepath': 'media' },
-    'Role':         { 'basepath': 'role' }
-  }} %}
-{% endblock %}
+{% block body -%}
+    <h1>Element edit</h1>
 
-{% block body %}
+    {{ form(edit_form) }}
 
-{{ parent() }}
-
-<div class="page-header">
-  <h1>{% trans %}Edit{% endtrans %}</h1>
-</div>
-
-<form action="{{ path('element_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
-    {{ form_widget(edit_form) }}
-    <p>
-        <button type="submit" class="btn btn-primary">{% trans %}Edit{% endtrans %}</button>
-    </p>
-</form>
-
-<ul class="record_actions">
+        <ul class="record_actions">
     <li>
-        <a class="btn" href="{{ path('element') }}">
-            {% trans %}Back to the list{% endtrans %}
+        <a href="{{ path('element') }}">
+            Back to the list
         </a>
     </li>
-    <li>
-        <form action="{{ path('element_delete', { 'id': entity.id }) }}" method="post">
-            {{ form_widget(delete_form) }}
-            <button type="submit" class="btn btn-danger">{% trans %}Delete{% endtrans %}</button>
-        </form>
-    </li>
+    <li>{{ form(delete_form) }}</li>
 </ul>
-{% endblock body %}
+{% endblock %}

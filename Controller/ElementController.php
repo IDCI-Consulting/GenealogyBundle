@@ -1,13 +1,5 @@
 <?php
 
-/**
- *
- * @author:  Baptiste BOUCHEREAU <baptiste.bouchereau@idci-consulting.fr>
- * @author:  Gabriel BONDAZ <gabriel.bondaz@idci-consulting.fr>
- * @license: GPL
- *
- */
-
 namespace IDCI\Bundle\GenealogyBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -25,10 +17,12 @@ use IDCI\Bundle\GenealogyBundle\Form\ElementType;
  */
 class ElementController extends Controller
 {
+
     /**
      * Lists all Element entities.
      *
      * @Route("/", name="element")
+     * @Method("GET")
      * @Template()
      */
     public function indexAction()
@@ -41,11 +35,75 @@ class ElementController extends Controller
             'entities' => $entities,
         );
     }
+    /**
+     * Creates a new Element entity.
+     *
+     * @Route("/", name="element_create")
+     * @Method("POST")
+     * @Template("IDCIGenealogyBundle:Element:new.html.twig")
+     */
+    public function createAction(Request $request)
+    {
+        $entity = new Element();
+        $form = $this->createCreateForm($entity);
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($entity);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('element_show', array('id' => $entity->getId())));
+        }
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        );
+    }
+
+    /**
+    * Creates a form to create a Element entity.
+    *
+    * @param Element $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createCreateForm(Element $entity)
+    {
+        $form = $this->createForm(new ElementType(), $entity, array(
+            'action' => $this->generateUrl('element_create'),
+            'method' => 'POST',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Create'));
+
+        return $form;
+    }
+
+    /**
+     * Displays a form to create a new Element entity.
+     *
+     * @Route("/new", name="element_new")
+     * @Method("GET")
+     * @Template()
+     */
+    public function newAction()
+    {
+        $entity = new Element();
+        $form   = $this->createCreateForm($entity);
+
+        return array(
+            'entity' => $entity,
+            'form'   => $form->createView(),
+        );
+    }
 
     /**
      * Finds and displays a Element entity.
      *
-     * @Route("/{id}/show", name="element_show")
+     * @Route("/{id}", name="element_show")
+     * @Method("GET")
      * @Template()
      */
     public function showAction($id)
@@ -67,61 +125,10 @@ class ElementController extends Controller
     }
 
     /**
-     * Displays a form to create a new Element entity.
-     *
-     * @Route("/new", name="element_new")
-     * @Template()
-     */
-    public function newAction()
-    {
-        $entity = new Element();
-        $form   = $this->createForm(new ElementType(), $entity);
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
-
-    /**
-     * Creates a new Element entity.
-     *
-     * @Route("/create", name="element_create")
-     * @Method("POST")
-     * @Template("IDCIGenealogyBundle:Element:new.html.twig")
-     */
-    public function createAction(Request $request)
-    {
-        $entity  = new Element();
-        $form = $this->createForm(new ElementType(), $entity);
-        $form->bind($request);
-
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($entity);
-            $em->flush();
-
-            $this->get('session')->getFlashBag()->add(
-                'info',
-                $this->get('translator')->trans('%entity%[%id%] has been created', array(
-                    '%entity%' => 'Element',
-                    '%id%'     => $entity->getId()
-                ))
-            );
-
-            return $this->redirect($this->generateUrl('element_show', array('id' => $entity->getId())));
-        }
-
-        return array(
-            'entity' => $entity,
-            'form'   => $form->createView(),
-        );
-    }
-
-    /**
      * Displays a form to edit an existing Element entity.
      *
      * @Route("/{id}/edit", name="element_edit")
+     * @Method("GET")
      * @Template()
      */
     public function editAction($id)
@@ -134,7 +141,7 @@ class ElementController extends Controller
             throw $this->createNotFoundException('Unable to find Element entity.');
         }
 
-        $editForm = $this->createForm(new ElementType(), $entity);
+        $editForm = $this->createEditForm($entity);
         $deleteForm = $this->createDeleteForm($id);
 
         return array(
@@ -145,10 +152,28 @@ class ElementController extends Controller
     }
 
     /**
+    * Creates a form to edit a Element entity.
+    *
+    * @param Element $entity The entity
+    *
+    * @return \Symfony\Component\Form\Form The form
+    */
+    private function createEditForm(Element $entity)
+    {
+        $form = $this->createForm(new ElementType(), $entity, array(
+            'action' => $this->generateUrl('element_update', array('id' => $entity->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('submit', 'submit', array('label' => 'Update'));
+
+        return $form;
+    }
+    /**
      * Edits an existing Element entity.
      *
-     * @Route("/{id}/update", name="element_update")
-     * @Method("POST")
+     * @Route("/{id}", name="element_update")
+     * @Method("PUT")
      * @Template("IDCIGenealogyBundle:Element:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
@@ -162,23 +187,13 @@ class ElementController extends Controller
         }
 
         $deleteForm = $this->createDeleteForm($id);
-        $editForm = $this->createForm(new ElementType(), $entity);
-        $editForm->bind($request);
+        $editForm = $this->createEditForm($entity);
+        $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
-            $em->persist($entity);
             $em->flush();
 
-        $this->get('session')->getFlashBag()->add(
-            'info',
-            $this->get('translator')->trans('%entity%[%id%] has been updated', array(
-                '%entity%' => 'Element',
-                '%id%'     => $entity->getId()
-            ))
-        );
-
-        return $this->redirect($this->generateUrl('element_edit', array('id' => $id)));
-        
+            return $this->redirect($this->generateUrl('element_edit', array('id' => $id)));
         }
 
         return array(
@@ -187,17 +202,16 @@ class ElementController extends Controller
             'delete_form' => $deleteForm->createView(),
         );
     }
-
     /**
      * Deletes a Element entity.
      *
-     * @Route("/{id}/delete", name="element_delete")
-     * @Method("POST")
+     * @Route("/{id}", name="element_delete")
+     * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
     {
         $form = $this->createDeleteForm($id);
-        $form->bind($request);
+        $form->handleRequest($request);
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -209,46 +223,24 @@ class ElementController extends Controller
 
             $em->remove($entity);
             $em->flush();
-            
-            $this->get('session')->getFlashBag()->add(
-                'info',
-                $this->get('translator')->trans('%entity%[%id%] has been deleted', array(
-                    '%entity%' => 'Element',
-                    '%id%'     => $id
-                ))
-            );
         }
 
         return $this->redirect($this->generateUrl('element'));
     }
-    
+
     /**
-     * Display Element deleteForm.
+     * Creates a form to delete a Element entity by id.
      *
-     * @Template()
+     * @param mixed $id The entity id
+     *
+     * @return \Symfony\Component\Form\Form The form
      */
-    public function deleteFormAction($id)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $entity = $em->getRepository('IDCIGenealogyBundle:Element')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Element entity.');
-        }
-
-        $deleteForm = $this->createDeleteForm($id);
-
-        return array(
-            'entity'      => $entity,
-            'delete_form' => $deleteForm->createView(),
-        );
-    }
-
     private function createDeleteForm($id)
     {
-        return $this->createFormBuilder(array('id' => $id))
-            ->add('id', 'hidden')
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('element_delete', array('id' => $id)))
+            ->setMethod('DELETE')
+            ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
     }

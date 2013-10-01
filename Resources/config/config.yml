@@ -7,3 +7,8 @@ idci_exporter:
     entities:
        elements:
             class: "IDCI\\Bundle\\GenealogyBundle\\Entity\\Element"
+            formats:
+                jsonp:
+                    transformer:
+                        options:
+                            template_name_format: "export.json.twig"

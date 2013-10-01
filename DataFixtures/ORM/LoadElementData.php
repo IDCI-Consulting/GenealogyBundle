@@ -10,38 +10,27 @@
 
 namespace IDCI\Bundle\GenealogyBundle\DataFixtures\ORM;
 
-use Doctrine\Common\DataFixtures\FixtureInterface;
+use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use IDCI\Bundle\GenealogyBundle\Entity\Element;
-use IDCI\Bundle\GenealogyBundle\Entity\Role;
-use IDCI\Bundle\GenealogyBundle\Entity\Genealogy;
 
-class LoadElementData implements FixtureInterface
+class LoadElementData extends AbstractFixture implements OrderedFixtureInterface
 {
+    /**
+     * {@inheritDoc}
+     */
     public function load(ObjectManager $manager)
     {
-        /*Roles*/
-
-        $reproducer = new Role();
-        $reproducer->setName('reproducer');
-        $manager->persist($reproducer);
-
-        $racehorse = new Role();
-        $racehorse->setName('racehorse');
-        $manager->persist($racehorse);
-
-
-        /*Elements*/
-
         $maria = new Element();
         $maria->setName('Maria');
         $maria->setBirthDate(new \DateTime('1989-12-23'));
         $maria->setSize('200.2');
         $maria->setWeight('250.2');
-        $maria->setSex('1');
+        $maria->setSex('Female');
         $maria->setRank('0');
         $maria->setCoatColor('black');
-        $maria->addRole($reproducer);
+        $maria->addRole($this->getReference('reproducer'));
         $manager->persist($maria);
 
         $enzo = new Element();
@@ -49,11 +38,11 @@ class LoadElementData implements FixtureInterface
         $enzo->setBirthDate(new \DateTime('1990-12-15'));
         $enzo->setSize('220.2');
         $enzo->setWeight('230.5');
-        $enzo->setSex('0');
+        $enzo->setSex('Male');
         $enzo->setRank('26');
         $enzo->setCoatColor('grey');
-        $enzo->addRole($reproducer);
-        $enzo->addRole($racehorse);
+        $enzo->addRole($this->getReference('reproducer'));
+        $enzo->addRole($this->getReference('racehorse'));
         $manager->persist($enzo);
 
         $suzanne = new Element();
@@ -61,10 +50,12 @@ class LoadElementData implements FixtureInterface
         $suzanne->setBirthDate(new \DateTime('1991-10-23'));
         $suzanne->setSize('240.2');
         $suzanne->setWeight('180.5');
-        $suzanne->setSex('1');
+        $suzanne->setSex('Female');
         $suzanne->setRank('0');
         $suzanne->setCoatColor('white');
-        $suzanne->addRole($reproducer);
+        $suzanne->addRole($this->getReference('reproducer'));
+        $suzanne->setMother($maria);
+        $suzanne->setFather($enzo);
         $manager->persist($suzanne);
 
         $uno = new Element();
@@ -72,11 +63,11 @@ class LoadElementData implements FixtureInterface
         $uno->setBirthDate(new \DateTime('1993-12-24'));
         $uno->setSize('220.2');
         $uno->setWeight('190.5');
-        $uno->setSex('0');
+        $uno->setSex('Male');
         $uno->setRank('6');
         $uno->setCoatColor('grey');
-        $uno->addRole($reproducer);
-        $uno->addRole($racehorse);
+        $uno->addRole($this->getReference('reproducer'));
+        $uno->addRole($this->getReference('racehorse'));
         $manager->persist($uno);
 
         $mireille = new Element();
@@ -84,11 +75,13 @@ class LoadElementData implements FixtureInterface
         $mireille->setBirthDate(new \DateTime('2000-01-14'));
         $mireille->setSize('195.2');
         $mireille->setWeight('230.5');
-        $mireille->setSex('1');
+        $mireille->setSex('Female');
         $mireille->setRank('256');
         $mireille->setCoatColor('grey');
-        $mireille->addRole($reproducer);
-        $mireille->addRole($racehorse);
+        $mireille->addRole($this->getReference('reproducer'));
+        $mireille->addRole($this->getReference('racehorse'));
+        $mireille->setMother($suzanne);
+        $mireille->setFather($uno);
         $manager->persist($mireille);
         
         $hector = new Element();
@@ -96,11 +89,12 @@ class LoadElementData implements FixtureInterface
         $hector->setBirthDate(new \DateTime('2001-01-14'));
         $hector->setSize('198.2');
         $hector->setWeight('240.5');
-        $hector->setSex('0');
+        $hector->setSex('Male');
         $hector->setRank('46');
         $hector->setCoatColor('brown');
-        $hector->addRole($reproducer);
-        $hector->addRole($racehorse);
+        $hector->addRole($this->getReference('reproducer'));
+        $hector->addRole($this->getReference('racehorse'));
+        $hector->setFather($uno);
         $manager->persist($hector);
         
         $emily = new Element();
@@ -108,10 +102,10 @@ class LoadElementData implements FixtureInterface
         $emily->setBirthDate(new \DateTime('2002-08-14'));
         $emily->setSize('175.2');
         $emily->setWeight('170.5');
-        $emily->setSex('1');
+        $emily->setSex('Female');
         $emily->setRank('0');
         $emily->setCoatColor('black');
-        $emily->addRole($reproducer);
+        $emily->addRole($this->getReference('reproducer'));
         $manager->persist($emily);        
         
         $mario = new Element();
@@ -119,11 +113,11 @@ class LoadElementData implements FixtureInterface
         $mario->setBirthDate(new \DateTime('2003-08-14'));
         $mario->setSize('195.2');
         $mario->setWeight('230.5');
-        $mario->setSex('0');
+        $mario->setSex('Male');
         $mario->setRank('2536');
         $mario->setCoatColor('grey');
-        $mario->addRole($reproducer);
-        $mario->addRole($racehorse);
+        $mario->addRole($this->getReference('reproducer'));
+        $mario->addRole($this->getReference('racehorse'));
         $manager->persist($mario);
 
         $marc = new Element();
@@ -131,10 +125,10 @@ class LoadElementData implements FixtureInterface
         $marc->setBirthDate(new \DateTime('2008-05-30'));
         $marc->setSize('195.2');
         $marc->setWeight('230.5');
-        $marc->setSex('0');
+        $marc->setSex('Male');
         $marc->setRank('0');
         $marc->setCoatColor('white');
-        $marc->addRole($reproducer);
+        $marc->addRole($this->getReference('reproducer'));
         $manager->persist($marc);
 
         $eric = new Element();
@@ -142,52 +136,21 @@ class LoadElementData implements FixtureInterface
         $eric->setBirthDate(new \DateTime('2005-08-14'));
         $eric->setSize('205.2');
         $eric->setWeight('195.5');
-        $eric->setSex('0');
+        $eric->setSex('Male');
         $eric->setRank('202');
         $eric->setCoatColor('black');
-        $eric->addRole($reproducer);
-        $eric->addRole($racehorse);
+        $eric->addRole($this->getReference('reproducer'));
+        $eric->addRole($this->getReference('racehorse'));
         $manager->persist($eric);
         
-        /*Genealogies*/
-        
-        $genealogy1 = new Genealogy();
-        $genealogy1->setMother($maria);
-        $genealogy1->setFather($enzo);
-        $genealogy1->setChild($mireille);
-        $manager->persist($genealogy1);
-        
-        $genealogy2 = new Genealogy();
-        $genealogy2->setMother($suzanne);
-        $genealogy2->setFather($uno);
-        $genealogy2->setChild($hector);
-        $manager->persist($genealogy2);
-        
-        $genealogy3 = new Genealogy();
-        $genealogy3->setFather($uno);
-        $genealogy3->setMother($maria);
-        $genealogy3->setChild($emily);
-        $manager->persist($genealogy3);
-        
-        $genealogy4 = new Genealogy();
-        $genealogy4->setMother($mireille);
-        $genealogy4->setFather($hector);
-        $genealogy4->setChild($mario);
-        $manager->persist($genealogy4);
-        
-        $genealogy5 = new Genealogy();
-        $genealogy5->setMother($mireille);
-        $genealogy5->setFather($hector);
-        $genealogy5->setChild($eric);
-        $manager->persist($genealogy5);
-        
-        $genealogy6 = new Genealogy();
-        $genealogy6->setMother($emily);
-        $genealogy6->setFather($mario);
-        $genealogy6->setChild($marc);
-        $manager->persist($genealogy6);
-        
         $manager->flush();
+    }
 
+    /**
+     * {@inheritDoc}
+     */
+    public function getOrder()
+    {
+        return 2; // the order in which fixtures will be loaded
     }
 }

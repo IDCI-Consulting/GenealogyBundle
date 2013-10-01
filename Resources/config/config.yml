@@ -1,0 +1,9 @@
+parameters:
+    genders:
+        m: Male
+        f: Female
+
+idci_exporter:
+    entities:
+       elements:
+            class: "IDCI\\Bundle\\GenealogyBundle\\Entity\\Element"

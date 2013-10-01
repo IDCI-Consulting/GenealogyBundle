@@ -57,6 +57,18 @@ idci_genealogy:
     resource: "@IDCIGenealogyBundle/Controller/"
     type:     annotation
 ```
+
+Now import the bundle configuration in your app/config.yml
+
+```yml
+imports:
+    ...
+    - { resource: @IDCIGenealogyBundle/Resources/config/config.yml }
+```
+
+Bundles are installed.
+
+
 Then, if you do not have it yet, you have to configure the database.
 
 Edit your parameters.yml file. Here is an exemple which might help you:

@@ -27,7 +27,7 @@ class LoadElementData extends AbstractFixture implements OrderedFixtureInterface
         $maria->setBirthDate(new \DateTime('1989-12-23'));
         $maria->setSize('200.2');
         $maria->setWeight('250.2');
-        $maria->setSex('Female');
+        $maria->setSex('f');
         $maria->setRank('0');
         $maria->setCoatColor('black');
         $maria->addRole($this->getReference('reproducer'));
@@ -38,7 +38,7 @@ class LoadElementData extends AbstractFixture implements OrderedFixtureInterface
         $enzo->setBirthDate(new \DateTime('1990-12-15'));
         $enzo->setSize('220.2');
         $enzo->setWeight('230.5');
-        $enzo->setSex('Male');
+        $enzo->setSex('m');
         $enzo->setRank('26');
         $enzo->setCoatColor('grey');
         $enzo->addRole($this->getReference('reproducer'));
@@ -50,7 +50,7 @@ class LoadElementData extends AbstractFixture implements OrderedFixtureInterface
         $suzanne->setBirthDate(new \DateTime('1991-10-23'));
         $suzanne->setSize('240.2');
         $suzanne->setWeight('180.5');
-        $suzanne->setSex('Female');
+        $suzanne->setSex('f');
         $suzanne->setRank('0');
         $suzanne->setCoatColor('white');
         $suzanne->addRole($this->getReference('reproducer'));
@@ -63,7 +63,7 @@ class LoadElementData extends AbstractFixture implements OrderedFixtureInterface
         $uno->setBirthDate(new \DateTime('1993-12-24'));
         $uno->setSize('220.2');
         $uno->setWeight('190.5');
-        $uno->setSex('Male');
+        $uno->setSex('m');
         $uno->setRank('6');
         $uno->setCoatColor('grey');
         $uno->addRole($this->getReference('reproducer'));
@@ -75,7 +75,7 @@ class LoadElementData extends AbstractFixture implements OrderedFixtureInterface
         $mireille->setBirthDate(new \DateTime('2000-01-14'));
         $mireille->setSize('195.2');
         $mireille->setWeight('230.5');
-        $mireille->setSex('Female');
+        $mireille->setSex('f');
         $mireille->setRank('256');
         $mireille->setCoatColor('grey');
         $mireille->addRole($this->getReference('reproducer'));
@@ -89,7 +89,7 @@ class LoadElementData extends AbstractFixture implements OrderedFixtureInterface
         $hector->setBirthDate(new \DateTime('2001-01-14'));
         $hector->setSize('198.2');
         $hector->setWeight('240.5');
-        $hector->setSex('Male');
+        $hector->setSex('m');
         $hector->setRank('46');
         $hector->setCoatColor('brown');
         $hector->addRole($this->getReference('reproducer'));
@@ -102,7 +102,7 @@ class LoadElementData extends AbstractFixture implements OrderedFixtureInterface
         $emily->setBirthDate(new \DateTime('2002-08-14'));
         $emily->setSize('175.2');
         $emily->setWeight('170.5');
-        $emily->setSex('Female');
+        $emily->setSex('f');
         $emily->setRank('0');
         $emily->setCoatColor('black');
         $emily->addRole($this->getReference('reproducer'));
@@ -113,7 +113,7 @@ class LoadElementData extends AbstractFixture implements OrderedFixtureInterface
         $mario->setBirthDate(new \DateTime('2003-08-14'));
         $mario->setSize('195.2');
         $mario->setWeight('230.5');
-        $mario->setSex('Male');
+        $mario->setSex('m');
         $mario->setRank('2536');
         $mario->setCoatColor('grey');
         $mario->addRole($this->getReference('reproducer'));
@@ -125,7 +125,7 @@ class LoadElementData extends AbstractFixture implements OrderedFixtureInterface
         $marc->setBirthDate(new \DateTime('2008-05-30'));
         $marc->setSize('195.2');
         $marc->setWeight('230.5');
-        $marc->setSex('Male');
+        $marc->setSex('m');
         $marc->setRank('0');
         $marc->setCoatColor('white');
         $marc->addRole($this->getReference('reproducer'));
@@ -136,7 +136,7 @@ class LoadElementData extends AbstractFixture implements OrderedFixtureInterface
         $eric->setBirthDate(new \DateTime('2005-08-14'));
         $eric->setSize('205.2');
         $eric->setWeight('195.5');
-        $eric->setSex('Male');
+        $eric->setSex('m');
         $eric->setRank('202');
         $eric->setCoatColor('black');
         $eric->addRole($this->getReference('reproducer'));

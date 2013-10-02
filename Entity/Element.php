@@ -106,7 +106,7 @@ class Element
     protected $coatColor;
 
     /**
-     * Genealogy to string
+     * Element to string
      *
      * @return string
      */
@@ -117,6 +117,7 @@ class Element
             $this->getName()
         );
     }
+
     /**
      * Constructor
      */
@@ -125,6 +126,40 @@ class Element
         $this->motherChildren = new \Doctrine\Common\Collections\ArrayCollection();
         $this->fatherChildren = new \Doctrine\Common\Collections\ArrayCollection();
         $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */    
+    public function getChildren()
+    {
+        if ($this->sex == 'f') {
+            return $this->getMotherChildren();
+        } else {
+            return $this->getFatherChildren();
+        }
+    }
+
+    /**
+     * Has mother
+     * 
+     * @return boolean
+     */
+    public function hasMother()
+    {
+        return ($this->getMother() != NULL) ? true : false;
+    }
+
+    /**
+     * Has father
+     * 
+     * @return boolean
+     */
+    public function hasFather()
+    {
+        return ($this->getFather() != NULL) ? true : false;
     }
     
     /**
@@ -343,7 +378,7 @@ class Element
     {
         return $this->mother;
     }
-
+    
     /**
      * Add motherChildren
      *

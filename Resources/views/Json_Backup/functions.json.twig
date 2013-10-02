@@ -1,0 +1,15 @@
+{% if roles|length > 1 %}
+    "functions":
+    [
+{% endif %}
+{% for role in roles %}
+    {% if loop.last and roles|length > 1 %}
+        "function":{ {{ role.name }} }
+    {% else %}
+        "function":{ {{ role.name }} },
+    {% endif %}
+{% endfor %}
+
+{% if roles|length > 1 %}
+    ]
+{% endif %}

@@ -4,3 +4,9 @@ services:
         arguments: ["%genders%"]
         tags:
             - { name: form.type, alias: gender }
+
+    form.type.element:
+        class: IDCI\Bundle\GenealogyBundle\Form\Type\ElementType
+        arguments: [%elementClass%]
+        tags:
+            - { name: form.type, alias: idci_bundle_genealogybundle_element }

@@ -14,32 +14,20 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * IDCI\Bundle\GenealogyBundle\Entity\Element
- *
- * @ORM\Entity(repositoryClass="IDCI\Bundle\GenealogyBundle\Repository\ElementRepository")
- * @ORM\Table(name="element")
  */
-class Element
-{
-    /**
-     * @var integer $id
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
-    
+abstract class Element
+{   
     /**
      * @ORM\ManyToOne(targetEntity="Element", inversedBy="fatherChildren")
      * @ORM\JoinColumn(name="father_id", referencedColumnName="id", onDelete="SET NULL")
      */
-    private $father;
+    protected $father;
 
     /**
      * @ORM\ManyToOne(targetEntity="Element", inversedBy="motherChildren")
      * @ORM\JoinColumn(name="mother_id", referencedColumnName="id", onDelete="SET NULL")
      */
-    private $mother;
+    protected $mother;
     
     /**
      * @ORM\OneToMany(targetEntity="Element", mappedBy="mother")
@@ -50,11 +38,6 @@ class Element
      * @ORM\OneToMany(targetEntity="Element", mappedBy="father")
      */
     protected $fatherChildren;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Role")
-     */
-    protected $roles;
     
     /**
      * @var string $name
@@ -71,39 +54,11 @@ class Element
     protected $birthDate;
 
     /**
-     * @var integer $size
-     *
-     * @ORM\Column(name="size", type="integer")
-     */
-    protected $size;
-
-    /**
-     * @var integer $weight
-     *
-     * @ORM\Column(name="weight", type="integer", nullable=true)
-     */
-    protected $weight;
-
-    /**
      * @var string $sex
      *
      * @ORM\Column(name="sex", type="string", length=1)
      */
     protected $sex;
-
-    /**
-     * @var integer $rank
-     *
-     * @ORM\Column(name="rank", type="integer")
-     */
-    protected $rank;
-
-    /**
-     * @var string $coat_color
-     *
-     * @ORM\Column(name="coat_color", type="string", length=255)
-     */
-    protected $coatColor;
 
     /**
      * Element to string
@@ -125,7 +80,6 @@ class Element
     {
         $this->motherChildren = new \Doctrine\Common\Collections\ArrayCollection();
         $this->fatherChildren = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -160,16 +114,6 @@ class Element
     public function hasFather()
     {
         return ($this->getFather() != NULL) ? true : false;
-    }
-    
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -219,52 +163,6 @@ class Element
     }
 
     /**
-     * Set size
-     *
-     * @param integer $size
-     * @return Element
-     */
-    public function setSize($size)
-    {
-        $this->size = $size;
-    
-        return $this;
-    }
-
-    /**
-     * Get size
-     *
-     * @return integer 
-     */
-    public function getSize()
-    {
-        return $this->size;
-    }
-
-    /**
-     * Set weight
-     *
-     * @param integer $weight
-     * @return Element
-     */
-    public function setWeight($weight)
-    {
-        $this->weight = $weight;
-    
-        return $this;
-    }
-
-    /**
-     * Get weight
-     *
-     * @return integer 
-     */
-    public function getWeight()
-    {
-        return $this->weight;
-    }
-
-    /**
      * Set sex
      *
      * @param string $sex
@@ -285,53 +183,7 @@ class Element
     public function getSex()
     {
         return $this->sex;
-    }
-
-    /**
-     * Set rank
-     *
-     * @param integer $rank
-     * @return Element
-     */
-    public function setRank($rank)
-    {
-        $this->rank = $rank;
-    
-        return $this;
-    }
-
-    /**
-     * Get rank
-     *
-     * @return integer 
-     */
-    public function getRank()
-    {
-        return $this->rank;
-    }
-
-    /**
-     * Set coatColor
-     *
-     * @param string $coatColor
-     * @return Element
-     */
-    public function setCoatColor($coatColor)
-    {
-        $this->coatColor = $coatColor;
-    
-        return $this;
-    }
-
-    /**
-     * Get coatColor
-     *
-     * @return string 
-     */
-    public function getCoatColor()
-    {
-        return $this->coatColor;
-    }
+    }  
 
     /**
      * Set father
@@ -443,38 +295,5 @@ class Element
     public function getFatherChildren()
     {
         return $this->fatherChildren;
-    }
-
-    /**
-     * Add roles
-     *
-     * @param \IDCI\Bundle\GenealogyBundle\Entity\Role $roles
-     * @return Element
-     */
-    public function addRole(\IDCI\Bundle\GenealogyBundle\Entity\Role $roles)
-    {
-        $this->roles[] = $roles;
-    
-        return $this;
-    }
-
-    /**
-     * Remove roles
-     *
-     * @param \IDCI\Bundle\GenealogyBundle\Entity\Role $roles
-     */
-    public function removeRole(\IDCI\Bundle\GenealogyBundle\Entity\Role $roles)
-    {
-        $this->roles->removeElement($roles);
-    }
-
-    /**
-     * Get roles
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getRoles()
-    {
-        return $this->roles;
     }
 }

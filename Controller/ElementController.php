@@ -7,8 +7,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use IDCI\Bundle\GenealogyBundle\Entity\Element;
-use IDCI\Bundle\GenealogyBundle\Form\ElementType;
 
 /**
  * Element controller.
@@ -17,7 +15,6 @@ use IDCI\Bundle\GenealogyBundle\Form\ElementType;
  */
 class ElementController extends Controller
 {
-
     /**
      * Lists all Element entities.
      *
@@ -28,13 +25,13 @@ class ElementController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-
-        $entities = $em->getRepository('IDCIGenealogyBundle:Element')->findAll();
+        $entities = $em->getRepository($this->getElementClass())->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
+
     /**
      * Creates a new Element entity.
      *
@@ -44,7 +41,8 @@ class ElementController extends Controller
      */
     public function createAction(Request $request)
     {
-        $entity = new Element();
+        $elementClass = $this->getElementClass();
+        $entity = new $elementClass();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -69,12 +67,16 @@ class ElementController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Element $entity)
+    private function createCreateForm($entity)
     {
-        $form = $this->createForm(new ElementType(), $entity, array(
-            'action' => $this->generateUrl('element_create'),
-            'method' => 'POST',
-        ));
+        $form = $this->createForm(
+            $this->getElementFormType(),
+            $entity,
+            array(
+                'action' => $this->generateUrl('element_create'),
+                'method' => 'POST',
+            )
+        );
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -90,7 +92,8 @@ class ElementController extends Controller
      */
     public function newAction()
     {
-        $entity = new Element();
+        $elementClass = $this->getElementClass();
+        $entity = new $elementClass();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -110,7 +113,7 @@ class ElementController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('IDCIGenealogyBundle:Element')->find($id);
+        $entity = $em->getRepository($this->getElementClass())->findOneById($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Element entity.');
@@ -135,7 +138,7 @@ class ElementController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('IDCIGenealogyBundle:Element')->find($id);
+        $entity = $em->getRepository($this->getElementClass())->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Element entity.');
@@ -158,9 +161,9 @@ class ElementController extends Controller
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Element $entity)
+    private function createEditForm($entity)
     {
-        $form = $this->createForm(new ElementType(), $entity, array(
+        $form = $this->createForm($this->getElementFormType(), $entity, array(
             'action' => $this->generateUrl('element_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
@@ -180,7 +183,7 @@ class ElementController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('IDCIGenealogyBundle:Element')->find($id);
+        $entity = $em->getRepository($this->getElementClass())->find($id);
 
         if (!$entity) {
             throw $this->createNotFoundException('Unable to find Element entity.');
@@ -215,7 +218,7 @@ class ElementController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('IDCIGenealogyBundle:Element')->find($id);
+            $entity = $em->getRepository($this->getElementClass())->find($id);
 
             if (!$entity) {
                 throw $this->createNotFoundException('Unable to find Element entity.');
@@ -243,5 +246,24 @@ class ElementController extends Controller
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()
         ;
+    }
+
+    /**
+     * Get the element entity class parameter
+     * 
+     * @return string : the class
+     */
+    private function getElementClass()
+    {
+        return $this->container->getParameter('elementClass');
+    }
+
+    /**
+     * Get the alias of the element form type
+     * @return string : the alias
+     */
+    private function getElementFormType()
+    {
+        return $this->container->getParameter('elementFormType');
     }
 }

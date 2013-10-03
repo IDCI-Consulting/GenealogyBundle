@@ -32,5 +32,9 @@ class IDCIGenealogyExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->setParameter('genealogyConfiguration', $config);
+        $container->setParameter('elementClass', $config['element_class']);
+        $container->setParameter('elementFormType', $config['form']['type']);
     }
 }

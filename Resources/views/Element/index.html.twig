@@ -9,11 +9,7 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Birthdate</th>
-                <th>Size</th>
-                <th>Weight</th>
                 <th>Sex</th>
-                <th>Rank</th>
-                <th>Coatcolor</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -23,11 +19,7 @@
                 <td><a href="{{ path('element_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.name }}</td>
                 <td>{% if entity.birthDate %}{{ entity.birthDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.size }}</td>
-                <td>{{ entity.weight }}</td>
                 <td>{{ entity.sex }}</td>
-                <td>{{ entity.rank }}</td>
-                <td>{{ entity.coatColor }}</td>
                 <td>
                 <ul>
                     <li>

@@ -28,6 +28,17 @@ class Configuration implements ConfigurationInterface
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('idci_genealogy');
 
+        $rootNode
+            ->children()
+                ->arrayNode('form')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->scalarNode('type')->defaultValue('idci_bundle_genealogybundle_element')->end()
+                    ->end()
+                ->end()
+                ->scalarNode('element_class')->defaultValue('IDCI\Bundle\GenealogyBundle\Entity\Element')->end()
+            ->end();
+
         // Here you should define the parameters that are allowed to
         // configure your bundle. See the documentation linked above for
         // more information on that topic.

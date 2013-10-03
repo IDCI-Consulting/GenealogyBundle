@@ -2,11 +2,7 @@
     "id": "{{ element.id }}",
     "name": "{{ element.name }}",
     "birthdate": "{{ element.birthdate|date('d/m/Y')}}",
-    "bornPlace":{},
-    "size": "{{ element.size }}",
-    "weight": "{{ element.weight }}",
     "sex": {% if(element.sex==0) %}"male"{% else %}"femelle"{% endif %},
-    "coatColor": "{{ element.coatcolor }}",
     {% include 'IDCIGenealogyBundle:JSON:functions.json.twig' with {'roles': element.roles} %}
     {% if element.getChildren|length > 0 %}
         {% if element.getChildren|length > 1 %}
@@ -29,5 +25,5 @@
         {% include 'IDCIGenealogyBundle:JSON:medias.json.twig' with {'medias': element.medias} %}
     {% endif %} #}
 
-    "rank": "{{ element.rank }}" 
+    "bornPlace":{}
 }

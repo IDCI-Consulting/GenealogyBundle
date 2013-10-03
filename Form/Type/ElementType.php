@@ -1,6 +1,6 @@
 <?php
 
-namespace IDCI\Bundle\GenealogyBundle\Form;
+namespace IDCI\Bundle\GenealogyBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -9,7 +9,19 @@ use Doctrine\ORM\EntityRepository;
 
 class ElementType extends AbstractType
 {
-        /**
+    private $elementClass;
+
+    /**
+     * Constructor
+     *
+     * @param type $elementClass the element entity class
+     */
+    public function __construct($elementClass)
+    {
+        $this->elementClass = $elementClass;
+    }
+
+    /**
      * @param FormBuilderInterface $builder
      * @param array $options
      */
@@ -17,14 +29,10 @@ class ElementType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('birthDate')
-            ->add('size')
-            ->add('weight')
+            ->add('birthDate', 'date')
             ->add('sex', 'gender')
-            ->add('rank')
-            ->add('coatColor')
             ->add('father', 'entity', array(
-                'class' => 'IDCIGenealogyBundle:Element',
+                'class' => $this->elementClass,
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder("e")
                         ->where("e.sex = :sex")
@@ -33,7 +41,7 @@ class ElementType extends AbstractType
                 },
             ))
             ->add('mother', 'entity', array(
-                'class' => 'IDCIGenealogyBundle:Element',
+                'class' => $this->elementClass,
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder("e")
                         ->where("e.sex = :sex")
@@ -41,7 +49,6 @@ class ElementType extends AbstractType
                     ;
                 },
             ))
-            ->add('roles')
         ;
     }
     
@@ -51,7 +58,7 @@ class ElementType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'IDCI\Bundle\GenealogyBundle\Entity\Element'
+            'data_class' => 'IDCI\Bundle\GenealogyBundle\Entity\Element',
         ));
     }
 

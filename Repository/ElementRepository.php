@@ -11,8 +11,6 @@
 namespace IDCI\Bundle\GenealogyBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use IDCI\Bundle\GenealogyBundle\Entity\Element;
-use IDCI\Bundle\GenealogyBundle\Entity\Genealogy;
 
 /**
  * ElementRepository
@@ -22,149 +20,49 @@ use IDCI\Bundle\GenealogyBundle\Entity\Genealogy;
  */
 class ElementRepository extends EntityRepository
 {
-    
-    /**
-     * find results based on request
-     * 
-     * @param array (request parameters)
-     * @return entities
-     */
-    public function findEntitiesBasedOnRequest($parameters)
-    {
-        $q = $this->findEntitiesBasedOnRequestQuery($parameters);
+   /**
+    * extractQueryBuilder
+    *
+    * @param array $params
+    * @return QueryBuilder
+    */
+   public function extractQueryBuilder($params)
+   {
+       $qb = $this->createQueryBuilder('e');
 
-        return is_null($q) ? array() : $q->getResult();
-    }
-    
-    /**
-     * find results based on request query
-     *
-     * @param array (request parameters)
-     * @return DoctrineQuery
-     */
-    public function findEntitiesBasedOnRequestQuery($parameters)
-    {
-        $qb = $this->findEntitiesBasedOnRequestQueryBuilder($parameters);
-        //var_dump($qb->getQuery()->getSQL()); die;
-        return is_null($qb) ? $qb : $qb->getQuery();
-    }
-    
-    
-    /**
-     * find results based on request query builder
-     *
-     * @param array (request parameters)
-     * @return DoctrineQueryBuilder
-     */
-    public function findEntitiesBasedOnRequestQueryBuilder($parameters)
-    {
-        $qb = $this->getEntityManager()->createQueryBuilder();
-        $qb->select('e')
-           ->from('IDCIGenealogyBundle:Element', 'e')
-        ;
+       if(isset($params['id'])) {
+           $qb
+               ->andWhere('e.id = :id')
+               ->setParameter('id', $params['id'])
+           ;
+       }
 
-        foreach($parameters as $param => $value) {
-            $function = sprintf('buildQuery%s', ucfirst(strtolower($param)));
+       return $qb;
+   }
 
-            if(method_exists($this, $function)) {
-                self::$function($qb, $value, $parameters);
-            }
-        }
+   /**
+    * extractQuery
+    *
+    * @param array $params
+    * @return Query
+    */
+   public function extractQuery($params)
+   {
+       $qb = $this->extractQueryBuilder($params);
 
-        return $qb;
-    }
+       return is_null($qb) ? $qb : $qb->getQuery();
+   }
 
-    /**
-     * set queryBuilder based on birthdate
-     *
-     * @param queryBuilder qb
-     * @param array value
-     * @param array parameters
-     */
-    public static function buildQueryBirthdate(&$qb, $value, $parameters)
-    {
-        if(isset($parameters['operator'])) {
-            if($parameters['operator'] == 'lt') {
-                $qb->andWhere('e.birth_date < :birthdate')
-                    ->setParameter('birthdate', $value)
-                ;
-            }
-            else if($parameters['operator'] == 'gt') {
-                $qb->andWhere('e.birth_date > :birthdate')
-                    ->setParameter('birthdate', $value)
-                ;
-            }
-            else {
-                $qb->andWhere('e.birth_date = :birthdate')
-                    ->setParameter('birthdate', $value)
-                ;
-            }
-        }
-        else {
-            $qb->andWhere('e.birth_date = :birthdate')
-                ->setParameter('birthdate', $value)
-            ;
-        }
-    }
-    
-    /**
-     * set queryBuilder based on sex
-     *
-     * @param queryBuilder qb
-     * @param array value
-     * @param array parameters
-     */
-    public static function buildQuerySex(&$qb, $value, $parameters)
-    {
-        if($value == 'm' || $value == 'male') {
-            $qb->andWhere('e.sex = :sex')
-                ->setParameter('sex', '0')
-            ;
-        }
-        if($value == 'f' || $value == 'female') {
-            $qb->andWhere('e.sex = :sex')
-                ->setParameter('sex', '1')
-            ;
-        }
-    }
-    
-    /**
-     * set queryBuilder based on functions
-     *
-     * @param queryBuilder qb
-     * @param array value
-     * @param array parameters
-     */
-    public static function buildQueryFunctions(&$qb, $value, $parameters)
-    {
-        $qb->leftJoin('e.roles', 'r');
-        $qb->andWhere($qb->expr()->in('r.name', $value));
-    }
-    
-    
-    /**
-     * find children of an element
-     *
-     * @param int id
-     * 
-     * @return Element array
-     */
-    public function findChildren($id)
-    {
-        $element = $this->getEntityManager()->find('IDCIGenealogyBundle:Element', $id);
-        
-        if($element->getSex() == 1) {
-            $parents = $element->getMothers();
-        }
-        else {
-            $parents = $element->getFathers();
-        }
-        
-        $children = array();
-        foreach($parents as $parent) {
-            $children[] = $parent->getChild();
-        }
-        
-        return $children;
-    }
+   /**
+    * extract
+    *
+    * @param array $params
+    * @return DoctrineCollection
+    */
+   public function extract($params)
+   {
+       $q = $this->extractQuery($params);
+
+       return is_null($q) ? array() : $q->getResult();
+   }
 }

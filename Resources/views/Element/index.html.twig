@@ -1,9 +1,9 @@
-{% extends '::base.html.twig' %}
+{% extends "IDCIGenealogyBundle::adminbase.html.twig" %}
 
-{% block body -%}
+{% block body %}
     <h1>Element list</h1>
 
-    <table class="records_list">
+    <table class="table table-bordered table-striped table-condensed records_list">
         <thead>
             <tr>
                 <th>Id</th>
@@ -23,10 +23,10 @@
                 <td>
                 <ul>
                     <li>
-                        <a href="{{ path('element_show', { 'id': entity.id }) }}">show</a>
+                        <a class="btn btn-block" href="{{ path('element_show', { 'id': entity.id }) }}">show</a>
                     </li>
                     <li>
-                        <a href="{{ path('element_edit', { 'id': entity.id }) }}">edit</a>
+                        <a class="btn btn-block btn-primary" href="{{ path('element_edit', { 'id': entity.id }) }}">edit</a>
                     </li>
                 </ul>
                 </td>

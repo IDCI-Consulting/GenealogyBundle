@@ -36,7 +36,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('type')->defaultValue('idci_bundle_genealogybundle_element')->end()
                     ->end()
                 ->end()
-                ->scalarNode('element_class')->defaultValue('IDCI\Bundle\GenealogyBundle\Entity\Element')->end()
+                ->scalarNode('element_class')->isRequired()->end()
             ->end();
 
         // Here you should define the parameters that are allowed to

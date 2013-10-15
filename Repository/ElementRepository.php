@@ -37,6 +37,13 @@ class ElementRepository extends EntityRepository
            ;
        }
 
+       if(isset($params['name'])) {
+            $qb
+               ->andWhere('e.name = :name')
+               ->setParameter('name', $params['name'])
+            ;
+        }
+
        return $qb;
    }
 

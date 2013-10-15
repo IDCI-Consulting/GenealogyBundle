@@ -33,6 +33,7 @@ class ElementType extends AbstractType
             ->add('sex', 'gender')
             ->add('father', 'entity', array(
                 'class' => $this->elementClass,
+                'required' => false,
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder("e")
                         ->where("e.sex = :sex")
@@ -42,6 +43,7 @@ class ElementType extends AbstractType
             ))
             ->add('mother', 'entity', array(
                 'class' => $this->elementClass,
+                'required' => false,
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder("e")
                         ->where("e.sex = :sex")

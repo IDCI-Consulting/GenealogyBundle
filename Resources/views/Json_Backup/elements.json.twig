@@ -1,8 +1,0 @@
-{
-    {% for entity in entities %}
-        "entry":
-        {
-            {% include 'IDCIGenealogyBundle:JSON:element.json.twig' with {'element': entity, 'level': level} %}
-        }
-    {% endfor %}
-}

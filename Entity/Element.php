@@ -16,7 +16,9 @@ use Doctrine\ORM\Mapping as ORM;
  * IDCI\Bundle\GenealogyBundle\Entity\Element
  */
 abstract class Element
-{   
+{
+    protected $id;
+
     /**
      * @ORM\ManyToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element", inversedBy="fatherChildren")
      * @ORM\JoinColumn(name="father_id", referencedColumnName="id", onDelete="SET NULL")

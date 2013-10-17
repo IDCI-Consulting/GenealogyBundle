@@ -15,10 +15,10 @@
     {{ parent() }}
 
     <div class="page-header">
-      <h1>{% trans %}YoutubeVideo creation{% endtrans %}</h1>
+        <h1>{% trans %}Youtube Video edit{% endtrans %}</h1>
     </div>
 
-    {{ form(form) }}
+    {{ form(edit_form) }}
 
     <ul class="record_actions">
         <li>
@@ -26,6 +26,7 @@
                 {% trans %}Back to the list{% endtrans %}
             </a>
         </li>
+        <li>{{ form(delete_form) }}</li>
     </ul>
 
 {% endblock body %}

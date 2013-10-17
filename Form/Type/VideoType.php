@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class YoutubeVideoType extends AbstractType
+class VideoType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -15,7 +15,10 @@ class YoutubeVideoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('link')
+            ->add('title')
+            ->add('link', null, array(
+                'label' => 'Link token'
+            ))
         ;
     }
     
@@ -25,7 +28,7 @@ class YoutubeVideoType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'IDCI\Bundle\GenealogyBundle\Entity\YoutubeVideo'
+            'data_class' => 'IDCI\Bundle\GenealogyBundle\Entity\Video'
         ));
     }
 
@@ -34,6 +37,6 @@ class YoutubeVideoType extends AbstractType
      */
     public function getName()
     {
-        return 'idci_bundle_genealogybundle_youtubevideo';
+        return 'idci_bundle_genealogybundle_video';
     }
 }

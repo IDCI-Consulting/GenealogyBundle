@@ -1,0 +1,20 @@
+{% if videos|length > 1 %}
+    "videos":
+    [
+        {% for video in videos %}
+            {% if loop.last %}
+                {
+                    "link": "{{ video.link }}",
+                    "title": "{{ video.title }}"
+                }
+            {% else %}
+                {
+                    "link": "{{ video.link }}",
+                    "title": "{{ video.title }}"
+                },
+            {% endif %}
+        {% endfor %}
+    ],
+{% elseif videos|length > 0 %}
+    "video": "{{ videos.first }}",
+{% endif %}

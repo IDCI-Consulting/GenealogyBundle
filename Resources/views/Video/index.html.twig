@@ -15,15 +15,16 @@
     {{ parent() }}
 
     <div class="page-header">
-        <h1>YoutubeVideo list</h1>
+        <h1>{% trans %}Youtube Video list{% endtrans %}</h1>
     </div>
 
     <table class="table table-bordered table-striped table-condensed records_list">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Link</th>
-                <th>Actions</th>
+                <th>{% trans %}Id<{% endtrans %}/th>
+                <th>{% trans %}Link{% endtrans %}</th>
+                <th>{% trans %}Title{% endtrans %}</th>
+                <th>{% trans %}Actions{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
@@ -31,13 +32,18 @@
             <tr>
                 <td><a href="{{ path('video_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.link }}</td>
+                <td>{{ entity.title }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a class="btn btn-block" href="{{ path('video_show', { 'id': entity.id }) }}">show</a>
+                        <a class="btn btn-block" href="{{ path('video_show', { 'id': entity.id }) }}">
+                            {% trans %}show{% endtrans %}
+                        </a>
                     </li>
                     <li>
-                        <a class="btn btn-block btn-primary" href="{{ path('video_edit', { 'id': entity.id }) }}">edit</a>
+                        <a class="btn btn-block btn-primary" href="{{ path('video_edit', { 'id': entity.id }) }}">
+                            {% trans %}edit{% endtrans %}
+                        </a>
                     </li>
                 </ul>
                 </td>

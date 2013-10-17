@@ -1,6 +1,7 @@
 {
     "id": "{{ element.id }}",
     "name": "{{ element.name }}",
+    "description": "{{ element.description }}",
     "birthdate": "{{ element.birthdate|date('d/m/Y')}}",
     "bornPlace":{},
     "weight": "{{ element.weight }}",
@@ -27,6 +28,8 @@
     {% endif %}
 
     {% include 'IDCIGenealogyBundle:JSON:images.json.twig' with {'images': element.images} %}
+
+    {% include 'IDCIGenealogyBundle:JSON:videos.json.twig' with {'videos': element.videos} %}
 
     "size": "{{ element.size }}"
 }

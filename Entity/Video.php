@@ -13,12 +13,12 @@ namespace IDCI\Bundle\GenealogyBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * IDCI\Bundle\GenealogyBundle\Entity\YoutubeVideo
+ * IDCI\Bundle\GenealogyBundle\Entity\Video
  *
  * @ORM\Table(name="video")
  * @ORM\Entity
  */
-class YoutubeVideo
+class Video
 {
     /**
      * @var integer $id
@@ -30,14 +30,21 @@ class YoutubeVideo
     private $id;
 
     /**
-     * @var string $path
+     * @var string $title
      *
-     * @ORM\Column(name="path", type="string", length=255)
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+    
+    /**
+     * @var string $link
+     *
+     * @ORM\Column(name="link", type="string", length=255)
      */
     private $link;
     
     /**
-     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element", mappedBy="youtubeVideos")
+     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element", mappedBy="videos")
      */
     private $elements;
 
@@ -48,7 +55,7 @@ class YoutubeVideo
      */
     public function __toString()
     {
-        return $this->getPath();
+        return $this->getTitle();
     }
     /**
      * Constructor
@@ -122,5 +129,28 @@ class YoutubeVideo
     public function getElements()
     {
         return $this->elements;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return YoutubeVideo
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 }

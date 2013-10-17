@@ -15,18 +15,23 @@
     {{ parent() }}
 
     <div class="page-header">
-        <h1>{% trans %}YoutubeVideo edit{% endtrans %}</h1>
+      <h1>{% trans %}Youtube Video creation{% endtrans %}</h1>
     </div>
 
-    {{ form(edit_form) }}
+    <p>
+        {% trans %}
+            The Link token represent the token which is in the youtube link. For exemple the token of the http://www.youtube.com/watch?v=lZl4lEPKArc video is lZl4lEPKArcs
+        {% endtrans %}
+    </p>
+
+    {{ form(form) }}
 
     <ul class="record_actions">
         <li>
             <a href="{{ path('video') }}">
-                Back to the list
+                {% trans %}Back to the list{% endtrans %}
             </a>
         </li>
-        <li>{{ form(delete_form) }}</li>
     </ul>
 
 {% endblock body %}

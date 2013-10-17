@@ -15,18 +15,22 @@
     {{ parent() }}
 
     <div class="page-header">
-      <h1>YoutubeVideo</h1>
+      <h1>Video</h1>
     </div>
 
     <table class="table table-bordered table-striped record_properties">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th>{% trans %}Id{% endtrans %}</th>
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>Link</th>
+                <th>{% trans %}Link{% endtrans %}</th>
                 <td>{{ entity.link }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Title{% endtrans %}</th>
+                <td>{{ entity.title }}</td>
             </tr>
         </tbody>
     </table>

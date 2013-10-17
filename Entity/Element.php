@@ -59,6 +59,13 @@ class Element
     protected $name;
 
     /**
+     * @var string $description
+     *
+     * @ORM\Column(name="description", type="text")
+     */
+    protected $description;
+
+    /**
      * @var \DateTime $birth_date
      *
      * @ORM\Column(name="birth_date", type="datetime")
@@ -105,9 +112,9 @@ class Element
     protected $images;
 
     /**
-     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\YoutubeVideo", inversedBy="elements")
+     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Video", inversedBy="elements")
      */
-    protected $youtubeVideos;
+    protected $videos;
 
     /**
      * @ORM\ManyToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Race", inversedBy="elements")
@@ -136,9 +143,9 @@ class Element
         $this->motherChildren = new \Doctrine\Common\Collections\ArrayCollection();
         $this->fatherChildren = new \Doctrine\Common\Collections\ArrayCollection();
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->youtubeVideos = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->videos = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
@@ -470,36 +477,36 @@ class Element
     }
 
     /**
-     * Add youtubeVideos
+     * Add Videos
      *
-     * @param \IDCI\Bundle\GenealogyBundle\Entity\YoutubeVideo $youtubeVideos
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Video $videos
      * @return Element
      */
-    public function addYoutubeVideo(\IDCI\Bundle\GenealogyBundle\Entity\YoutubeVideo $youtubeVideos)
+    public function addVideo(\IDCI\Bundle\GenealogyBundle\Entity\Video $videos)
     {
-        $this->youtubeVideos[] = $youtubeVideos;
+        $this->videos[] = $videos;
     
         return $this;
     }
 
     /**
-     * Remove youtubeVideos
+     * Remove Videos
      *
-     * @param \IDCI\Bundle\GenealogyBundle\Entity\YoutubeVideo $youtubeVideos
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Video $videos
      */
-    public function removeYoutubeVideo(\IDCI\Bundle\GenealogyBundle\Entity\YoutubeVideo $youtubeVideos)
+    public function removeVideo(\IDCI\Bundle\GenealogyBundle\Entity\Video $videos)
     {
-        $this->youtubeVideos->removeElement($youtubeVideos);
+        $this->videos->removeElement($videos);
     }
 
     /**
-     * Get youtubeVideos
+     * Get Videos
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getYoutubeVideos()
+    public function getVideos()
     {
-        return $this->youtubeVideos;
+        return $this->videos;
     }
 
     /**
@@ -523,5 +530,28 @@ class Element
     public function getRace()
     {
         return $this->race;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     * @return Element
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string 
+     */
+    public function getDescription()
+    {
+        return $this->description;
     }
 }

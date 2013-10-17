@@ -17,6 +17,7 @@ class ElementType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('description')
             ->add('birthDate', 'date')
             ->add('sex', 'gender')
             ->add('father', 'entity', array(
@@ -54,8 +55,8 @@ class ElementType extends AbstractType
                 'class'    => 'IDCIGenealogyBundle:Image',
                 'multiple' => true
             ))
-            ->add('youtubeVideos', 'entity', array(
-                'class'    => 'IDCIGenealogyBundle:YoutubeVideo',
+            ->add('videos', 'entity', array(
+                'class'    => 'IDCIGenealogyBundle:Video',
                 'multiple' => true,
                 'label'    => 'Youtube video links'
             ))

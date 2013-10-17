@@ -25,14 +25,17 @@ Element creation: Ajouter un cheval
 Media creation: Ajouter un media
 Role creation: Ajouter un rôle
 Race creation: Ajouter une race
+Youtube Video creation: Ajouter une vidéo youtube
 Element edit: Editer un cheval
 Media edit: Editer un média
 Race edit: Editer une race
 Role edit: Editer un rôle
+Youtube Video edit: Editer une vidéo Youtube
 Element list: Liste des chevaux
 Race list: Liste des races
 Media list: Liste des medias
 Role list: Liste des rôles
+Youtube Video list: Liste des vidéos Youtube
 Birth date: Date de naissance
 Birthdate: Date de naissance
 Sex: Sexe
@@ -54,3 +57,7 @@ Weight: Poids
 Rank: Rang
 Coatcolor: Couleur de robe
 Actions: Actions
+Link: Lien
+Link token: Token du lien
+Title: Titre
+"The Link token represent the token which is in the youtube link. For exemple the token of the http://www.youtube.com/watch?v=lZl4lEPKArc video is lZl4lEPKArcs": Le token du lien correspond au token présent sur le lien youtube. Par exemple sur le lien http://www.youtube.com/watch?v=lZl4lEPKArc il s'agit de lZl4lEPKArcs

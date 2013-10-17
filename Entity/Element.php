@@ -127,6 +127,7 @@ class Element
             $this->getName()
         );
     }
+
     /**
      * Constructor
      */
@@ -146,6 +147,20 @@ class Element
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */    
+    public function getChildren()
+    {
+        if ($this->sex == 'f') {
+            return $this->getMotherChildren();
+        } else {
+            return $this->getFatherChildren();
+        }
     }
 
     /**

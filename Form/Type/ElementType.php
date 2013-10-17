@@ -41,11 +41,10 @@ class ElementType extends AbstractType
             ))
             ->add('size')
             ->add('weight')
-            ->add('rank')
             ->add('coatColor')
-            ->add('roles', 'entity', array(
+            ->add('role', 'entity', array(
                 'class' => 'IDCIGenealogyBundle:Role',
-                'multiple' => true
+                'required' => true
             ))
             ->add('race', 'entity', array(
                 'class' => 'IDCIGenealogyBundle:Race',

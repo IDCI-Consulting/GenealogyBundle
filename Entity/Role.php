@@ -37,7 +37,7 @@ class Role
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element", mappedBy="roles"))
+     * @ORM\OneToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element", mappedBy="role"))
      */
     private $elements;
 

@@ -80,13 +80,6 @@ class Element
     protected $size;
 
     /**
-     * @var integer $rank
-     *
-     * @ORM\Column(name="rank", type="integer")
-     */
-    protected $rank;
-
-    /**
      * @var string $coat_color
      *
      * @ORM\Column(name="coat_color", type="string", length=255)
@@ -101,9 +94,10 @@ class Element
     protected $weight;
 
     /**
-     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Role", inversedBy="elements"))
+     * @ORM\ManyToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Role", inversedBy="elements")
+     * @ORM\JoinColumn(name="role_id", referencedColumnName="id", nullable=false)
      */
-    protected $roles;
+    protected $role;
 
     /**
      * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Media", inversedBy="elements")
@@ -398,39 +392,6 @@ class Element
     }
 
     /**
-     * Add roles
-     *
-     * @param \IDCI\Bundle\GenealogyBundle\Entity\Role $role
-     * @return Element
-     */
-    public function addRole(\IDCI\Bundle\GenealogyBundle\Entity\Role $role)
-    {
-        $this->roles[] = $role;
-    
-        return $this;
-    }
-
-    /**
-     * Remove roles
-     *
-     * @param \IDCI\Bundle\GenealogyBundle\Entity\Role $role
-     */
-    public function removeRole(\IDCI\Bundle\GenealogyBundle\Entity\Role $role)
-    {
-        $this->roles->removeElement($role);
-    }
-
-    /**
-     * Get roles
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getRoles()
-    {
-        return $this->roles;
-    }
-
-    /**
      * Set size
      *
      * @param integer $size
@@ -451,29 +412,6 @@ class Element
     public function getSize()
     {
         return $this->size;
-    }
-
-    /**
-     * Set rank
-     *
-     * @param integer $rank
-     * @return Element
-     */
-    public function setRank($rank)
-    {
-        $this->rank = $rank;
-    
-        return $this;
-    }
-
-    /**
-     * Get rank
-     *
-     * @return integer 
-     */
-    public function getRank()
-    {
-        return $this->rank;
     }
 
     /**
@@ -543,5 +481,28 @@ class Element
     public function getRace()
     {
         return $this->race;
+    }
+
+    /**
+     * Set role
+     *
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Role $role
+     * @return Element
+     */
+    public function setRole(\IDCI\Bundle\GenealogyBundle\Entity\Role $role)
+    {
+        $this->role = $role;
+    
+        return $this;
+    }
+
+    /**
+     * Get role
+     *
+     * @return \IDCI\Bundle\GenealogyBundle\Entity\Role 
+     */
+    public function getRole()
+    {
+        return $this->role;
     }
 }

@@ -60,7 +60,7 @@ class ElementRepository extends EntityRepository
 
         if(isset($params['role'])) {
             $qb
-                ->innerJoin('e.roles', 'role', 'WITH', 'role.name = :role_name')
+                ->innerJoin('e.role', 'role', 'WITH', 'role.name = :role_name')
                 ->setParameter('role_name', $params['role'])
             ;
         }

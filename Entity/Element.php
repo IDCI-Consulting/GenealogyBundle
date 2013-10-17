@@ -30,24 +30,24 @@ class Element
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Element", inversedBy="fatherChildren")
+     * @ORM\ManyToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element", inversedBy="fatherChildren")
      * @ORM\JoinColumn(name="father_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $father;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Element", inversedBy="motherChildren")
+     * @ORM\ManyToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element", inversedBy="motherChildren")
      * @ORM\JoinColumn(name="mother_id", referencedColumnName="id", onDelete="SET NULL")
      */
     protected $mother;
     
     /**
-     * @ORM\OneToMany(targetEntity="Element", mappedBy="mother")
+     * @ORM\OneToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element", mappedBy="mother")
      */
     protected $motherChildren;
 
     /**
-     * @ORM\OneToMany(targetEntity="Element", mappedBy="father")
+     * @ORM\OneToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element", mappedBy="father")
      */
     protected $fatherChildren;
     

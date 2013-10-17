@@ -3,9 +3,10 @@
 {% block nav %}
   {% include "IDCIGenealogyBundle::entityNav.html.twig" with {'entities' : {
     'Elements':      { 'basepath': 'element'},
-    'Medias':        { 'basepath': 'media', 'active': true },
+    'Images':        { 'basepath': 'image'},
     'Races':         { 'basepath': 'race'},
-    'Roles':         { 'basepath': 'role'}
+    'Roles':         { 'basepath': 'role'},
+    'Videos':        { 'basepath': 'video', 'active': true },
   }} %}
 {% endblock %}
 
@@ -13,17 +14,18 @@
 
     {{ parent() }}
 
-    <h1>{% trans %}Media edit{% endtrans %}</h1>
+    <div class="page-header">
+      <h1>{% trans %}YoutubeVideo creation{% endtrans %}</h1>
+    </div>
 
-    {{ form(edit_form) }}
+    {{ form(form) }}
 
     <ul class="record_actions">
         <li>
-            <a href="{{ path('media') }}">
+            <a href="{{ path('video') }}">
                 {% trans %}Back to the list{% endtrans %}
             </a>
         </li>
-        <li>{{ form(delete_form) }}</li>
     </ul>
 
-{% endblock %}
+{% endblock body %}

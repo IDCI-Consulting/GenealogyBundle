@@ -5,8 +5,8 @@
     'Elements':      { 'basepath': 'element'},
     'Images':        { 'basepath': 'image'},
     'Races':         { 'basepath': 'race'},
-    'Roles':         { 'basepath': 'role', 'active': true },
-    'Videos':        { 'basepath': 'video'}
+    'Roles':         { 'basepath': 'role'},
+    'Videos':        { 'basepath': 'video', 'active': true },
   }} %}
 {% endblock %}
 
@@ -15,38 +15,35 @@
     {{ parent() }}
 
     <div class="page-header">
-      <h1>Role</h1>
+      <h1>YoutubeVideo</h1>
     </div>
 
     <table class="table table-bordered table-striped record_properties">
         <tbody>
             <tr>
-                <th>{% trans %}Id{% endtrans %}</th>
+                <th>Id</th>
                 <td>{{ entity.id }}</td>
             </tr>
             <tr>
-                <th>{% trans %}Name{% endtrans %}</th>
-                <td>{{ entity.name }}</td>
+                <th>Link</th>
+                <td>{{ entity.link }}</td>
             </tr>
         </tbody>
     </table>
 
     <ul class="record_actions">
         <li>
-            <a href="{{ path('role') }}">
+            <a href="{{ path('video') }}">
                 {% trans %}Back to the list{% endtrans %}
             </a>
         </li>
         <li>
-            <a href="{{ path('role_edit', { 'id': entity.id }) }}">
+            <a href="{{ path('video_edit', { 'id': entity.id }) }}">
                 {% trans %}Edit{% endtrans %}
             </a>
         </li>
         <li>
-            <form action="{{ path('role_delete', { 'id': entity.id }) }}" method="post">
-                {{ form_widget(delete_form) }}
-                <button type="submit">{% trans %}Delete{% endtrans %}</button>
-            </form>
+            {{ form_widget(delete_form) }}
         </li>
     </ul>
 

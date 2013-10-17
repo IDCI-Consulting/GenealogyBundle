@@ -4,9 +4,9 @@
   {% include "IDCIGenealogyBundle::entityNav.html.twig" with {'entities' : {
     'Elements':      { 'basepath': 'element'},
     'Images':        { 'basepath': 'image'},
-    'Races':         { 'basepath': 'race', 'active': true },
+    'Races':         { 'basepath': 'race'},
     'Roles':         { 'basepath': 'role'},
-    'Videos':        { 'basepath': 'video'}
+    'Videos':        { 'basepath': 'video', 'active': true },
   }} %}
 {% endblock %}
 
@@ -14,16 +14,19 @@
 
     {{ parent() }}
 
-    <h1>{% trans %}Race edit{% endtrans %}</h1>
+    <div class="page-header">
+        <h1>{% trans %}YoutubeVideo edit{% endtrans %}</h1>
+    </div>
 
     {{ form(edit_form) }}
 
     <ul class="record_actions">
         <li>
-            <a href="{{ path('race') }}">
-                {% trans %}Back to the list{% endtrans %}
+            <a href="{{ path('video') }}">
+                Back to the list
             </a>
         </li>
         <li>{{ form(delete_form) }}</li>
     </ul>
-{% endblock %}
+
+{% endblock body %}

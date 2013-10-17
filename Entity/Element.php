@@ -100,9 +100,14 @@ class Element
     protected $role;
 
     /**
-     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Media", inversedBy="elements")
+     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Image", inversedBy="elements")
      */
-    protected $medias;
+    protected $images;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\YoutubeVideo", inversedBy="elements")
+     */
+    protected $youtubeVideos;
 
     /**
      * @ORM\ManyToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Race", inversedBy="elements")
@@ -122,7 +127,6 @@ class Element
             $this->getName()
         );
     }
-
     /**
      * Constructor
      */
@@ -130,9 +134,10 @@ class Element
     {
         $this->motherChildren = new \Doctrine\Common\Collections\ArrayCollection();
         $this->fatherChildren = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->youtubeVideos = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
+    
     /**
      * Get id
      *
@@ -141,40 +146,6 @@ class Element
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Get children
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */    
-    public function getChildren()
-    {
-        if ($this->sex == 'f') {
-            return $this->getMotherChildren();
-        } else {
-            return $this->getFatherChildren();
-        }
-    }
-
-    /**
-     * Has mother
-     * 
-     * @return boolean
-     */
-    public function hasMother()
-    {
-        return ($this->getMother() != NULL) ? true : false;
-    }
-
-    /**
-     * Has father
-     * 
-     * @return boolean
-     */
-    public function hasFather()
-    {
-        return ($this->getFather() != NULL) ? true : false;
     }
 
     /**
@@ -244,151 +215,6 @@ class Element
     public function getSex()
     {
         return $this->sex;
-    }  
-
-    /**
-     * Set father
-     *
-     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $father
-     * @return Element
-     */
-    public function setFather(\IDCI\Bundle\GenealogyBundle\Entity\Element $father = null)
-    {
-        $this->father = $father;
-    
-        return $this;
-    }
-
-    /**
-     * Get father
-     *
-     * @return \IDCI\Bundle\GenealogyBundle\Entity\Element 
-     */
-    public function getFather()
-    {
-        return $this->father;
-    }
-
-    /**
-     * Set mother
-     *
-     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $mother
-     * @return Element
-     */
-    public function setMother(\IDCI\Bundle\GenealogyBundle\Entity\Element $mother = null)
-    {
-        $this->mother = $mother;
-    
-        return $this;
-    }
-
-    /**
-     * Get mother
-     *
-     * @return \IDCI\Bundle\GenealogyBundle\Entity\Element 
-     */
-    public function getMother()
-    {
-        return $this->mother;
-    }
-    
-    /**
-     * Add motherChildren
-     *
-     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $motherChildren
-     * @return Element
-     */
-    public function addMotherChildren(\IDCI\Bundle\GenealogyBundle\Entity\Element $motherChildren)
-    {
-        $this->motherChildren[] = $motherChildren;
-    
-        return $this;
-    }
-
-    /**
-     * Remove motherChildren
-     *
-     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $motherChildren
-     */
-    public function removeMotherChildren(\IDCI\Bundle\GenealogyBundle\Entity\Element $motherChildren)
-    {
-        $this->motherChildren->removeElement($motherChildren);
-    }
-
-    /**
-     * Get motherChildren
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getMotherChildren()
-    {
-        return $this->motherChildren;
-    }
-
-    /**
-     * Add fatherChildren
-     *
-     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $fatherChildren
-     * @return Element
-     */
-    public function addFatherChildren(\IDCI\Bundle\GenealogyBundle\Entity\Element $fatherChildren)
-    {
-        $this->fatherChildren[] = $fatherChildren;
-    
-        return $this;
-    }
-
-    /**
-     * Remove fatherChildren
-     *
-     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $fatherChildren
-     */
-    public function removeFatherChildren(\IDCI\Bundle\GenealogyBundle\Entity\Element $fatherChildren)
-    {
-        $this->fatherChildren->removeElement($fatherChildren);
-    }
-
-    /**
-     * Get fatherChildren
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getFatherChildren()
-    {
-        return $this->fatherChildren;
-    }
-
-    /**
-     * Add media
-     *
-     * @param \IDCI\Bundle\GenealogyBundle\Entity\Media $media
-     * @return Element
-     */
-    public function addMedia(\IDCI\Bundle\GenealogyBundle\Entity\Media $media)
-    {
-        $this->medias[] = $media;
-
-        return $this;
-    }
-
-    /**
-     * Remove media
-     *
-     * @param \IDCI\Bundle\GenealogyBundle\Entity\Media $media
-     */
-    public function removeMedia(\IDCI\Bundle\GenealogyBundle\Entity\Media $media)
-    {
-        $this->media->removeElement($media);
-    }
-
-    /**
-     * Get medias
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getMedias()
-    {
-        return $this->medias;
     }
 
     /**
@@ -461,26 +287,115 @@ class Element
     }
 
     /**
-     * Set race
+     * Set father
      *
-     * @param \IDCI\Bundle\GenealogyBundle\Entity\Race $race
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $father
      * @return Element
      */
-    public function setRace(\IDCI\Bundle\GenealogyBundle\Entity\Race $race = null)
+    public function setFather(\IDCI\Bundle\GenealogyBundle\Entity\Element $father = null)
     {
-        $this->race = $race;
+        $this->father = $father;
     
         return $this;
     }
 
     /**
-     * Get races
+     * Get father
      *
-     * @return \IDCI\Bundle\GenealogyBundle\Entity\Race 
+     * @return \IDCI\Bundle\GenealogyBundle\Entity\Element 
      */
-    public function getRace()
+    public function getFather()
     {
-        return $this->race;
+        return $this->father;
+    }
+
+    /**
+     * Set mother
+     *
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $mother
+     * @return Element
+     */
+    public function setMother(\IDCI\Bundle\GenealogyBundle\Entity\Element $mother = null)
+    {
+        $this->mother = $mother;
+    
+        return $this;
+    }
+
+    /**
+     * Get mother
+     *
+     * @return \IDCI\Bundle\GenealogyBundle\Entity\Element 
+     */
+    public function getMother()
+    {
+        return $this->mother;
+    }
+
+    /**
+     * Add motherChildren
+     *
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $motherChildren
+     * @return Element
+     */
+    public function addMotherChildren(\IDCI\Bundle\GenealogyBundle\Entity\Element $motherChildren)
+    {
+        $this->motherChildren[] = $motherChildren;
+    
+        return $this;
+    }
+
+    /**
+     * Remove motherChildren
+     *
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $motherChildren
+     */
+    public function removeMotherChildren(\IDCI\Bundle\GenealogyBundle\Entity\Element $motherChildren)
+    {
+        $this->motherChildren->removeElement($motherChildren);
+    }
+
+    /**
+     * Get motherChildren
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMotherChildren()
+    {
+        return $this->motherChildren;
+    }
+
+    /**
+     * Add fatherChildren
+     *
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $fatherChildren
+     * @return Element
+     */
+    public function addFatherChildren(\IDCI\Bundle\GenealogyBundle\Entity\Element $fatherChildren)
+    {
+        $this->fatherChildren[] = $fatherChildren;
+    
+        return $this;
+    }
+
+    /**
+     * Remove fatherChildren
+     *
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Element $fatherChildren
+     */
+    public function removeFatherChildren(\IDCI\Bundle\GenealogyBundle\Entity\Element $fatherChildren)
+    {
+        $this->fatherChildren->removeElement($fatherChildren);
+    }
+
+    /**
+     * Get fatherChildren
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFatherChildren()
+    {
+        return $this->fatherChildren;
     }
 
     /**
@@ -504,5 +419,94 @@ class Element
     public function getRole()
     {
         return $this->role;
+    }
+
+    /**
+     * Add images
+     *
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Image $images
+     * @return Element
+     */
+    public function addImage(\IDCI\Bundle\GenealogyBundle\Entity\Image $images)
+    {
+        $this->images[] = $images;
+    
+        return $this;
+    }
+
+    /**
+     * Remove images
+     *
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Image $images
+     */
+    public function removeImage(\IDCI\Bundle\GenealogyBundle\Entity\Image $images)
+    {
+        $this->images->removeElement($images);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * Add youtubeVideos
+     *
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\YoutubeVideo $youtubeVideos
+     * @return Element
+     */
+    public function addYoutubeVideo(\IDCI\Bundle\GenealogyBundle\Entity\YoutubeVideo $youtubeVideos)
+    {
+        $this->youtubeVideos[] = $youtubeVideos;
+    
+        return $this;
+    }
+
+    /**
+     * Remove youtubeVideos
+     *
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\YoutubeVideo $youtubeVideos
+     */
+    public function removeYoutubeVideo(\IDCI\Bundle\GenealogyBundle\Entity\YoutubeVideo $youtubeVideos)
+    {
+        $this->youtubeVideos->removeElement($youtubeVideos);
+    }
+
+    /**
+     * Get youtubeVideos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getYoutubeVideos()
+    {
+        return $this->youtubeVideos;
+    }
+
+    /**
+     * Set race
+     *
+     * @param \IDCI\Bundle\GenealogyBundle\Entity\Race $race
+     * @return Element
+     */
+    public function setRace(\IDCI\Bundle\GenealogyBundle\Entity\Race $race)
+    {
+        $this->race = $race;
+    
+        return $this;
+    }
+
+    /**
+     * Get race
+     *
+     * @return \IDCI\Bundle\GenealogyBundle\Entity\Race 
+     */
+    public function getRace()
+    {
+        return $this->race;
     }
 }

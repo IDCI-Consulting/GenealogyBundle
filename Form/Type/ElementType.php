@@ -43,16 +43,21 @@ class ElementType extends AbstractType
             ->add('weight')
             ->add('coatColor')
             ->add('role', 'entity', array(
-                'class' => 'IDCIGenealogyBundle:Role',
+                'class'    => 'IDCIGenealogyBundle:Role',
                 'required' => true
             ))
             ->add('race', 'entity', array(
-                'class' => 'IDCIGenealogyBundle:Race',
+                'class'    => 'IDCIGenealogyBundle:Race',
                 'required' => true
             ))
-            ->add('medias', 'entity', array(
-                'class' => 'IDCIGenealogyBundle:Media',
+            ->add('images', 'entity', array(
+                'class'    => 'IDCIGenealogyBundle:Image',
                 'multiple' => true
+            ))
+            ->add('youtubeVideos', 'entity', array(
+                'class'    => 'IDCIGenealogyBundle:YoutubeVideo',
+                'multiple' => true,
+                'label'    => 'Youtube video links'
             ))
         ;
         ;

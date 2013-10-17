@@ -3,9 +3,9 @@
 {% block nav %}
   {% include "IDCIGenealogyBundle::entityNav.html.twig" with {'entities' : {
     'Elements':      { 'basepath': 'element'},
-    'Images':        { 'basepath': 'image'},
+    'Images':        { 'basepath': 'image', 'active': true },
     'Races':         { 'basepath': 'race'},
-    'Roles':         { 'basepath': 'role', 'active': true },
+    'Roles':         { 'basepath': 'role'},
     'Videos':        { 'basepath': 'video'}
   }} %}
 {% endblock %}
@@ -14,23 +14,17 @@
 
     {{ parent() }}
 
-    <div class="page-header">
-      <h1>{% trans %}Role creation{% endtrans %}</h1>
-    </div>
+    <h1>{% trans %}Image edit{% endtrans %}</h1>
 
-    <form action="{{ path('role_create') }}" method="post" {{ form_enctype(form) }}>
-        {{ form_widget(form) }}
-        <p>
-            <button type="submit">{% trans %}Create{% endtrans %}</button>
-        </p>
-    </form>
+    {{ form(edit_form) }}
 
     <ul class="record_actions">
         <li>
-            <a href="{{ path('role') }}">
+            <a href="{{ path('image') }}">
                 {% trans %}Back to the list{% endtrans %}
             </a>
         </li>
+        <li>{{ form(delete_form) }}</li>
     </ul>
 
-{% endblock body %}
+{% endblock %}

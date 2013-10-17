@@ -1,0 +1,14 @@
+{% if images|length > 1 %}
+    "images":
+    [
+        {% for image in images %}
+            {% if loop.last %}
+                { "path": "{{ image }}" }
+            {% else %}
+                { "path": "{{ image }}" },
+            {% endif %}
+        {% endfor %}
+    ],
+{% elseif images|length > 0 %}
+    "image": "{{ images.first }}",
+{% endif %}

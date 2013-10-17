@@ -1,6 +1,0 @@
-services:
-    form.type.gender:
-        class: IDCI\Bundle\GenealogyBundle\Form\Type\GenderType
-        arguments: ["%genders%"]
-        tags:
-            - { name: form.type, alias: gender }

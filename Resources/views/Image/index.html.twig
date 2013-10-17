@@ -3,9 +3,10 @@
 {% block nav %}
   {% include "IDCIGenealogyBundle::entityNav.html.twig" with {'entities' : {
     'Elements':      { 'basepath': 'element'},
-    'Medias':        { 'basepath': 'media', 'active': true },
+    'Images':        { 'basepath': 'image', 'active': true },
     'Races':         { 'basepath': 'race'},
-    'Roles':         { 'basepath': 'role'}
+    'Roles':         { 'basepath': 'role'},
+    'Videos':        { 'basepath': 'video'}
   }} %}
 {% endblock %}
 
@@ -13,7 +14,7 @@
 
     {{ parent() }}
 
-    <h1>{% trans %}Media list{% endtrans %}</h1>
+    <h1>{% trans %}Image list{% endtrans %}</h1>
 
     <table class="table table-bordered table-striped table-condensed records_list">
         <thead>
@@ -27,18 +28,18 @@
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('media_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('image_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.path }}</td>
                 <td>{% if entity.updatedat %}{{ entity.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>
                     <li>
-                        <a class="btn btn-block" href="{{ path('media_show', { 'id': entity.id }) }}">
+                        <a class="btn btn-block" href="{{ path('image_show', { 'id': entity.id }) }}">
                             {% trans %}show{% endtrans %}
                         </a>
                     </li>
                     <li>
-                        <a class="btn btn-block btn-primary" href="{{ path('media_edit', { 'id': entity.id }) }}">
+                        <a class="btn btn-block btn-primary" href="{{ path('image_edit', { 'id': entity.id }) }}">
                             {% trans %}edit{% endtrans %}
                         </a>
                     </li>
@@ -51,7 +52,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('media_new') }}">
+            <a href="{{ path('image_new') }}">
                 {% trans %}Create a new entry{% endtrans %}
             </a>
         </li>

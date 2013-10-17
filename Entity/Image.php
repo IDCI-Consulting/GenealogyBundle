@@ -9,18 +9,18 @@
  */
 
 namespace IDCI\Bundle\GenealogyBundle\Entity;
-
 use Symfony\Component\Validator\Constraints as Assert;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * IDCI\Bundle\GenealogyBundle\Entity\Media
+ * IDCI\Bundle\GenealogyBundle\Entity\Image
  *
- * @ORM\Table(name="media")
+ * @ORM\Table(name="image")
  * @ORM\Entity
  * @ORM\HasLifecycleCallbacks
  */
-class Media
+class Image
 {
     /**
      * @var integer $id
@@ -44,7 +44,7 @@ class Media
     public $file;
     
     /**
-     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element", mappedBy="medias")
+     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element", mappedBy="images")
      */
     private $elements;
 
@@ -56,7 +56,7 @@ class Media
     private $updated_at;
     
     /**
-     * Media to string
+     * Image to string
      *
      * @return string
      */
@@ -72,7 +72,7 @@ class Media
     {
         $this->elements = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
@@ -87,7 +87,7 @@ class Media
      * Set path
      *
      * @param string $path
-     * @return Media
+     * @return Image
      */
     public function setPath($path)
     {
@@ -110,7 +110,7 @@ class Media
      * Add elements
      *
      * @param IDCI\Bundle\GenealogyBundle\Entity\Element $elements
-     * @return Media
+     * @return Image
      */
     public function addElement(\IDCI\Bundle\GenealogyBundle\Entity\Element $elements)
     {
@@ -152,7 +152,7 @@ class Media
     public static function getUploadRootDir()
     {
         // the absolute directory path where uploaded documents should be saved
-        return __DIR__.'/../../../../../web'.self::getUploadDir();
+        return __DIR__.'/../../../../../../../web'.self::getUploadDir();
     }
 
     public static function getUploadDir()
@@ -227,7 +227,7 @@ class Media
      * Set updated_at
      *
      * @param \DateTime $updatedAt
-     * @return Media
+     * @return Image
      */
     public function setUpdatedAt($updatedAt)
     {

@@ -3,9 +3,10 @@
 {% block nav %}
   {% include "IDCIGenealogyBundle::entityNav.html.twig" with {'entities' : {
     'Elements':      { 'basepath': 'element'},
-    'Medias':        { 'basepath': 'media', 'active': true },
+    'Images':        { 'basepath': 'image', 'active': true },
     'Races':         { 'basepath': 'race'},
-    'Roles':         { 'basepath': 'role'}
+    'Roles':         { 'basepath': 'role'},
+    'Videos':        { 'basepath': 'video'}
   }} %}
 {% endblock %}
 
@@ -13,7 +14,7 @@
 
     {{ parent() }}
 
-    <h1>{% trans %}Media{% endtrans %}</h1>
+    <h1>{% trans %}Image{% endtrans %}</h1>
 
     <table class="table table-bordered table-striped record_properties">
         <tbody>
@@ -34,12 +35,12 @@
 
     <ul class="record_actions">
         <li>
-            <a href="{{ path('media') }}">
+            <a href="{{ path('image') }}">
                 {% trans %}Back to the list{% endtrans %}
             </a>
         </li>
         <li>
-            <a href="{{ path('media_edit', { 'id': entity.id }) }}">
+            <a href="{{ path('image_edit', { 'id': entity.id }) }}">
                 {% trans %}Edit{% endtrans %}
             </a>
         </li>

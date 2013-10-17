@@ -7,21 +7,21 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use IDCI\Bundle\GenealogyBundle\Entity\Media;
-use IDCI\Bundle\GenealogyBundle\Form\Type\MediaType;
+use IDCI\Bundle\GenealogyBundle\Entity\Image;
+use IDCI\Bundle\GenealogyBundle\Form\Type\ImageType;
 
 /**
- * Media controller.
+ * Image controller.
  *
- * @Route("/media")
+ * @Route("/image")
  */
-class MediaController extends Controller
+class ImageController extends Controller
 {
 
     /**
-     * Lists all Media entities.
+     * Lists all Image entities.
      *
-     * @Route("/", name="media")
+     * @Route("/", name="image")
      * @Method("GET")
      * @Template()
      */
@@ -29,22 +29,22 @@ class MediaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entities = $em->getRepository('IDCIGenealogyBundle:Media')->findAll();
+        $entities = $em->getRepository('IDCIGenealogyBundle:Image')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
     /**
-     * Creates a new Media entity.
+     * Creates a new Image entity.
      *
-     * @Route("/", name="media_create")
+     * @Route("/", name="image_create")
      * @Method("POST")
-     * @Template("IDCIGenealogyBundle:Media:new.html.twig")
+     * @Template("IDCIGenealogyBundle:Image:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Media();
+        $entity = new Image();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -53,7 +53,7 @@ class MediaController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('media_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('image_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -63,16 +63,16 @@ class MediaController extends Controller
     }
 
    /**
-    * Creates a form to create a Media entity.
+    * Creates a form to create a Image entity.
     *
-    * @param Media $entity The entity
+    * @param Image $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm(Media $entity)
+    private function createCreateForm(Image $entity)
     {
-        $form = $this->createForm(new MediaType(), $entity, array(
-            'action' => $this->generateUrl('media_create'),
+        $form = $this->createForm(new ImageType(), $entity, array(
+            'action' => $this->generateUrl('image_create'),
             'method' => 'POST',
         ));
 
@@ -82,15 +82,15 @@ class MediaController extends Controller
     }
 
     /**
-     * Displays a form to create a new Media entity.
+     * Displays a form to create a new Image entity.
      *
-     * @Route("/new", name="media_new")
+     * @Route("/new", name="image_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new Media();
+        $entity = new Image();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -100,9 +100,9 @@ class MediaController extends Controller
     }
 
     /**
-     * Finds and displays a Media entity.
+     * Finds and displays a Image entity.
      *
-     * @Route("/{id}", name="media_show")
+     * @Route("/{id}", name="image_show")
      * @Method("GET")
      * @Template()
      */
@@ -110,10 +110,10 @@ class MediaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('IDCIGenealogyBundle:Media')->find($id);
+        $entity = $em->getRepository('IDCIGenealogyBundle:Image')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Media entity.');
+            throw $this->createNotFoundException('Unable to find Image entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -125,9 +125,9 @@ class MediaController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Media entity.
+     * Displays a form to edit an existing Image entity.
      *
-     * @Route("/{id}/edit", name="media_edit")
+     * @Route("/{id}/edit", name="image_edit")
      * @Method("GET")
      * @Template()
      */
@@ -135,10 +135,10 @@ class MediaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('IDCIGenealogyBundle:Media')->find($id);
+        $entity = $em->getRepository('IDCIGenealogyBundle:Image')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Media entity.');
+            throw $this->createNotFoundException('Unable to find Image entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -152,16 +152,16 @@ class MediaController extends Controller
     }
 
     /**
-    * Creates a form to edit a Media entity.
+    * Creates a form to edit a Image entity.
     *
-    * @param Media $entity The entity
+    * @param Image $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm(Media $entity)
+    private function createEditForm(Image $entity)
     {
-        $form = $this->createForm(new MediaType(), $entity, array(
-            'action' => $this->generateUrl('media_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new ImageType(), $entity, array(
+            'action' => $this->generateUrl('image_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -170,20 +170,20 @@ class MediaController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Media entity.
+     * Edits an existing Image entity.
      *
-     * @Route("/{id}", name="media_update")
+     * @Route("/{id}", name="image_update")
      * @Method("PUT")
-     * @Template("IDCIGenealogyBundle:Media:edit.html.twig")
+     * @Template("IDCIGenealogyBundle:Image:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('IDCIGenealogyBundle:Media')->find($id);
+        $entity = $em->getRepository('IDCIGenealogyBundle:Image')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Media entity.');
+            throw $this->createNotFoundException('Unable to find Image entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -193,7 +193,7 @@ class MediaController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('media_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('image_edit', array('id' => $id)));
         }
 
         return array(
@@ -203,9 +203,9 @@ class MediaController extends Controller
         );
     }
     /**
-     * Deletes a Media entity.
+     * Deletes a Image entity.
      *
-     * @Route("/{id}", name="media_delete")
+     * @Route("/{id}", name="image_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -215,21 +215,21 @@ class MediaController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('IDCIGenealogyBundle:Media')->find($id);
+            $entity = $em->getRepository('IDCIGenealogyBundle:Image')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Media entity.');
+                throw $this->createNotFoundException('Unable to find Image entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('media'));
+        return $this->redirect($this->generateUrl('image'));
     }
 
     /**
-     * Creates a form to delete a Media entity by id.
+     * Creates a form to delete a Image entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -238,7 +238,7 @@ class MediaController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('media_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('image_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

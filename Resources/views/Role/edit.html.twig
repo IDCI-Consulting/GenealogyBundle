@@ -3,9 +3,10 @@
 {% block nav %}
   {% include "IDCIGenealogyBundle::entityNav.html.twig" with {'entities' : {
     'Elements':      { 'basepath': 'element'},
-    'Medias':        { 'basepath': 'media'},
+    'Images':        { 'basepath': 'image'},
     'Races':         { 'basepath': 'race'},
-    'Roles':         { 'basepath': 'role', 'active': true }
+    'Roles':         { 'basepath': 'role', 'active': true },
+    'Videos':        { 'basepath': 'video'}
   }} %}
 {% endblock %}
 

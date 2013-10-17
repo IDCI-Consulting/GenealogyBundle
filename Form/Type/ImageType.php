@@ -14,7 +14,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class MediaType extends AbstractType
+class ImageType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -26,14 +26,14 @@ class MediaType extends AbstractType
             ->add('file')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'IDCI\Bundle\GenealogyBundle\Entity\Media'
+            'data_class' => 'IDCI\Bundle\GenealogyBundle\Entity\Image'
         ));
     }
 
@@ -42,6 +42,6 @@ class MediaType extends AbstractType
      */
     public function getName()
     {
-        return 'idci_GenealogyBundle_media';
+        return 'idci_GenealogyBundle_image';
     }
 }

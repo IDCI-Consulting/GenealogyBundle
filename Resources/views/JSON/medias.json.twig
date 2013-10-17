@@ -1,0 +1,14 @@
+{% if medias|length > 1 %}
+    "medias":
+    [
+        {% for media in medias %}
+            {% if loop.last %}
+                { "path": "{{ media }}" }
+            {% else %}
+                { "path": "{{ media }}" },
+            {% endif %}
+        {% endfor %}
+    ],
+{% elseif medias|length > 0 %}
+    "media": "{{ medias.first }}",
+{% endif %}

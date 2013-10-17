@@ -44,6 +44,27 @@ class ElementRepository extends EntityRepository
             ;
         }
 
+        if(isset($params['race'])) {
+            
+            if ($params['race'] == 'divers') {
+                $qb
+                    ->innerJoin('e.race', 'race', 'WITH', $qb->expr()->notIn('race.name', array('welshs', 'lusitaniens')))
+                ;
+            } else {
+                $qb
+                    ->innerJoin('e.race', 'race', 'WITH', 'race.name = :race_name')
+                    ->setParameter('race_name', $params['race'])
+                ;
+            }
+        }
+
+        if(isset($params['role'])) {
+            $qb
+                ->innerJoin('e.roles', 'role', 'WITH', 'role.name = :role_name')
+                ->setParameter('role_name', $params['role'])
+            ;
+        }
+
        return $qb;
    }
 

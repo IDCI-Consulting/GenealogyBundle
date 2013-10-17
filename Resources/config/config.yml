@@ -6,8 +6,7 @@ parameters:
 idci_exporter:
     entities:
        elements:
-            class: %element_class%
-            #class: "@IDCIGenealogyBundle/Entity/Element.php"
+            class: "IDCI\\Bundle\\GenealogyBundle\\Entity\\Element"
             formats:
                 jsonp:
                     transformer:

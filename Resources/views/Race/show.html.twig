@@ -1,0 +1,45 @@
+{% extends "IDCIGenealogyBundle::adminbase.html.twig" %}
+
+{% block nav %}
+  {% include "IDCIGenealogyBundle::entityNav.html.twig" with {'entities' : {
+    'Elements':      { 'basepath': 'element'},
+    'Medias':        { 'basepath': 'media'},
+    'Races':         { 'basepath': 'race', 'active': true },
+    'Roles':         { 'basepath': 'role'}
+  }} %}
+{% endblock %}
+
+{% block body %}
+
+    {{ parent() }}
+
+    <h1>Race</h1>
+
+    <table class="table table-bordered table-striped record_properties">
+        <tbody>
+            <tr>
+                <th>{% trans %}Id{% endtrans %}</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Name{% endtrans %}</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('race') }}">
+                {% trans %}Back to the list{% endtrans %}
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('race_edit', { 'id': entity.id }) }}">
+                {% trans %}Edit{% endtrans %}
+            </a>
+        </li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
+
+{% endblock %}

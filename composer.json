@@ -2,7 +2,7 @@
     "name": "idci/genealogy-bundle",
     "type": "symfony-bundle",
     "description": "Symfony GenealogyBundle",
-    "keywords": ["Genealogy application", "xml", "json", "api", "web service"],
+    "keywords": ["genealogy", "xml", "json", "api", "web service"],
     "license": "GPL-3.0+",
     "authors": [
         {

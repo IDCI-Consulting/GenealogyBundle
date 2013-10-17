@@ -1,0 +1,35 @@
+{% extends "IDCIGenealogyBundle::adminbase.html.twig" %}
+
+{% block nav %}
+  {% include "IDCIGenealogyBundle::entityNav.html.twig" with {'entities' : {
+    'Elements':      { 'basepath': 'element'},
+    'Medias':        { 'basepath': 'media'},
+    'Races':         { 'basepath': 'race'},
+    'Roles':         { 'basepath': 'role', 'active': true }
+  }} %}
+{% endblock %}
+
+{% block body %}
+
+    {{ parent() }}
+
+    <div class="page-header">
+      <h1>{% trans %}Role creation{% endtrans %}</h1>
+    </div>
+
+    <form action="{{ path('role_create') }}" method="post" {{ form_enctype(form) }}>
+        {{ form_widget(form) }}
+        <p>
+            <button type="submit">{% trans %}Create{% endtrans %}</button>
+        </p>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('role') }}">
+                {% trans %}Back to the list{% endtrans %}
+            </a>
+        </li>
+    </ul>
+
+{% endblock body %}

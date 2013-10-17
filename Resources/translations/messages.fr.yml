@@ -13,3 +13,44 @@ List: Liste
 %entity%[%id%] has been created: %entity%[%id%] a bien été créé
 %entity%[%id%] has been deleted: %entity%[%id%] a bien été supprimé
 %entity%[%id%] has been updated: %entity%[%id%] a bien été mis à jour
+Element: Cheval
+Media: Media
+Role: Role
+Race: Race
+Elements: Chevaux
+Medias: Medias
+Races: Races
+Roles: Rôles
+Element creation: Ajouter un cheval
+Media creation: Ajouter un media
+Role creation: Ajouter un rôle
+Race creation: Ajouter une race
+Element edit: Editer un cheval
+Media edit: Editer un média
+Race edit: Editer une race
+Role edit: Editer un rôle
+Element list: Liste des chevaux
+Race list: Liste des races
+Media list: Liste des medias
+Role list: Liste des rôles
+Birth date: Date de naissance
+Birthdate: Date de naissance
+Sex: Sexe
+Father: Père
+Mother: Mère
+Female: Femelle
+Male: Mâle
+Coat color: Couleur de robe
+Update: Mettre à jour
+Path: Fichier
+Updated_at: Date de dernière mise à jour
+File: Fichier
+Id: Identifiant
+Name: Nom
+Race: Race
+Role: Rôle
+Size: Taille
+Weight: Poids
+Rank: Rang
+Coatcolor: Couleur de robe
+Actions: Actions

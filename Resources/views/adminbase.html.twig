@@ -3,10 +3,14 @@
 {% block stylesheets %}
     {{ parent() }}
     <link rel="stylesheet" type="text/css" href="{{ asset('bundles/idcigenealogy/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('bundles/idcigenealogy/css/style.css') }}">
 {% endblock %}
     
 {% block body %}
 
+    {% block nav %}
+    {% endblock %}
+    
     {{ parent() }}
 
 {% endblock %}

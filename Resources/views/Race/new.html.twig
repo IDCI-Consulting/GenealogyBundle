@@ -2,9 +2,9 @@
 
 {% block nav %}
   {% include "IDCIGenealogyBundle::entityNav.html.twig" with {'entities' : {
-    'Elements':      { 'basepath': 'element', 'active': true},
+    'Elements':      { 'basepath': 'element'},
     'Medias':        { 'basepath': 'media'},
-    'Races':         { 'basepath': 'race'},
+    'Races':         { 'basepath': 'race', 'active': true },
     'Roles':         { 'basepath': 'role'}
   }} %}
 {% endblock %}
@@ -13,15 +13,16 @@
 
     {{ parent() }}
 
-    <h1>{% trans %}Element creation{% endtrans %}</h1>
+    <h1>Race creation</h1>
 
     {{ form(form) }}
 
-        <ul class="record_actions">
-    <li>
-        <a href="{{ path('element') }}">
-            {% trans %}Back to the list{% endtrans %}
-        </a>
-    </li>
-</ul>
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('race') }}">
+                {% trans %}Back to the list{% endtrans %}
+            </a>
+        </li>
+    </ul>
+
 {% endblock %}

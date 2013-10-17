@@ -7,43 +7,44 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use IDCI\Bundle\GenealogyBundle\Form\Type\ElementType;
-use IDCI\Bundle\GenealogyBundle\Entity\Element;
+use IDCI\Bundle\GenealogyBundle\Entity\Race;
+use IDCI\Bundle\GenealogyBundle\Form\Type\RaceType;
 
 /**
- * Element controller.
+ * Race controller.
  *
- * @Route("/element")
+ * @Route("/race")
  */
-class ElementController extends Controller
+class RaceController extends Controller
 {
+
     /**
-     * Lists all Element entities.
+     * Lists all Race entities.
      *
-     * @Route("/", name="element")
+     * @Route("/", name="race")
      * @Method("GET")
      * @Template()
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('IDCIGenealogyBundle:Element')->findAll();
+
+        $entities = $em->getRepository('IDCIGenealogyBundle:Race')->findAll();
 
         return array(
             'entities' => $entities,
         );
     }
-
     /**
-     * Creates a new Element entity.
+     * Creates a new Race entity.
      *
-     * @Route("/", name="element_create")
+     * @Route("/", name="race_create")
      * @Method("POST")
-     * @Template("IDCIGenealogyBundle:Element:new.html.twig")
+     * @Template("IDCIGenealogyBundle:Race:new.html.twig")
      */
     public function createAction(Request $request)
     {
-        $entity = new Element();
+        $entity = new Race();
         $form = $this->createCreateForm($entity);
         $form->handleRequest($request);
 
@@ -52,7 +53,7 @@ class ElementController extends Controller
             $em->persist($entity);
             $em->flush();
 
-            return $this->redirect($this->generateUrl('element_show', array('id' => $entity->getId())));
+            return $this->redirect($this->generateUrl('race_show', array('id' => $entity->getId())));
         }
 
         return array(
@@ -62,22 +63,18 @@ class ElementController extends Controller
     }
 
     /**
-    * Creates a form to create a Element entity.
+    * Creates a form to create a Race entity.
     *
-    * @param Element $entity The entity
+    * @param Race $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createCreateForm($entity)
+    private function createCreateForm(Race $entity)
     {
-        $form = $this->createForm(
-            new ElementType(),
-            $entity,
-            array(
-                'action' => $this->generateUrl('element_create'),
-                'method' => 'POST',
-            )
-        );
+        $form = $this->createForm(new RaceType(), $entity, array(
+            'action' => $this->generateUrl('race_create'),
+            'method' => 'POST',
+        ));
 
         $form->add('submit', 'submit', array('label' => 'Create'));
 
@@ -85,15 +82,15 @@ class ElementController extends Controller
     }
 
     /**
-     * Displays a form to create a new Element entity.
+     * Displays a form to create a new Race entity.
      *
-     * @Route("/new", name="element_new")
+     * @Route("/new", name="race_new")
      * @Method("GET")
      * @Template()
      */
     public function newAction()
     {
-        $entity = new Element();
+        $entity = new Race();
         $form   = $this->createCreateForm($entity);
 
         return array(
@@ -103,9 +100,9 @@ class ElementController extends Controller
     }
 
     /**
-     * Finds and displays a Element entity.
+     * Finds and displays a Race entity.
      *
-     * @Route("/{id}", name="element_show")
+     * @Route("/{id}", name="race_show")
      * @Method("GET")
      * @Template()
      */
@@ -113,10 +110,10 @@ class ElementController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('IDCIGenealogyBundle:Element')->findOneById($id);
+        $entity = $em->getRepository('IDCIGenealogyBundle:Race')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Element entity.');
+            throw $this->createNotFoundException('Unable to find Race entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -128,9 +125,9 @@ class ElementController extends Controller
     }
 
     /**
-     * Displays a form to edit an existing Element entity.
+     * Displays a form to edit an existing Race entity.
      *
-     * @Route("/{id}/edit", name="element_edit")
+     * @Route("/{id}/edit", name="race_edit")
      * @Method("GET")
      * @Template()
      */
@@ -138,10 +135,10 @@ class ElementController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('IDCIGenealogyBundle:Element')->find($id);
+        $entity = $em->getRepository('IDCIGenealogyBundle:Race')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Element entity.');
+            throw $this->createNotFoundException('Unable to find Race entity.');
         }
 
         $editForm = $this->createEditForm($entity);
@@ -155,16 +152,16 @@ class ElementController extends Controller
     }
 
     /**
-    * Creates a form to edit a Element entity.
+    * Creates a form to edit a Race entity.
     *
-    * @param Element $entity The entity
+    * @param Race $entity The entity
     *
     * @return \Symfony\Component\Form\Form The form
     */
-    private function createEditForm($entity)
+    private function createEditForm(Race $entity)
     {
-        $form = $this->createForm(new ElementType(), $entity, array(
-            'action' => $this->generateUrl('element_update', array('id' => $entity->getId())),
+        $form = $this->createForm(new RaceType(), $entity, array(
+            'action' => $this->generateUrl('race_update', array('id' => $entity->getId())),
             'method' => 'PUT',
         ));
 
@@ -173,20 +170,20 @@ class ElementController extends Controller
         return $form;
     }
     /**
-     * Edits an existing Element entity.
+     * Edits an existing Race entity.
      *
-     * @Route("/{id}", name="element_update")
+     * @Route("/{id}", name="race_update")
      * @Method("PUT")
-     * @Template("IDCIGenealogyBundle:Element:edit.html.twig")
+     * @Template("IDCIGenealogyBundle:Race:edit.html.twig")
      */
     public function updateAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
 
-        $entity = $em->getRepository('IDCIGenealogyBundle:Element')->find($id);
+        $entity = $em->getRepository('IDCIGenealogyBundle:Race')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Element entity.');
+            throw $this->createNotFoundException('Unable to find Race entity.');
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -196,7 +193,7 @@ class ElementController extends Controller
         if ($editForm->isValid()) {
             $em->flush();
 
-            return $this->redirect($this->generateUrl('element_edit', array('id' => $id)));
+            return $this->redirect($this->generateUrl('race_edit', array('id' => $id)));
         }
 
         return array(
@@ -206,9 +203,9 @@ class ElementController extends Controller
         );
     }
     /**
-     * Deletes a Element entity.
+     * Deletes a Race entity.
      *
-     * @Route("/{id}", name="element_delete")
+     * @Route("/{id}", name="race_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, $id)
@@ -218,21 +215,21 @@ class ElementController extends Controller
 
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
-            $entity = $em->getRepository('IDCIGenealogyBundle:Element')->find($id);
+            $entity = $em->getRepository('IDCIGenealogyBundle:Race')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Element entity.');
+                throw $this->createNotFoundException('Unable to find Race entity.');
             }
 
             $em->remove($entity);
             $em->flush();
         }
 
-        return $this->redirect($this->generateUrl('element'));
+        return $this->redirect($this->generateUrl('race'));
     }
 
     /**
-     * Creates a form to delete a Element entity by id.
+     * Creates a form to delete a Race entity by id.
      *
      * @param mixed $id The entity id
      *
@@ -241,7 +238,7 @@ class ElementController extends Controller
     private function createDeleteForm($id)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('element_delete', array('id' => $id)))
+            ->setAction($this->generateUrl('race_delete', array('id' => $id)))
             ->setMethod('DELETE')
             ->add('submit', 'submit', array('label' => 'Delete'))
             ->getForm()

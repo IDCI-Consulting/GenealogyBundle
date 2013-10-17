@@ -34,7 +34,5 @@ class IDCIGenealogyExtension extends Extension
         $loader->load('services.yml');
 
         $container->setParameter('genealogyConfiguration', $config);
-        $container->setParameter('elementClass', $config['element_class']);
-        $container->setParameter('elementFormType', $config['form']['type']);
     }
 }

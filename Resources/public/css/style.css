@@ -1,0 +1,14 @@
+ul
+{
+    margin: 0;
+}
+
+li
+{
+    list-style-type: none;
+}
+
+#wrapper
+{
+    padding: 30px;
+}

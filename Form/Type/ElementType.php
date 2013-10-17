@@ -9,18 +9,6 @@ use Doctrine\ORM\EntityRepository;
 
 class ElementType extends AbstractType
 {
-    private $elementClass;
-
-    /**
-     * Constructor
-     *
-     * @param type $elementClass the element entity class
-     */
-    public function __construct($elementClass)
-    {
-        $this->elementClass = $elementClass;
-    }
-
     /**
      * @param FormBuilderInterface $builder
      * @param array $options
@@ -32,7 +20,7 @@ class ElementType extends AbstractType
             ->add('birthDate', 'date')
             ->add('sex', 'gender')
             ->add('father', 'entity', array(
-                'class' => $this->elementClass,
+                'class' => 'IDCIGenealogyBundle:Element',
                 'required' => false,
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder("e")
@@ -42,7 +30,7 @@ class ElementType extends AbstractType
                 },
             ))
             ->add('mother', 'entity', array(
-                'class' => $this->elementClass,
+                'class' => 'IDCIGenealogyBundle:Element',
                 'required' => false,
                 'query_builder' => function(EntityRepository $er) {
                     return $er->createQueryBuilder("e")
@@ -51,6 +39,23 @@ class ElementType extends AbstractType
                     ;
                 },
             ))
+            ->add('size')
+            ->add('weight')
+            ->add('rank')
+            ->add('coatColor')
+            ->add('roles', 'entity', array(
+                'class' => 'IDCIGenealogyBundle:Role',
+                'multiple' => true
+            ))
+            ->add('race', 'entity', array(
+                'class' => 'IDCIGenealogyBundle:Race',
+                'required' => true
+            ))
+            ->add('medias', 'entity', array(
+                'class' => 'IDCIGenealogyBundle:Media',
+                'multiple' => true
+            ))
+        ;
         ;
     }
     
@@ -69,6 +74,6 @@ class ElementType extends AbstractType
      */
     public function getName()
     {
-        return 'idci_bundle_genealogybundle_element';
+        return 'idci_GenealogyBundle_element';
     }
 }

@@ -2,9 +2,9 @@
 
 {% block nav %}
   {% include "IDCIGenealogyBundle::entityNav.html.twig" with {'entities' : {
-    'Elements':      { 'basepath': 'element', 'active': true},
+    'Elements':      { 'basepath': 'element'},
     'Medias':        { 'basepath': 'media'},
-    'Races':         { 'basepath': 'race'},
+    'Races':         { 'basepath': 'race', 'active': true },
     'Roles':         { 'basepath': 'role'}
   }} %}
 {% endblock %}
@@ -13,42 +13,30 @@
 
     {{ parent() }}
 
-    <h1>{% trans %}Element list{% endtrans %}</h1>
+    <h1>{% trans %}Race list{% endtrans %}</h1>
 
     <table class="table table-bordered table-striped table-condensed records_list">
         <thead>
             <tr>
                 <th>{% trans %}Id{% endtrans %}</th>
                 <th>{% trans %}Name{% endtrans %}</th>
-                <th>{% trans %}Birthdate{% endtrans %}</th>
-                <th>{% trans %}Size{% endtrans %}</th>
-                <th>{% trans %}Weight{% endtrans %}</th>
-                <th>{% trans %}Sex{% endtrans %}</th>
-                <th>{% trans %}Rank{% endtrans %}</th>
-                <th>{% trans %}Coatcolor{% endtrans %}</th>
                 <th>{% trans %}Actions{% endtrans %}</th>
             </tr>
         </thead>
         <tbody>
         {% for entity in entities %}
             <tr>
-                <td><a href="{{ path('element_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+                <td><a href="{{ path('race_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.name }}</td>
-                <td>{% if entity.birthDate %}{{ entity.birthDate|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ entity.size }}</td>
-                <td>{{ entity.weight }}</td>
-                <td>{{ entity.sex }}</td>
-                <td>{{ entity.rank }}</td>
-                <td>{{ entity.coatColor }}</td>
                 <td>
                 <ul>
                     <li>
-                        <a class="btn btn-block" href="{{ path('element_show', { 'id': entity.id }) }}">
+                        <a class="btn btn-block" href="{{ path('race_show', { 'id': entity.id }) }}">
                             {% trans %}show{% endtrans %}
                         </a>
                     </li>
                     <li>
-                        <a class="btn btn-block btn-primary" href="{{ path('element_edit', { 'id': entity.id }) }}">
+                        <a class="btn btn-block btn-primary" href="{{ path('race_edit', { 'id': entity.id }) }}">
                             {% trans %}edit{% endtrans %}
                         </a>
                     </li>
@@ -61,7 +49,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('element_new') }}">
+            <a href="{{ path('race_new') }}">
                 {% trans %}Create a new entry{% endtrans %}
             </a>
         </li>

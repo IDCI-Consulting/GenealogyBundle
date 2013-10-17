@@ -1,0 +1,52 @@
+{% extends "IDCIGenealogyBundle::adminbase.html.twig" %}
+
+{% block nav %}
+  {% include "IDCIGenealogyBundle::entityNav.html.twig" with {'entities' : {
+    'Elements':      { 'basepath': 'element'},
+    'Medias':        { 'basepath': 'media'},
+    'Races':         { 'basepath': 'race'},
+    'Roles':         { 'basepath': 'role', 'active': true }
+  }} %}
+{% endblock %}
+
+{% block body %}
+
+    {{ parent() }}
+
+    <div class="page-header">
+      <h1>Role</h1>
+    </div>
+
+    <table class="table table-bordered table-striped record_properties">
+        <tbody>
+            <tr>
+                <th>{% trans %}Id{% endtrans %}</th>
+                <td>{{ entity.id }}</td>
+            </tr>
+            <tr>
+                <th>{% trans %}Name{% endtrans %}</th>
+                <td>{{ entity.name }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('role') }}">
+                {% trans %}Back to the list{% endtrans %}
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('role_edit', { 'id': entity.id }) }}">
+                {% trans %}Edit{% endtrans %}
+            </a>
+        </li>
+        <li>
+            <form action="{{ path('role_delete', { 'id': entity.id }) }}" method="post">
+                {{ form_widget(delete_form) }}
+                <button type="submit">{% trans %}Delete{% endtrans %}</button>
+            </form>
+        </li>
+    </ul>
+
+{% endblock body %}

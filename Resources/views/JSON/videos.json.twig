@@ -16,5 +16,9 @@
         {% endfor %}
     ],
 {% elseif videos|length > 0 %}
-    "video": "{{ videos.first }}",
+    "video":
+    {
+        "link": "{{ videos.first.link }}",
+        "title": "{{ videos.first.title }}"
+    },
 {% endif %}

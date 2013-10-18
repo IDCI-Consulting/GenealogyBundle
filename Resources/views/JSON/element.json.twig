@@ -1,5 +1,4 @@
 {
-    "id": "{{ element.id }}",
     "name": "{{ element.name }}",
     "description": "{{ element.description }}",
     "birthdate": "{{ element.birthdate|date('d/m/Y')}}",
@@ -9,13 +8,17 @@
     "coatColor": "{{ element.coatcolor }}",
     "race": "{{ element.race }}",
     "role": "{{ element.role }}",
+    "size": "{{ element.size }}",
+    
+    {% include 'IDCIGenealogyBundle:JSON:images.json.twig' with {'images': element.images} %}
+    {% include 'IDCIGenealogyBundle:JSON:videos.json.twig' with {'videos': element.videos} %}
 
     {% if element.getChildren|length > 0 %}
         {% if element.getChildren|length > 1 %}
             "children":
             [
             {% for element in element.getChildren %}
-                {% include 'IDCIGenealogyBundle:JSON:element.json.twig' with {'element': element} %}
+                {% include 'IDCIGenealogyBundle:JSON:children.json.twig' with {'element': element} %}
                 {% if not loop.last %}
                 ,
                 {% endif %}
@@ -23,13 +26,17 @@
             ],
         {% else %}
             "child":
-            {% include 'IDCIGenealogyBundle:JSON:element.json.twig' with {'element': element.getChildren.first } %},
+            {% include 'IDCIGenealogyBundle:JSON:children.json.twig' with {'element': element.getChildren.first } %},
         {% endif %}
     {% endif %}
+            
+    {% if element.hasParents %}
+        "parents":
+        {
+            "father": {% include 'IDCIGenealogyBundle:JSON:parents.json.twig' with {'element': element.father} %},
+            "mother": {% include 'IDCIGenealogyBundle:JSON:parents.json.twig' with {'element': element.mother} %}
+        },
+    {% endif %}
 
-    {% include 'IDCIGenealogyBundle:JSON:images.json.twig' with {'images': element.images} %}
-
-    {% include 'IDCIGenealogyBundle:JSON:videos.json.twig' with {'videos': element.videos} %}
-
-    "size": "{{ element.size }}"
+    "id": "{{ element.id }}"
 }

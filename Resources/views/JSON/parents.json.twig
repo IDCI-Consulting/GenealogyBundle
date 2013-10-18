@@ -1,0 +1,13 @@
+{
+    "name": "{{ element.name }}",
+
+    {% if element.hasParents %}
+        "parents":
+        {
+            "father": {% include 'IDCIGenealogyBundle:JSON:parents.json.twig' with {'element': element.father} %},
+            "mother": {% include 'IDCIGenealogyBundle:JSON:parents.json.twig' with {'element': element.mother} %}
+        },
+    {% endif %}
+
+    "id": "{{ element.id }}"
+}

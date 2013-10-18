@@ -1,0 +1,22 @@
+{
+    "name": "{{ element.name }}",
+
+    {% if element.getChildren|length > 0 %}
+        {% if element.getChildren|length > 1 %}
+            "children":
+            [
+            {% for element in element.getChildren %}
+                {% include 'IDCIGenealogyBundle:JSON:children.json.twig' with {'element': element} %}
+                {% if not loop.last %}
+                ,
+                {% endif %}
+            {% endfor %}
+            ],
+        {% else %}
+            "child":
+            {% include 'IDCIGenealogyBundle:JSON:children.json.twig' with {'element': element.getChildren.first } %},
+        {% endif %}
+    {% endif %}
+
+    "id": "{{ element.id }}"
+}

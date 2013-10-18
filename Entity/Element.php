@@ -171,6 +171,20 @@ class Element
     }
 
     /**
+     * Has parents
+     *
+     * @return boolean
+     */  
+    public function hasParents()
+    {
+        if ($this->mother && $this->father) {
+            return true;
+        }
+
+        return false;
+    }
+    
+    /**
      * Set name
      *
      * @param string $name

@@ -1,5 +1,6 @@
 {
     "name": "{{ element.name }}",
+    "isFiled": {% if element.isFiled %}1{% else %}0{%endif%},
 
     {% if element.getChildren|length > 0 %}
         {% if element.getChildren|length > 1 %}

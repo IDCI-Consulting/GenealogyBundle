@@ -15,10 +15,20 @@ class ElementType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        $date = new \DateTime('now');
+        $year = intval($date->format('Y'));
+
         $builder
             ->add('name')
+            ->add('isFiled', null, array(
+                'label' => 'Is filed',
+                'required' => false
+            ))
             ->add('description')
-            ->add('birthDate', 'date')
+            ->add('birthDate', 'date', array(
+                'required' => false,
+                'years' => range(1990, $year)
+            ))
             ->add('sex', 'gender')
             ->add('father', 'entity', array(
                 'class' => 'IDCIGenealogyBundle:Element',
@@ -60,7 +70,6 @@ class ElementType extends AbstractType
                 'multiple' => true,
                 'label'    => 'Youtube video links'
             ))
-        ;
         ;
     }
     

@@ -9,6 +9,7 @@
     "race": "{{ element.race }}",
     "role": "{{ element.role }}",
     "size": "{{ element.size }}",
+    "isFiled": {{element.isFiled }},
     
     {% include 'IDCIGenealogyBundle:JSON:images.json.twig' with {'images': element.images} %}
     {% include 'IDCIGenealogyBundle:JSON:videos.json.twig' with {'videos': element.videos} %}

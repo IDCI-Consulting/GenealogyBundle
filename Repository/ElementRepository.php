@@ -20,32 +20,39 @@ use Doctrine\ORM\EntityRepository;
  */
 class ElementRepository extends EntityRepository
 {
-   /**
-    * extractQueryBuilder
-    *
-    * @param array $params
-    * @return QueryBuilder
-    */
-   public function extractQueryBuilder($params)
-   {
-       $qb = $this->createQueryBuilder('e');
+    /**
+     * extractQueryBuilder
+     *
+     * @param array $params
+     * @return QueryBuilder
+     */
+    public function extractQueryBuilder($params)
+    {
+        $qb = $this->createQueryBuilder('e');
 
-       if(isset($params['id'])) {
-           $qb
-               ->andWhere('e.id = :id')
-               ->setParameter('id', $params['id'])
-           ;
-       }
+        if(isset($params['id'])) {
+            $qb
+                ->andWhere('e.id = :id')
+                ->setParameter('id', $params['id'])
+            ;
+        }
 
-       if(isset($params['name'])) {
+        if(isset($params['name'])) {
             $qb
                ->andWhere('e.name = :name')
                ->setParameter('name', $params['name'])
             ;
         }
 
+        if(isset($params['filed'])) {
+            $qb
+               ->andWhere('e.isFiled = :filed')
+               ->setParameter('filed', $params['filed'])
+            ;
+        }
+
         if(isset($params['race'])) {
-            
+
             if ($params['race'] == 'divers') {
                 $qb
                     ->innerJoin('e.race', 'race', 'WITH', $qb->expr()->notIn('race.name', array('welshs', 'lusitaniens')))
@@ -65,32 +72,32 @@ class ElementRepository extends EntityRepository
             ;
         }
 
-       return $qb;
-   }
+        return $qb;
+    }
 
-   /**
-    * extractQuery
-    *
-    * @param array $params
-    * @return Query
-    */
-   public function extractQuery($params)
-   {
-       $qb = $this->extractQueryBuilder($params);
+    /**
+     * extractQuery
+     *
+     * @param array $params
+     * @return Query
+     */
+    public function extractQuery($params)
+    {
+        $qb = $this->extractQueryBuilder($params);
 
-       return is_null($qb) ? $qb : $qb->getQuery();
-   }
+        return is_null($qb) ? $qb : $qb->getQuery();
+    }
 
-   /**
-    * extract
-    *
-    * @param array $params
-    * @return DoctrineCollection
-    */
-   public function extract($params)
-   {
-       $q = $this->extractQuery($params);
+    /**
+     * extract
+     *
+     * @param array $params
+     * @return DoctrineCollection
+     */
+    public function extract($params)
+    {
+        $q = $this->extractQuery($params);
 
-       return is_null($q) ? array() : $q->getResult();
-   }
+        return is_null($q) ? array() : $q->getResult();
+    }
 }

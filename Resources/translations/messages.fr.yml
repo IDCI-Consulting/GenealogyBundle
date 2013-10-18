@@ -61,3 +61,5 @@ Link: Lien
 Link token: Token du lien
 Title: Titre
 "The Link token represent the token which is in the youtube link. For exemple the token of the http://www.youtube.com/watch?v=lZl4lEPKArc video is lZl4lEPKArcs": Le token du lien correspond au token présent sur le lien youtube. Par exemple sur le lien http://www.youtube.com/watch?v=lZl4lEPKArc il s'agit de lZl4lEPKArcs
+Is filed: Est fiché
+The is Filed attribute is used to indicate if you want this horse filed or not: L'attribut "Est fiché" est utlisé pour indiqué si vous souhaitez une page pour ce cheval ou non. Si non, l'interêt est d'utilisé ce cheval dans une généalogie en tant que parent

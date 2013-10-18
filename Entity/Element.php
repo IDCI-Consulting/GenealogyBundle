@@ -61,35 +61,44 @@ class Element
     /**
      * @var string $description
      *
-     * @ORM\Column(name="description", type="text")
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
     protected $description;
 
     /**
+     * Is Filed is used to know whether a horse must have a page for him or not
+     *
+     * @var isFiled boolean 
+     * 
+     * @ORM\Column(name="is_filed", type="boolean", nullable=false)
+     */
+    protected $isFiled;
+    
+    /**
      * @var \DateTime $birth_date
      *
-     * @ORM\Column(name="birth_date", type="datetime")
+     * @ORM\Column(name="birth_date", type="datetime", nullable=true)
      */
     protected $birthDate;
 
     /**
      * @var string $sex
      *
-     * @ORM\Column(name="sex", type="string", length=1)
+     * @ORM\Column(name="sex", type="string", length=1, nullable=false)
      */
     protected $sex;
 
     /**
      * @var integer $size
      *
-     * @ORM\Column(name="size", type="integer")
+     * @ORM\Column(name="size", type="integer", nullable=true)
      */
     protected $size;
 
     /**
      * @var string $coat_color
      *
-     * @ORM\Column(name="coat_color", type="string", length=255)
+     * @ORM\Column(name="coat_color", type="string", length=255, nullable=true)
      */
     protected $coatColor;
 
@@ -102,7 +111,7 @@ class Element
 
     /**
      * @ORM\ManyToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Role", inversedBy="elements")
-     * @ORM\JoinColumn(name="role_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="role_id", referencedColumnName="id", nullable=true)
      */
     protected $role;
 
@@ -118,7 +127,7 @@ class Element
 
     /**
      * @ORM\ManyToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Race", inversedBy="elements")
-     * @ORM\JoinColumn(name="race_id", referencedColumnName="id", nullable=false)
+     * @ORM\JoinColumn(name="race_id", referencedColumnName="id", nullable=true)
      */
     protected $race;
 
@@ -567,5 +576,28 @@ class Element
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set isFiled
+     *
+     * @param boolean $isFiled
+     * @return Element
+     */
+    public function setIsFiled($isFiled)
+    {
+        $this->isFiled = $isFiled;
+    
+        return $this;
+    }
+
+    /**
+     * Get isFiled
+     *
+     * @return boolean 
+     */
+    public function getIsFiled()
+    {
+        return $this->isFiled;
     }
 }

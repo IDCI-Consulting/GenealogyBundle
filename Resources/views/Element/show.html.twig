@@ -27,6 +27,10 @@
                 <td>{{ entity.name }}</td>
             </tr>
             <tr>
+                <th>{% trans %}is filed{% endtrans %}</th>
+                <td>{{ entity.isFiled }}</td>
+            </tr>
+            <tr>
                 <th>{% trans %}Birthdate{% endtrans %}</th>
                 <td>{{ entity.birthDate|date('Y-m-d H:i:s') }}</td>
             </tr>

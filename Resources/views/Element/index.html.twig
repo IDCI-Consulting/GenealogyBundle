@@ -21,6 +21,7 @@
             <tr>
                 <th>{% trans %}Id{% endtrans %}</th>
                 <th>{% trans %}Name{% endtrans %}</th>
+                <th>{% trans %}Is filed{% endtrans %}</th>
                 <th>{% trans %}Birthdate{% endtrans %}</th>
                 <th>{% trans %}Size{% endtrans %}</th>
                 <th>{% trans %}Weight{% endtrans %}</th>
@@ -34,6 +35,7 @@
             <tr>
                 <td><a href="{{ path('element_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.name }}</td>
+                <td>{{ entity.isFiled }}</td>
                 <td>{% if entity.birthDate %}{{ entity.birthDate|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ entity.size }}</td>
                 <td>{{ entity.weight }}</td>

@@ -1,15 +1,64 @@
 GenealogyBundle
 ===============
 
-/!\ This bundle isn't achieved yet. Furthermore at the moment the minimum-stability must be set at dev /!\
-
-The Genealogy Bundle aim to quickly install a flexible genealogy api.
-If you need to provide a feed of elements with mothers and father, this bundle might comes in handy.
+The Genealogy Bundle aim to install a horse genealogy api.
 
 ## Prerequisites
 
 This bundle requires Symfony 2.3 or more.
 
-## Documentation
+# Installation
 
-To learn how to use this bundle read the [documentation](https://github.com/IDCI-Consulting/GenealogyBundle/blob/master/Resources/doc/getting-started.md)
+To install this bundle please follow the next steps:
+
+First add the dependency in your `composer.json` file:
+
+```json
+"require": {
+    ...
+    "idci/genealogy-bundle": "dev-master"
+},
+```
+
+Then install the bundle with the command:
+
+```sh
+php composer update
+```
+
+Enable the bundles in your application kernel:
+
+```php
+<?php
+// app/AppKernel.php
+
+public function registerBundles()
+{
+    $bundles = array(
+        // ...
+        new IDCI\Bundle\GenealogyBundle\IDCIGenealogyBundle(),
+        new IDCI\Bundle\ExporterBundle\IDCIExporterBundle()
+    );
+}
+```
+
+Update your routing.yml file:
+
+idci_genealogy:
+    resource: "@IDCIGenealogyBundle/Controller/"
+    type:     annotation
+
+idci_exporter:
+    resource: "@IDCIExporterBundle/Controller/"
+    type:     annotation
+
+Finally add the bundle config in your `config.yml` file:
+
+```yml
+imports:
+    ...
+    - { resource: @IDCIGenealogyBundle/Resources/config/config.yml }
+```
+
+Now the Bundle is installed.
+

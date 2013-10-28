@@ -52,7 +52,7 @@ idci_genealogy:
 idci_exporter:
     resource: "@IDCIExporterBundle/Controller/"
     type:     annotation
-```yml
+```
 
 Finally add the bundle config in your `config.yml` file:
 

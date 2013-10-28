@@ -22,7 +22,7 @@ class LoadElementData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $maria = new Element();
+        /*$maria = new Element();
         $maria->setName('Maria');
         $maria->setBirthDate(new \DateTime('1989-12-23'));
         $maria->setSize('200.2');
@@ -137,7 +137,7 @@ class LoadElementData extends AbstractFixture implements OrderedFixtureInterface
         $eric->setRace($this->getReference('welshs'));
         $manager->persist($eric);
         
-        $manager->flush();
+        $manager->flush();*/
     }
 
     /**

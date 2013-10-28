@@ -44,6 +44,7 @@ public function registerBundles()
 
 Update your routing.yml file:
 
+```yml
 idci_genealogy:
     resource: "@IDCIGenealogyBundle/Controller/"
     type:     annotation
@@ -51,6 +52,7 @@ idci_genealogy:
 idci_exporter:
     resource: "@IDCIExporterBundle/Controller/"
     type:     annotation
+```yml
 
 Finally add the bundle config in your `config.yml` file:
 
@@ -62,3 +64,12 @@ imports:
 
 Now the Bundle is installed.
 
+# Loading data
+
+Some fixtures are ready to be loaded in database.
+
+To load them, run the command
+
+```sh
+php app/console doctrine:fixtures:load
+```

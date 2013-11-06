@@ -18,6 +18,15 @@
         <h1>{% trans %}Youtube Video list{% endtrans %}</h1>
     </div>
 
+    <ul class="list_actions">
+        <li>
+            <a class="btn btn-primary" href="{{ path('video_new') }}">
+                {% trans %}Create a new entry{% endtrans %}
+            </a>
+        </li>
+    </ul>
+    <br />
+
     <table class="table table-bordered table-striped table-condensed records_list">
         <thead>
             <tr>

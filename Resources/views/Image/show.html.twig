@@ -44,6 +44,11 @@
                 {% trans %}Edit{% endtrans %}
             </a>
         </li>
+        <li>
+            <a href="{{ path('image_new') }}">
+                {% trans %}Create a new entry{% endtrans %}
+            </a>
+        </li>
         <li>{{ form(delete_form) }}</li>
     </ul>
 

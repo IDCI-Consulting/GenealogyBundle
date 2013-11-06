@@ -14,7 +14,9 @@
 
     {{ parent() }}
 
-    <h1>{% trans %}Race list{% endtrans %}</h1>
+    <div class="page-header">
+        <h1>{% trans %}Race list{% endtrans %}</h1>
+    </div>
 
     <table class="table table-bordered table-striped table-condensed records_list">
         <thead>
@@ -50,7 +52,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('race_new') }}">
+            <a class="btn btn-primary" href="{{ path('race_new') }}">
                 {% trans %}Create a new entry{% endtrans %}
             </a>
         </li>

@@ -14,7 +14,18 @@
 
     {{ parent() }}
 
-    <h1>{% trans %}Element list{% endtrans %}</h1>
+    <div class="page-header">
+        <h1>{% trans %}Element list{% endtrans %}</h1>
+    </div>
+
+    <ul>
+        <li>
+            <a class="btn btn-primary" href="{{ path('element_new') }}">
+                {% trans %}Create a new entry{% endtrans %}
+            </a>
+        </li>
+    </ul>
+    <br />
 
     <table class="table table-bordered table-striped table-condensed records_list">
         <thead>
@@ -62,7 +73,7 @@
 
     <ul>
         <li>
-            <a href="{{ path('element_new') }}">
+            <a class="btn btn-primary" href="{{ path('element_new') }}">
                 {% trans %}Create a new entry{% endtrans %}
             </a>
         </li>

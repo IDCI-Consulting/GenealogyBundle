@@ -21,7 +21,7 @@
         "symfony/framework-bundle": ">=2.1",
         "twig/twig": "*",
         "doctrine/doctrine-bundle": "*",
-        "idci/exporter-bundle": "@dev"
+        "idci/exporter-bundle": "dev-master"
     },
     "autoload": {
         "psr-0": { "IDCI\\Bundle\\GenealogyBundle": "" }

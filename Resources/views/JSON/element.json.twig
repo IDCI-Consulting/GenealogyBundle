@@ -4,7 +4,7 @@
     "birthdate": "{{ element.birthdate|date('d/m/Y')}}",
     "bornPlace":{},
     "weight": "{{ element.weight }}",
-    "sex": {% if(element.sex==0) %}"male"{% else %}"femelle"{% endif %},
+    "sex": "{{ element.sex }}",
     "coatColor": "{{ element.coatcolor }}",
     "race": "{{ element.race }}",
     "role": "{{ element.role }}",

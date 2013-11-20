@@ -2,6 +2,7 @@ parameters:
     genders:
         m: Male
         f: Female
+        h: Hongre
 
 idci_exporter:
     entities:

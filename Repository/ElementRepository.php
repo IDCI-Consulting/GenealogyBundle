@@ -44,10 +44,10 @@ class ElementRepository extends EntityRepository
             ;
         }
 
-        if(isset($params['filed'])) {
+        if(isset($params['isFiled'])) {
             $qb
-               ->andWhere('e.isFiled = :filed')
-               ->setParameter('filed', $params['filed'])
+               ->andWhere('e.isFiled = :isFiled')
+               ->setParameter('isFiled', $params['isFiled'])
             ;
         }
 

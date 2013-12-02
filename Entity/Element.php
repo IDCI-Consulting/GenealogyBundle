@@ -66,6 +66,15 @@ class Element
     protected $description;
 
     /**
+     * The main photo of the horse
+     * 
+     * @var Image $image
+     * 
+     * @ORM\ManyToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Image", inversedBy="elements")
+     */
+    protected $image;
+
+    /**
      * Is Filed is used to know whether a horse must have a page for him or not
      *
      * @var isFiled boolean 
@@ -73,7 +82,7 @@ class Element
      * @ORM\Column(name="is_filed", type="boolean", nullable=false)
      */
     protected $isFiled;
-    
+
     /**
      * @var \DateTime $birth_date
      *
@@ -599,5 +608,28 @@ class Element
     public function getIsFiled()
     {
         return $this->isFiled;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Set image
+     *
+     * @param string $image
+     * @return Element
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    
+        return $this;
     }
 }

@@ -53,6 +53,9 @@ class ElementType extends AbstractType
             ->add('size')
             ->add('weight')
             ->add('coatColor')
+            ->add('image', null, array(
+                'label' => 'Photo principale du cheval'
+            ))
             ->add('role', 'entity', array(
                 'class'    => 'IDCIGenealogyBundle:Role',
                 'required' => true

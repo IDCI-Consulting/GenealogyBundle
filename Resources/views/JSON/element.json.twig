@@ -1,6 +1,6 @@
 {
     "name": "{{ element.name }}",
-    "description": "{{ element.description }}",
+    "description": {{ element.description|nl2br|json_encode|raw }},
     "birthdate": "{{ element.birthdate|date('d/m/Y')}}",
     "bornPlace":{},
     "weight": "{{ element.weight }}",
@@ -9,8 +9,13 @@
     "race": "{{ element.race }}",
     "role": "{{ element.role }}",
     "size": "{{ element.size }}",
-    "isFiled": {{element.isFiled }},
-    
+    "isFiled":
+    {% if element.isFiled %}
+        {{ element.isFiled }},
+    {% else %}
+        0,
+    {% endif %}
+
     {% include 'IDCIGenealogyBundle:JSON:images.json.twig' with {'images': element.images} %}
     {% include 'IDCIGenealogyBundle:JSON:videos.json.twig' with {'videos': element.videos} %}
 
@@ -30,7 +35,7 @@
             {% include 'IDCIGenealogyBundle:JSON:children.json.twig' with {'element': element.getChildren.first } %},
         {% endif %}
     {% endif %}
-            
+
     {% if element.hasParents %}
         "parents":
         {

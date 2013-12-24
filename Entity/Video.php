@@ -57,6 +57,7 @@ class Video
     {
         return $this->getTitle();
     }
+
     /**
      * Constructor
      */

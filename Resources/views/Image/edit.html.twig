@@ -15,12 +15,17 @@
     {{ parent() }}
 
     <h1>{% trans %}Image edit{% endtrans %}</h1>
+    
+    <p>
+        <h5>{% trans %}Insight{% endtrans %}</h5>
+        <img src="/uploads/{{ entity.path }}">
+    </p>
 
     {{ form(edit_form) }}
 
     <ul class="record_actions">
         <li>
-            <a href="{{ path('image') }}">
+            <a class="btn btn-primary" href="{{ path('image') }}">
                 {% trans %}Back to the list{% endtrans %}
             </a>
         </li>

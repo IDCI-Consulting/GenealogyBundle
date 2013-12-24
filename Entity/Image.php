@@ -32,6 +32,13 @@ class Image
     private $id;
 
     /**
+     * @var string $name
+     *
+     * @ORM\Column(name="title", type="string", length=255)
+     */
+    private $title;
+    
+    /**
      * @var string $path
      *
      * @ORM\Column(name="path", type="string", length=255)
@@ -41,7 +48,7 @@ class Image
     /**
      * @Assert\File(maxSize="6000000")
      */
-    public $file;
+    private $file;
     
     /**
      * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Element", mappedBy="images")
@@ -54,7 +61,7 @@ class Image
      * @ORM\Column(name="updated_at", type="datetime")
      */
     private $updated_at;
-    
+
     /**
      * Image to string
      *
@@ -62,7 +69,7 @@ class Image
      */
     public function __toString()
     {
-        return $this->getPath();
+        return $this->getTitle();
     }
     
     /**
@@ -71,72 +78,6 @@ class Image
     public function __construct()
     {
         $this->elements = new \Doctrine\Common\Collections\ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set path
-     *
-     * @param string $path
-     * @return Image
-     */
-    public function setPath($path)
-    {
-        $this->path = $path;
-    
-        return $this;
-    }
-
-    /**
-     * Get path
-     *
-     * @return string 
-     */
-    public function getPath()
-    {
-        return $this->path;
-    }
-
-    /**
-     * Add elements
-     *
-     * @param IDCI\Bundle\GenealogyBundle\Entity\Element $elements
-     * @return Image
-     */
-    public function addElement(\IDCI\Bundle\GenealogyBundle\Entity\Element $elements)
-    {
-        $this->elements[] = $elements;
-    
-        return $this;
-    }
-
-    /**
-     * Remove elements
-     *
-     * @param IDCI\Bundle\GenealogyBundle\Entity\Element $elements
-     */
-    public function removeElement(\IDCI\Bundle\GenealogyBundle\Entity\Element $elements)
-    {
-        $this->elements->removeElement($elements);
-    }
-
-    /**
-     * Get elements
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getElements()
-    {
-        return $this->elements;
     }
     
      public function getAbsolutePath()
@@ -196,13 +137,14 @@ class Image
             return;
         }
 
+        $this->path = $this->getFileName();
         // we use the original file name here but you should
         // sanitize it at least to avoid any security issues
         // move takes the target directory and then the target filename to move to
-        $this->file->move(self::getUploadRootDir(), $this->getFileName());
+        $this->file->move(self::getUploadRootDir(), $this->path);
 
         // set the path property to the filename where you'ved saved the file
-        $this->path = $this->getFileName();
+        
 
         // clean up the file property as you won't need it anymore
         $this->file = null;
@@ -244,5 +186,117 @@ class Image
     public function getUpdatedAt()
     {
         return $this->updated_at;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Image
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+    
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Image
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Add elements
+     *
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Element $elements
+     * @return Image
+     */
+    public function addElement(\IDCI\Bundle\GenealogyBundle\Entity\Element $elements)
+    {
+        $this->elements[] = $elements;
+    
+        return $this;
+    }
+
+    /**
+     * Remove elements
+     *
+     * @param IDCI\Bundle\GenealogyBundle\Entity\Element $elements
+     */
+    public function removeElement(\IDCI\Bundle\GenealogyBundle\Entity\Element $elements)
+    {
+        $this->elements->removeElement($elements);
+    }
+
+    /**
+     * Get elements
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getElements()
+    {
+        return $this->elements;
+    }
+
+    /**
+     * Set file
+     *
+     * @param File $file
+     * @return Image
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return File 
+     */
+    public function getFile()
+    {
+        return $this->file;
     }
 }

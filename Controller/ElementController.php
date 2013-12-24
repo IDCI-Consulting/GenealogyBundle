@@ -27,7 +27,10 @@ class ElementController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
-        $entities = $em->getRepository('IDCIGenealogyBundle:Element')->findAll();
+        $entities = $em->getRepository('IDCIGenealogyBundle:Element')->findBy(
+            array(),
+            array('name' => 'asc')
+        );
 
         return array(
             'entities' => $entities,

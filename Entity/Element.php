@@ -70,10 +70,15 @@ class Element
      * 
      * @var Image $image
      * 
-     * @ORM\ManyToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Image", inversedBy="elements")
+     * @ORM\ManyToOne(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Image")
      */
     protected $image;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Image", inversedBy="elements")
+     */
+    protected $images;
+    
     /**
      * Is Filed is used to know whether a horse must have a page for him or not
      *
@@ -123,11 +128,6 @@ class Element
      * @ORM\JoinColumn(name="role_id", referencedColumnName="id", nullable=true)
      */
     protected $role;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Image", inversedBy="elements")
-     */
-    protected $images;
 
     /**
      * @ORM\ManyToMany(targetEntity="IDCI\Bundle\GenealogyBundle\Entity\Video", inversedBy="elements")

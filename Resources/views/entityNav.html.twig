@@ -7,10 +7,10 @@
             </a>
             <ul class="dropdown-menu">
                 <li>
-                    <a href="{{ path(entity['basepath']) }}">{% trans %}List{% endtrans %}</a>
+                    <a class="btn btn-primary" href="{{ path(entity['basepath']) }}">{% trans %}List{% endtrans %}</a>
                 </li>
                 <li>
-                    <a href="{{ path(entity['basepath'] ~ "_new") }}">{% trans %}New{% endtrans %}</a>
+                    <a class="btn btn-primary" href="{{ path(entity['basepath'] ~ "_new") }}">{% trans %}New{% endtrans %}</a>
                 </li>
             </ul>
         </li>

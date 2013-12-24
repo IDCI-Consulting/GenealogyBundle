@@ -18,3 +18,8 @@ select[multiple="multiple"]
     width: 300px;
     height: 250px;
 }
+
+.btn
+{
+    margin-bottom: 5px;
+}

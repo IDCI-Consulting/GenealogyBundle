@@ -27,25 +27,25 @@
                 <td>{{ entity.path }}</td>
             </tr>
             <tr>
-                <th>{% trans %}Updated_at{% endtrans %}</th>
-                <td>{{ entity.updatedat|date('Y-m-d H:i:s') }}</td>
+                <th>{% trans %}Image{% endtrans %}</th>
+                <td><img src="/uploads/{{ entity.path }}"></td>
             </tr>
         </tbody>
     </table>
 
     <ul class="record_actions">
         <li>
-            <a href="{{ path('image') }}">
+            <a class="btn btn-primary" href="{{ path('image') }}">
                 {% trans %}Back to the list{% endtrans %}
             </a>
         </li>
         <li>
-            <a href="{{ path('image_edit', { 'id': entity.id }) }}">
+            <a class="btn btn-primary" href="{{ path('image_edit', { 'id': entity.id }) }}">
                 {% trans %}Edit{% endtrans %}
             </a>
         </li>
         <li>
-            <a href="{{ path('image_new') }}">
+            <a class="btn btn-primary" href="{{ path('image_new') }}">
                 {% trans %}Create a new entry{% endtrans %}
             </a>
         </li>

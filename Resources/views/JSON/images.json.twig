@@ -3,9 +3,9 @@
     [
         {% for image in images %}
             {% if loop.last %}
-                { "path": "{{ image }}" }
+                { "path": "{{ image.path }}" }
             {% else %}
-                { "path": "{{ image }}" },
+                { "path": "{{ image.path }}" },
             {% endif %}
         {% endfor %}
     ],

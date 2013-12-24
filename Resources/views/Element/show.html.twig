@@ -55,13 +55,18 @@
 
     <ul class="record_actions">
         <li>
-            <a href="{{ path('element') }}">
+            <a class="btn btn-primary" href="{{ path('element') }}">
                 {% trans %}Back to the list{% endtrans %}
             </a>
         </li>
         <li>
-            <a href="{{ path('element_edit', { 'id': entity.id }) }}">
+            <a class="btn btn-primary" href="{{ path('element_edit', { 'id': entity.id }) }}">
                 {% trans %}Edit{% endtrans %}
+            </a>
+        </li>
+        <li>
+            <a class="btn btn-primary" href="{{ path('element_new') }}">
+                {% trans %}Create a new entry{% endtrans %}
             </a>
         </li>
         <li>{{ form(delete_form) }}</li>

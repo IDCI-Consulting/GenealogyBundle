@@ -33,13 +33,18 @@
 
     <ul class="record_actions">
         <li>
-            <a href="{{ path('role') }}">
+            <a class="btn btn-primary" href="{{ path('role') }}">
                 {% trans %}Back to the list{% endtrans %}
             </a>
         </li>
         <li>
-            <a href="{{ path('role_edit', { 'id': entity.id }) }}">
+            <a class="btn btn-primary" href="{{ path('role_edit', { 'id': entity.id }) }}">
                 {% trans %}Edit{% endtrans %}
+            </a>
+        </li>
+        <li>
+            <a class="btn btn-primary" href="{{ path('role_new') }}">
+                {% trans %}Create a new entry{% endtrans %}
             </a>
         </li>
         <li>

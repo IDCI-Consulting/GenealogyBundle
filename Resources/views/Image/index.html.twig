@@ -32,6 +32,7 @@
             <tr>
                 <th>{% trans %}Id{% endtrans %}</th>
                 <th>{% trans %}Path{% endtrans %}</th>
+                <th>{% trans %}Title{% endtrans %}</th>
                 <th>{% trans %}Updated_at{% endtrans %}</th>
                 <th>{% trans %}Actions{% endtrans %}</th>
             </tr>
@@ -41,6 +42,7 @@
             <tr>
                 <td><a href="{{ path('image_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
                 <td>{{ entity.path }}</td>
+                <td>{{ entity.title }}</td>
                 <td>{% if entity.updatedat %}{{ entity.updatedat|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>
                 <ul>

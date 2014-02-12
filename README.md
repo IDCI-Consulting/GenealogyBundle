@@ -63,13 +63,3 @@ imports:
 ```
 
 Now the Bundle is installed.
-
-# Loading data
-
-Some fixtures are ready to be loaded in database.
-
-To load them, run the command
-
-```sh
-php app/console doctrine:fixtures:load
-```

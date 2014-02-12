@@ -54,6 +54,15 @@ idci_exporter:
     type:     annotation
 ```
 
+Edit your parameters.yml file:
+
+```yml
+parameters:
+    ...
+    locale:           fr
+    element_class:    "IDCI\Bundle\HorseGenealogyBundle\Entity\Element"
+```
+
 Finally add the bundle config in your `config.yml` file:
 
 ```yml
